@@ -1,26 +1,102 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --paper: #f4f5f2;
+  --paper-2: #ecedea;
+  --ink: #17202a;
+  --grey: #5b6470;
+  --hairline: #d5d8d3;
+  --blue: #2b47c9;
+  --amber: #e9a53b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-paper: var(--paper);
+  --color-paper-2: var(--paper-2);
+  --color-ink: var(--ink);
+  --color-grey: var(--grey);
+  --color-hairline: var(--hairline);
+  --color-blue: var(--blue);
+  --color-amber: var(--amber);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-plex-sans), system-ui, sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+html {
+  scroll-padding-top: 4.5rem;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+h2 {
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+
+.wrap {
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1rem;
+}
+@media (min-width: 640px) {
+  .wrap {
+    padding-inline: 2rem;
+  }
+}
+
+.prose-col > * + * {
+  margin-top: 1.1em;
+}
+.prose-col {
+  max-width: 64ch;
+}
+
+.btn {
+  display: inline-block;
+  border-radius: 6px;
+  background: var(--blue);
+  color: #fff;
+  padding: 0.7rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  border: 0;
+  cursor: pointer;
+}
+.btn:hover {
+  background: #2339a8;
+}
+.btn-sm {
+  padding: 0.4rem 0.9rem;
+  font-size: 0.9375rem;
+}
+.link {
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }

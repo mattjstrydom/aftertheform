@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# After the Form
 
-## Getting Started
+One-page site for aftertheform.com. Next.js (App Router), TypeScript, Tailwind, deployed on Vercel.
 
-First, run the development server:
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+cp .env.example .env.local   # add SEQUENZY_API_KEY
+npm run dev                  # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+`npm run build` runs `scripts/check-placeholders.mjs` first and **fails while any placeholder remains** (see below).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Deploy
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Push to a private GitHub repo, import it in Vercel, set `SEQUENZY_API_KEY` in the project's environment variables. Domain: aftertheform.com.
 
-## Learn More
+## Where things live
 
-To learn more about Next.js, take a look at the following resources:
+| Thing | File |
+|---|---|
+| All page copy (hero to footer) | `app/page.tsx` |
+| Hero animation (markup / CSS / text alternative) | `app/hero-flow.tsx`, `app/hero-flow.module.css` |
+| Form UI and its messages | `app/components/request-form.tsx` |
+| Validation (shared client + server) | `app/validate.ts` |
+| Form endpoint (honeypot, Sequenzy `POST /subscribers`, `enrollInSequences: false`) | `app/api/request/route.ts` |
+| Title, description, canonical, Open Graph | `app/layout.tsx` |
+| GTM (`GTM-NCSN8BLM`) + Consent Mode defaults | `app/layout.tsx` (inline script, runs before GTM) |
+| Consent banner (Accept / Decline) | `app/components/consent-banner.tsx` |
+| Mocks in "What I check" | `app/components/mocks.tsx` |
+| Privacy / sample report pages | `app/privacy/page.tsx`, `app/sample-report/page.tsx` |
+| Favicon ("AF"), OG image (wordmark only, placeholder) | `app/icon.tsx`, `app/opengraph-image.tsx` |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Remaining placeholders (build fails until gone)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Every `<Ph>` in `app/` is one. Currently:
 
-## Deploy on Vercel
+- Bio: `[7+]` years, `[One specific thing you built...]`, call times (`app/page.tsx`)
+- Reply time `[one business day]` (form + success message, `app/components/request-form.tsx`)
+- `[contact email]` in the form error message
+- `[Privacy policy text]` (`app/privacy/page.tsx`)
+- `[Sample report]` (`app/sample-report/page.tsx`)
+- Headshot: add `public/matt.jpg` (4:5 works best); the check fails while it is missing
+- OG image is a wordmark-only placeholder (not enforced by the check)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Notes
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- Sequenzy custom attributes sent: `fullName`, `website`, `marketingHubTier`, `note`, `source`. Leads are **not** enrolled in sequences.
+- No HubSpot tracking code or `hutk` cookie: submissions go to Sequenzy, not HubSpot.
+- `scripts/shots.mjs`, `formtest.mjs`, `reduced.mjs`, `crop.mjs` are dev helpers (puppeteer-core + local Chrome).

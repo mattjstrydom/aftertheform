@@ -1,0 +1,258 @@
+/* All sizes are in em, where 1em = one stage unit (--u), so the whole
+   diagram scales as one piece and reserves its space up front (no CLS). */
+.wrap {
+  container-type: inline-size;
+  width: 100%;
+  max-width: 68rem;
+}
+
+.stage {
+  --u: calc(min(100cqw, 26rem) / 22);
+  font-size: var(--u);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 22 / 38;
+  max-width: 26rem;
+  margin-inline: auto;
+}
+
+.lines {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--hairline);
+  stroke-width: 0.09;
+  stroke-linecap: round;
+}
+.lines path {
+  stroke-dasharray: 1;
+  animation: draw 0.7s ease-out both;
+}
+.fan {
+  animation-delay: calc(0.3s + var(--i, 0) * 0.08s);
+}
+.merge {
+  animation-delay: calc(1.5s + var(--i, 0) * 0.1s);
+}
+.wide {
+  display: none;
+}
+
+.card {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+  background: #fff;
+  border: 1px solid var(--hairline);
+  border-radius: 0.9em;
+  padding: 0 0.9em;
+  font-size: 0.9em; /* text size; positions below compensate via --k */
+  font-weight: 500;
+  white-space: nowrap;
+  --k: 1.1111; /* 1 / 0.9 */
+}
+.mono {
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
+  font-weight: 400;
+}
+
+/* positions are expressed in stage units, divided by the card's own font-size */
+.form {
+  left: calc(5em * var(--k));
+  top: 0;
+  width: calc(12em * var(--k));
+  height: calc(3.4em * var(--k));
+  justify-content: center;
+}
+
+.stageCard {
+  left: calc(5em * var(--k));
+  top: calc((6em + var(--i) * 4em) * var(--k));
+  width: calc(12em * var(--k));
+  height: calc(3.2em * var(--k));
+  justify-content: space-between;
+  opacity: 0;
+  animation:
+    appear 0.4s ease-out calc(0.6s + var(--i) * 0.35s) both,
+    fly-tall 0.8s cubic-bezier(0.5, 0, 0.8, 0.6) calc(2.4s + (3 - var(--i)) * 0.1s) forwards;
+}
+.stageCard .tick path,
+.chip .tick path {
+  animation: tick 0.3s ease-out calc(0.85s + var(--i) * 0.35s) both;
+}
+
+.tick {
+  width: 1.1em;
+  height: 1.1em;
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  flex: none;
+}
+.tick path {
+  stroke-dasharray: 1;
+}
+
+.google {
+  left: calc(0.5em * var(--k));
+  top: calc(24.5em * var(--k));
+  width: calc(21em * var(--k));
+  height: calc(13em * var(--k));
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 0.7em;
+  padding: 0 1.1em;
+  border-radius: 1.3em;
+  animation: flash 0.9s ease-out 3.4s both;
+}
+.gHead {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+}
+.dot {
+  width: 0.6em;
+  height: 0.6em;
+  border-radius: 50%;
+  background: var(--amber);
+  animation: dot 0.2s linear 3.4s both;
+}
+.bid {
+  display: grid;
+  font-weight: 400;
+}
+.bid > span {
+  grid-area: 1 / 1;
+}
+.bidOld {
+  animation: out 0.3s linear 3.4s both;
+  opacity: 0;
+}
+.bidNew {
+  animation: in 0.3s linear 3.5s both;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
+  font-size: 0.9em;
+  padding: 0.15em 0.5em;
+  border: 1px solid var(--hairline);
+  border-radius: 0.4em;
+  background: var(--paper);
+  animation: in 0.3s linear calc(3.0s + (3 - var(--i)) * 0.1s + 0.5s) both;
+}
+
+.replay {
+  display: block;
+  margin: 0.75rem auto 0;
+  background: none;
+  border: 0;
+  padding: 0.5rem 0.25rem;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--blue);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+}
+
+@keyframes draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes tick {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+@keyframes appear {
+  from { opacity: 0; transform: translateY(0.3em) scale(0.96); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes fly-tall {
+  from { opacity: 1; transform: none; }
+  80% { opacity: 1; }
+  to {
+    opacity: 0;
+    transform: translateY(calc((23.4em - var(--i) * 4em) * var(--k))) scale(0.6);
+  }
+}
+@keyframes fly-wide {
+  from { opacity: 1; transform: none; }
+  80% { opacity: 1; }
+  to {
+    opacity: 0;
+    transform: translate(calc(26em * var(--k)), calc((6.9em - var(--i) * 4.6em) * var(--k))) scale(0.5);
+  }
+}
+@keyframes in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes dot {
+  from { background: var(--grey); }
+  to { background: var(--amber); }
+}
+@keyframes flash {
+  0% { box-shadow: 0 0 0 0 transparent; }
+  30% { border-color: var(--amber); box-shadow: 0 0 0 0.3em var(--amber); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+
+@media (min-width: 1024px) {
+  .stage {
+    --u: calc(100cqw / 66);
+    aspect-ratio: 66 / 19;
+    max-width: none;
+  }
+  .tall { display: none; }
+  .wide { display: block; }
+
+  .form {
+    left: 0;
+    top: calc(7.6em * var(--k));
+    width: calc(10.5em * var(--k));
+    height: calc(3.8em * var(--k));
+  }
+  .stageCard {
+    left: calc(24em * var(--k));
+    top: calc((0.9em + var(--i) * 4.6em) * var(--k));
+    width: calc(12em * var(--k));
+    height: calc(3.4em * var(--k));
+    animation-name: appear, fly-wide;
+    animation-delay:
+      calc(0.6s + var(--i) * 0.35s),
+      calc(2.4s + var(--i) * 0.1s);
+  }
+  .google {
+    left: calc(46em * var(--k));
+    top: calc(4em * var(--k));
+    width: calc(20em * var(--k));
+    height: calc(11em * var(--k));
+  }
+  .chip {
+    animation-delay: calc(3.0s + var(--i) * 0.1s + 0.5s);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage *,
+  .stage {
+    animation: none !important;
+  }
+}
