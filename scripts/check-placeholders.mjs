@@ -2,6 +2,12 @@
 import { readdirSync, readFileSync, existsSync, statSync } from "node:fs";
 import { join } from "node:path";
 
+// Preview deployments may show placeholders; production (and local builds) may not.
+if (process.env.VERCEL_ENV === "preview") {
+  console.log("Preview deployment: skipping placeholder check.");
+  process.exit(0);
+}
+
 const hits = [];
 const walk = (dir) => {
   for (const f of readdirSync(dir)) {

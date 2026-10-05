@@ -10,7 +10,7 @@ cp .env.example .env.local   # add SEQUENZY_API_KEY
 npm run dev                  # http://localhost:3000
 ```
 
-`npm run build` runs `scripts/check-placeholders.mjs` first and **fails while any placeholder remains** (see below).
+`npm run build` runs `scripts/check-placeholders.mjs` first and **fails while any placeholder remains**. It is skipped only on Vercel preview deployments (`VERCEL_ENV=preview`); production and local builds enforce it.
 
 ## Deploy
 
