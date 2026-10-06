@@ -5,7 +5,7 @@ import { TIERS, validate, type Errors, type Fields } from "@/app/validate";
 
 const empty: Fields = { name: "", email: "", website: "", tier: "", note: "" };
 const input =
-  "mt-1 block w-full rounded-[4px] border border-[#7b848f] bg-white px-3 py-2.5 text-base text-ink";
+  "mt-1 block w-full rounded-xl border border-[#7b8a86] bg-paper px-3 py-2.5 text-base text-ink";
 
 export default function RequestForm() {
   const [f, setF] = useState<Fields>(empty);

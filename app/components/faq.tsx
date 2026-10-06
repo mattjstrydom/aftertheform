@@ -5,9 +5,9 @@ import { useState } from "react";
 export default function Faq({ items }: { items: { q: string; a: string }[] }) {
   const [open, setOpen] = useState<number | null>(null);
   return (
-    <div className="border-t border-hairline">
+    <div>
       {items.map(({ q, a }, i) => (
-        <div key={q} className="border-b border-hairline">
+        <div key={q} className="border-b border-hairline last:border-0">
           <h3 className="text-lg">
             <button
               type="button"

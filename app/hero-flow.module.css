@@ -22,7 +22,7 @@
   width: 100%;
   height: 100%;
   fill: none;
-  stroke: var(--hairline);
+  stroke: #aebdb9;
   stroke-width: 0.09;
   stroke-linecap: round;
 }
@@ -47,7 +47,8 @@
   gap: 0.5em;
   background: #fff;
   border: 1px solid var(--hairline);
-  border-radius: 0.9em;
+  border-radius: 1.3em;
+  box-shadow: 0 1.2em 2.4em -1.4em rgb(8 144 108 / 0.35);
   padding: 0 0.9em;
   font-size: 0.9em; /* text size; positions below compensate via --k */
   font-weight: 500;
@@ -88,7 +89,7 @@
   width: 1.1em;
   height: 1.1em;
   fill: none;
-  stroke: var(--blue);
+  stroke: var(--accent);
   stroke-width: 1.8;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -120,7 +121,7 @@
   width: 0.6em;
   height: 0.6em;
   border-radius: 50%;
-  background: var(--amber);
+  background: var(--accent);
   animation: dot 0.2s linear 3.4s both;
 }
 .bid {
@@ -162,7 +163,7 @@
   padding: 0.5rem 0.25rem;
   font: inherit;
   font-size: 1rem;
-  color: var(--blue);
+  color: var(--accent-text);
   text-decoration: underline;
   text-underline-offset: 0.2em;
   cursor: pointer;
@@ -206,12 +207,11 @@
 }
 @keyframes dot {
   from { background: var(--grey); }
-  to { background: var(--amber); }
+  to { background: var(--accent); }
 }
 @keyframes flash {
-  0% { box-shadow: 0 0 0 0 transparent; }
-  30% { border-color: var(--amber); box-shadow: 0 0 0 0.3em var(--amber); }
-  100% { box-shadow: 0 0 0 0 transparent; }
+  0%, 100% { box-shadow: 0 1.2em 2.4em -1.4em rgb(8 144 108 / 0.35), 0 0 0 0 transparent; }
+  30% { border-color: var(--accent); box-shadow: 0 1.2em 2.4em -1.4em rgb(8 144 108 / 0.35), 0 0 0 0.3em var(--accent); }
 }
 
 @media (min-width: 1024px) {

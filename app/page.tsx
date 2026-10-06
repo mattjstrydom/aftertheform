@@ -46,48 +46,66 @@ const terms = [
   "Nothing changed without your approval",
 ];
 
-const band = "py-16 sm:py-24";
-const split = "grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16";
+const band = "py-20 sm:py-28";
+const row = "border-b border-hairline last:border-0";
+
+function Arcs() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" className="pointer-events-none absolute inset-0 -z-10 h-full w-full fill-none stroke-hairline" strokeWidth="1.2">
+      <path d="M-40 60 L980 270" />
+      <path d="M1000 -40 C1180 140 1220 360 1180 760" />
+    </svg>
+  );
+}
 
 export default function Home() {
   return (
     <>
       <Header />
       <main>
-        <section className="wrap pt-12 pb-16 sm:pt-16">
-          <h1 className="max-w-[22ch] text-[clamp(2.5rem,5.5vw,4.5rem)] leading-[1.02] tracking-[-0.035em]">
-            Make sure Google Ads learns from the leads your sales team qualifies.
-          </h1>
-          <p className="mt-6 max-w-[62ch] text-grey">
-            A fixed-price check and fix of the connection between HubSpot and Google Ads. $1,200.
-            Delivered within 15 business days of access. We do the work ourselves, start to finish.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
-            <a href="#request" className="btn">Request a check</a>
-            <a href="/sample-report" className="link">See a sample report</a>
-          </div>
-          <div className="mt-10">
-            <HeroFlow />
-          </div>
-        </section>
-
-        <section className={`${band} bg-paper-2`}>
-          <div className={`wrap ${split}`}>
-            <h2>The problem</h2>
-            <div className="prose-col">
-              <p>Google Ads bids toward the conversions you mark as primary. If your primary conversion is a form fill, Smart Bidding goes looking for more form fills. It can&apos;t tell which of those leads your sales team later qualified.</p>
-              <p>HubSpot and Google can pass those later stages back. HubSpot can send lifecycle stage changes to Google Ads as conversion events, and Google Ads can pull them in through Data Manager. Either route can be connected and syncing while those stages aren&apos;t used for bidding. When the counts disagree, HubSpot&apos;s own documentation says they aren&apos;t expected to match Google&apos;s, and its support team can&apos;t pull sync logs unless there&apos;s an error.</p>
-              <p>Google now calls offline conversion import a legacy method and recommends enhanced conversions for leads. If your setup is older than that change, it&apos;s worth a look.</p>
+        <section className="relative isolate overflow-hidden">
+          <Arcs />
+          <div className="wrap pt-14 pb-20 sm:pt-20">
+            <h1 className="max-w-[17ch] text-[clamp(2.75rem,6vw,4.75rem)] leading-[1.08] tracking-[-0.045em]">
+              Make sure Google Ads learns from <span className="accent">the leads your sales team qualifies.</span>
+            </h1>
+            <p className="mt-7 max-w-[56ch] text-xl text-ink">
+              A fixed-price check and fix of the connection between HubSpot and Google Ads. $1,200.
+              Delivered within 15 business days of access. We do the work ourselves, start to finish.
+            </p>
+            <div className="mt-9 flex flex-wrap items-center gap-4">
+              <a href="#request" className="btn">Request a check</a>
+              <a href="/sample-report" className="btn btn-outline">See a sample report</a>
+            </div>
+            <div className="mt-14">
+              <HeroFlow />
             </div>
           </div>
         </section>
 
         <section className={band}>
           <div className="wrap">
+            <h2>The problem</h2>
+            <div className="mt-12 grid gap-5 lg:grid-cols-3">
+              <div className="panel prose-col">
+                <p>Google Ads bids toward the conversions you mark as primary. If your primary conversion is a form fill, Smart Bidding goes looking for more form fills. It can&apos;t tell which of those leads your sales team later qualified.</p>
+              </div>
+              <div className="prose-col rounded-3xl bg-coral p-6 text-white sm:p-9">
+                <p>HubSpot and Google can pass those later stages back. HubSpot can send lifecycle stage changes to Google Ads as conversion events, and Google Ads can pull them in through Data Manager. Either route can be connected and syncing while those stages aren&apos;t used for bidding. When the counts disagree, HubSpot&apos;s own documentation says they aren&apos;t expected to match Google&apos;s, and its support team can&apos;t pull sync logs unless there&apos;s an error.</p>
+              </div>
+              <div className="on-dark prose-col rounded-3xl bg-deep p-6 text-white sm:p-9">
+                <p>Google now calls offline conversion import a legacy method and recommends enhanced conversions for leads. If your setup is older than that change, it&apos;s worth a look.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section className="pb-20 sm:pb-28">
+          <div className="wrap">
             <h2>What we check</h2>
-            <ul className="mt-10 border-t border-hairline">
+            <ul className="panel mt-12">
               {checks.map(({ t, mock }) => (
-                <li key={t} className="grid gap-4 border-b border-hairline py-5 lg:grid-cols-[1fr_22rem] lg:gap-12">
+                <li key={t} className={`grid gap-4 py-5 first:pt-0 last:pb-0 lg:grid-cols-[1fr_22rem] lg:gap-12 ${row}`}>
                   <p className="max-w-[64ch]">{t}</p>
                   {mock}
                 </li>
@@ -96,47 +114,47 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={`${band} bg-paper-2`}>
-          <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-0">
-            <div className="lg:pr-12">
-              <h2>What we fix</h2>
+        <section className="pb-20 sm:pb-28">
+          <div className="wrap grid gap-5 lg:grid-cols-2">
+            <div className="panel">
+              <h2 className="text-[clamp(1.75rem,3vw,2.5rem)]">What we fix</h2>
               <div className="prose-col mt-6">
                 <p>Anything on the check list that lives in Google Ads, HubSpot or Google Tag Manager settings. We send you the list of proposed changes first, and make only the ones you approve. Changing primary conversions changes what Smart Bidding optimizes for, so you decide the timing.</p>
               </div>
             </div>
-            <div className="lg:border-l lg:border-hairline lg:pl-12">
-              <h2>Not included</h2>
-              <ul className="mt-6 border-t border-hairline">
+            <div className="panel">
+              <h2 className="text-[clamp(1.75rem,3vw,2.5rem)]">Not included</h2>
+              <ul className="mt-6">
                 {notIncluded.map((t) => (
-                  <li key={t} className="border-b border-hairline py-3">{t}</li>
+                  <li key={t} className={`py-3 first:pt-0 ${row}`}>{t}</li>
                 ))}
               </ul>
             </div>
           </div>
         </section>
 
-        <section className={band}>
-          <div className={`wrap ${split}`}>
+        <section className="pb-20 sm:pb-28">
+          <div className="wrap">
             <h2>What you get</h2>
-            <ul className="border-t border-hairline">
-              <li className="border-b border-hairline py-6">
-                <p className="text-2xl font-medium tracking-[-0.015em]">A written After the Form report</p>
+            <ul className="panel mt-12">
+              <li className={`pb-6 ${row}`}>
+                <p className="text-3xl font-medium tracking-[-0.03em]">A written After the Form report</p>
                 <a href="/sample-report" className="link mt-2 inline-block text-xl font-medium">See a sample report</a>
               </li>
               {["A change log of everything we touched, with how to reverse each change", "A recorded screen walkthrough of the findings", "A 30-minute handover call"].map((t) => (
-                <li key={t} className="border-b border-hairline py-4">{t}</li>
+                <li key={t} className={`py-4 last:pb-0 ${row}`}>{t}</li>
               ))}
             </ul>
           </div>
         </section>
 
-        <section id="how" className={`${band} bg-paper-2`}>
-          <div className={`wrap ${split}`}>
+        <section id="how" className={`on-dark bg-deep text-white ${band}`}>
+          <div className="wrap">
             <h2>How it works</h2>
-            <ol className="max-w-[48rem]">
+            <ol className="mt-12 max-w-[52rem]">
               {steps.map(([lead, rest], i) => (
-                <li key={lead} className="grid grid-cols-[3rem_1fr] gap-2 border-t border-hairline py-5 last:border-b">
-                  <span className="text-3xl font-medium leading-none tracking-[-0.02em] text-grey">{i + 1}</span>
+                <li key={lead} className="grid grid-cols-[3.5rem_1fr] gap-2 border-t border-white/20 py-6 last:border-b">
+                  <span className="text-3xl font-medium leading-none tracking-[-0.03em] text-mint">{i + 1}</span>
                   <p><span className="font-medium">{lead}</span> {rest}</p>
                 </li>
               ))}
@@ -145,15 +163,15 @@ export default function Home() {
         </section>
 
         <section id="price" className={band}>
-          <div className={`wrap ${split}`}>
+          <div className="wrap">
             <h2>Price</h2>
-            <div>
-              <ul className="max-w-[40rem] border-t border-hairline text-2xl font-medium tracking-[-0.015em]">
+            <div className="mt-12 grid gap-5 lg:grid-cols-2">
+              <ul className="panel text-2xl font-medium tracking-[-0.03em]">
                 {terms.map((t) => (
-                  <li key={t} className="border-b border-hairline py-3">{t}</li>
+                  <li key={t} className={`py-4 first:pt-0 last:pb-0 ${row}`}>{t}</li>
                 ))}
               </ul>
-              <div className="prose-col mt-10">
+              <div className="prose-col rounded-3xl bg-paper-2 p-6 sm:p-9">
                 <p>$1,200, fixed: half when we start, half when the report is delivered. It covers everything on the check and fix lists above. Anything outside them is quoted before any work starts.</p>
                 <p>If something on the fix list isn&apos;t working at handover, we keep going at no extra cost until it does.</p>
                 <p>If the check finds nothing that needs changing, you get the written report confirming it and pay only the first half. Every finding in the report comes with a screenshot, so you can see what we saw.</p>
@@ -162,44 +180,48 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={`${band} bg-paper-2`}>
-          <div className={`wrap ${split}`}>
+        <section className="pb-20 sm:pb-28">
+          <div className="wrap">
             <h2>Who it&apos;s for</h2>
-            <div className="prose-col">
-              <p>B2B companies that run Google Ads, use HubSpot Marketing Hub Starter, Professional or Enterprise, and qualify leads after the form. Agencies can buy it for a client and deliver it under their own name.</p>
-              <p className="border-t border-hairline pt-5">It&apos;s a poor fit for e-commerce stores, teams on Salesforce, and accounts with no Google Ads spend.</p>
+            <div className="panel mt-12 space-y-5">
+              <p className="max-w-[64ch]">B2B companies that run Google Ads, use HubSpot Marketing Hub Starter, Professional or Enterprise, and qualify leads after the form. Agencies can buy it for a client and deliver it under their own name.</p>
+              <p className="max-w-[64ch] border-t border-hairline pt-5">It&apos;s a poor fit for e-commerce stores, teams on Salesforce, and accounts with no Google Ads spend.</p>
             </div>
           </div>
         </section>
 
-        <section className={band}>
-          <div className="wrap grid gap-10 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-16">
-            <div>
-              <Image src="/matt.jpg" alt="Matt Strydom" width={512} height={512} className="aspect-square w-full rounded-[10px] object-cover" />
-            </div>
-            <div>
-              <h2>Who does the work</h2>
-              <div className="prose-col mt-6 text-xl">
-                <p>We&apos;re After the Form, run by Matt Strydom. Matt has spent 7 years in RevOps and marketing operations at B2B SaaS companies. Our day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. Matt built a HubSpot sync.</p>
-                <p>We&apos;re based in South Africa. Calls happen between 9am and 12pm US Eastern.</p>
-                <p><a href="https://www.linkedin.com/in/mattstrydom" className="link">Matt on LinkedIn</a></p>
+        <section className="pb-20 sm:pb-28">
+          <div className="wrap">
+            <div className="panel grid items-center gap-8 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-14">
+              <Image src="/matt.jpg" alt="Matt Strydom" width={512} height={512} className="aspect-square w-full rounded-3xl object-cover" />
+              <div>
+                <h2>Who does the work</h2>
+                <div className="prose-col mt-6 text-xl">
+                  <p>We&apos;re After the Form, run by Matt Strydom. Matt has spent 7 years in RevOps and marketing operations at B2B SaaS companies. Our day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. Matt built a HubSpot sync.</p>
+                  <p>We&apos;re based in South Africa. Calls happen between 9am and 12pm US Eastern.</p>
+                  <p><a href="https://www.linkedin.com/in/mattstrydom" className="link">Matt on LinkedIn</a></p>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="questions" className={`${band} bg-paper-2`}>
-          <div className={`wrap ${split}`}>
+        <section id="questions" className="pb-20 sm:pb-28">
+          <div className="wrap">
             <h2>Questions</h2>
-            <Faq items={faq} />
+            <div className="panel mt-12 !py-2 sm:!py-4">
+              <Faq items={faq} />
+            </div>
           </div>
         </section>
 
-        <section id="request" className={band}>
-          <div className={`wrap ${split}`}>
-            <h2>Request a check</h2>
-            <div className="max-w-[36rem]">
-              <RequestForm />
+        <section id="request" className="pb-20 sm:pb-28">
+          <div className="wrap">
+            <div className="panel grid gap-8 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+              <h2>Request a check</h2>
+              <div className="max-w-[36rem]">
+                <RequestForm />
+              </div>
             </div>
           </div>
         </section>

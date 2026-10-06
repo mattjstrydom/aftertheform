@@ -1,5 +1,5 @@
 // Product-style illustrations. Values are literal identifiers / example rows, labelled "Example".
-const frame = "rounded-[10px] border border-hairline bg-white text-[0.8125rem] leading-snug";
+const frame = "rounded-2xl border border-hairline bg-white text-[0.8125rem] leading-snug";
 const mono = "font-mono";
 
 function Caption() {

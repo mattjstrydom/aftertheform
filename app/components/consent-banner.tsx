@@ -44,7 +44,7 @@ export default function ConsentBanner() {
 
   if (!show) return null;
   const b =
-    "rounded-md border-2 border-ink bg-white px-5 py-2 text-base font-medium text-ink hover:bg-paper-2";
+    "rounded-full border-2 border-ink bg-white px-6 py-2 text-base font-medium text-ink hover:bg-paper-2";
   return (
     <section
       aria-label="Cookie consent"
