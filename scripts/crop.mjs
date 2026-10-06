@@ -1,9 +1,9 @@
 import puppeteer from "puppeteer-core";
-const [w, y, h, out] = process.argv.slice(2);
+const [w, y, h, out, path = ""] = process.argv.slice(2);
 const b = await puppeteer.launch({ executablePath: "C:/Program Files/Google/Chrome/Application/chrome.exe", headless: true });
 const p = await b.newPage();
 await p.setViewport({ width: +w, height: 900 });
-await p.goto("http://localhost:3001", { waitUntil: "networkidle0" });
+await p.goto("http://localhost:3001" + path, { waitUntil: "networkidle0" });
 await p.evaluate(() => localStorage.setItem("atf-consent", "denied"));
 await p.reload({ waitUntil: "networkidle0" });
 await new Promise((r) => setTimeout(r, 5000));

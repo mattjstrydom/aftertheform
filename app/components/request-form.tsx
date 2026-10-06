@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import { TIERS, validate, type Errors, type Fields } from "@/app/validate";
-import Ph from "./ph";
 
 const empty: Fields = { name: "", email: "", website: "", tier: "", note: "" };
 const input =
@@ -45,7 +44,7 @@ export default function RequestForm() {
   if (status === "ok")
     return (
       <div role="status" className="rounded-[10px] border border-hairline bg-white p-6">
-        <p className="text-xl font-medium">Thanks. I&apos;ll reply within <Ph>[one business day]</Ph>.</p>
+        <p className="text-xl font-medium">Thanks. We&apos;ll reply within one business day.</p>
       </div>
     );
 
@@ -88,12 +87,12 @@ export default function RequestForm() {
       <div aria-live="assertive">
         {status === "error" && (
           <p className="text-base text-[#b3261e]">
-            That didn&apos;t send. Check your connection and try again, or email <Ph>[contact email]</Ph>.
+            That didn&apos;t send. Check your connection and try again, or email <a href="mailto:hello@aftertheform.com" className="link">hello@aftertheform.com</a>.
           </p>
         )}
       </div>
       <button type="submit" className="btn" disabled={status === "sending"}>Request a check</button>
-      <p className="text-grey">I reply within <Ph>[one business day]</Ph>.</p>
+      <p className="text-grey">We reply within one business day.</p>
     </form>
   );
 }
