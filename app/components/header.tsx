@@ -17,6 +17,7 @@ export default function Header() {
           {links.map(([href, label]) => (
             <Link key={href} href={href} className="hover:underline">{label}</Link>
           ))}
+          <Link href="/teardown" className="hidden hover:underline lg:inline">Get a free teardown</Link>
         </nav>
         <div className="justify-self-end">
           <Link href="/#request" className="btn btn-sm">Request a check</Link>

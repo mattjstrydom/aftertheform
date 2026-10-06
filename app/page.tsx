@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import HeroFlow from "./hero-flow";
 import Header from "./components/header";
 import Footer from "./components/footer";
@@ -115,6 +116,7 @@ export default function Home() {
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <a href="#request" className="btn">Request a check</a>
               <a href="/sample-report" className="btn btn-outline">See a sample report</a>
+              <Link href="/teardown" className="link py-2 sm:px-2">Get a free teardown</Link>
             </div>
             <p className="mt-5 max-w-[56ch] font-medium">
               $1,200 fixed. If we find nothing to fix, you pay half and keep the report.

@@ -160,3 +160,13 @@ h2 {
 main:focus {
   outline: none;
 }
+
+/* keep the footer at the bottom on short pages and tall screens */
+body {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+main {
+  flex: 1 0 auto;
+}
