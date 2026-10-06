@@ -7,10 +7,10 @@ export default function Header() {
           After the Form
         </Link>
         <nav className="flex items-center gap-6 text-base">
-          <a href="#how" className="hidden hover:underline sm:inline">How it works</a>
-          <a href="#price" className="hidden hover:underline sm:inline">Price</a>
-          <a href="#questions" className="hidden hover:underline sm:inline">Questions</a>
-          <a href="#request" className="btn btn-sm">Request a check</a>
+          <Link href="/#how" className="hidden hover:underline sm:inline">How it works</Link>
+          <Link href="/#price" className="hidden hover:underline sm:inline">Price</Link>
+          <Link href="/#questions" className="hidden hover:underline sm:inline">Questions</Link>
+          <Link href="/#request" className="btn btn-sm">Request a check</Link>
         </nav>
       </div>
     </header>

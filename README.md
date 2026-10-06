@@ -29,20 +29,18 @@ Push to a private GitHub repo, import it in Vercel, set `SEQUENZY_API_KEY` in th
 | GTM (`GTM-NCSN8BLM`) + Consent Mode defaults | `app/layout.tsx` (inline script, runs before GTM) |
 | Consent banner (Accept / Decline) | `app/components/consent-banner.tsx` |
 | Mocks in "What I check" | `app/components/mocks.tsx` |
-| Privacy / sample report pages | `app/privacy/page.tsx`, `app/sample-report/page.tsx` |
+| Privacy policy / sample report (fictional example) | `app/privacy/page.tsx`, `app/sample-report/page.tsx` |
 | Favicon ("AF"), OG image (wordmark only, placeholder) | `app/icon.tsx`, `app/opengraph-image.tsx` |
 
-## Remaining placeholders (build fails until gone)
+## Remaining placeholders (production build fails until gone)
 
-Every `<Ph>` in `app/` is one. Currently:
+Every `<Ph>` in `app/` is one. Currently, all in the "Who does the work" section of `app/page.tsx`:
 
-- Bio: `[7+]` years, `[One specific thing you built...]`, call times (`app/page.tsx`)
-- Reply time `[one business day]` (form + success message, `app/components/request-form.tsx`)
-- `[contact email]` in the form error message
-- `[Privacy policy text]` (`app/privacy/page.tsx`)
-- `[Sample report]` (`app/sample-report/page.tsx`)
-- Headshot: add `public/matt.jpg` (4:5 works best); the check fails while it is missing
-- OG image is a wordmark-only placeholder (not enforced by the check)
+- `[7+]` years
+- `[One specific thing Matt built...]`
+- Call times (`[in US Eastern late morning to early afternoon]`)
+
+The OG image is a wordmark-only placeholder (not enforced by the check). The sample report (`app/sample-report/page.tsx`) is a fictional example, labelled as such.
 
 ## Notes
 

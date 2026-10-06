@@ -2,6 +2,7 @@ import { existsSync } from "node:fs";
 import Image from "next/image";
 import HeroFlow from "./hero-flow";
 import Header from "./components/header";
+import Footer from "./components/footer";
 import Faq from "./components/faq";
 import Ph from "./components/ph";
 import RequestForm from "./components/request-form";
@@ -19,23 +20,23 @@ const checks: { t: string; mock?: React.ReactNode }[] = [
 
 const notIncluded = [
   "Code changes on your website outside Tag Manager",
-  "Redesigning lifecycle stages or lead scoring (I'll flag problems and quote separately)",
+  "Redesigning lifecycle stages or lead scoring (We'll flag problems and quote separately)",
   "Campaign management, keywords or ad copy",
   "Salesforce as your CRM",
 ];
 
 const steps: [string, string][] = [
-  ["Request the check.", "Tell me your website and Marketing Hub tier."],
-  ["We have a 20-minute call", "to confirm it's a fit. If it isn't, I'll tell you on the call."],
-  ["You pay 50%", "and give me access to Google Ads, HubSpot and Tag Manager."],
-  ["I run the check", "and send you the proposed changes to approve."],
-  ["I make the approved changes", "and send the report within 15 business days of access, not counting time waiting for your approval. The remaining 50% is due when the report is delivered."],
-  ["We do the handover call,", "and I remove my access."],
+  ["Request the check.", "Tell us your website and Marketing Hub tier."],
+  ["We have a 20-minute call", "to confirm it's a fit. If it isn't, we'll tell you on the call."],
+  ["You pay 50%", "and give us access to Google Ads, HubSpot and Tag Manager."],
+  ["We run the check", "and send you the proposed changes to approve."],
+  ["We make the approved changes", "and send the report within 15 business days of access, not counting time waiting for your approval. The remaining 50% is due when the report is delivered."],
+  ["We do the handover call,", "and remove our access."],
 ];
 
 const faq = [
   { q: "Do I need Marketing Hub Professional?", a: "No. Marketing Hub Starter supports lifecycle stage conversion events too, up to 5 events." },
-  { q: "Will this disrupt my campaigns?", a: "Changing primary conversions changes what Smart Bidding optimizes for. That's the point of the work, so we agree each change and its timing before I make it." },
+  { q: "Will this disrupt my campaigns?", a: "Changing primary conversions changes what Smart Bidding optimizes for. That's the point of the work, so we agree each change and its timing before we make it." },
   { q: "Will past leads be fixed too?", a: "HubSpot only syncs stage changes that happen after an event is created. Results count from handover forward." },
   { q: "Do you work with agencies?", a: "Yes. The report can be delivered unbranded so you can present it to your client." },
 ];
@@ -62,7 +63,7 @@ export default function Home() {
           </h1>
           <p className="mt-6 max-w-[62ch] text-grey">
             A fixed-price check and fix of the connection between HubSpot and Google Ads. $1,200.
-            Delivered within 15 business days of access. I do the work myself, start to finish.
+            Delivered within 15 business days of access. We do the work ourselves, start to finish.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-4">
             <a href="#request" className="btn">Request a check</a>
@@ -86,7 +87,7 @@ export default function Home() {
 
         <section className={band}>
           <div className="wrap">
-            <h2>What I check</h2>
+            <h2>What we check</h2>
             <ul className="mt-10 border-t border-hairline">
               {checks.map(({ t, mock }) => (
                 <li key={t} className="grid gap-4 border-b border-hairline py-5 lg:grid-cols-[1fr_22rem] lg:gap-12">
@@ -101,9 +102,9 @@ export default function Home() {
         <section className={`${band} bg-paper-2`}>
           <div className="wrap grid gap-12 lg:grid-cols-2 lg:gap-0">
             <div className="lg:pr-12">
-              <h2>What I fix</h2>
+              <h2>What we fix</h2>
               <div className="prose-col mt-6">
-                <p>Anything on the check list that lives in Google Ads, HubSpot or Google Tag Manager settings. I send you the list of proposed changes first, and make only the ones you approve. Changing primary conversions changes what Smart Bidding optimizes for, so you decide the timing.</p>
+                <p>Anything on the check list that lives in Google Ads, HubSpot or Google Tag Manager settings. We send you the list of proposed changes first, and make only the ones you approve. Changing primary conversions changes what Smart Bidding optimizes for, so you decide the timing.</p>
               </div>
             </div>
             <div className="lg:border-l lg:border-hairline lg:pl-12">
@@ -125,7 +126,7 @@ export default function Home() {
                 <p className="text-2xl font-medium tracking-[-0.015em]">A written After the Form report</p>
                 <a href="/sample-report" className="link mt-2 inline-block text-xl font-medium">See a sample report</a>
               </li>
-              {["A change log of everything I touched, with how to reverse each change", "A recorded screen walkthrough of the findings", "A 30-minute handover call"].map((t) => (
+              {["A change log of everything we touched, with how to reverse each change", "A recorded screen walkthrough of the findings", "A 30-minute handover call"].map((t) => (
                 <li key={t} className="border-b border-hairline py-4">{t}</li>
               ))}
             </ul>
@@ -157,8 +158,8 @@ export default function Home() {
               </ul>
               <div className="prose-col mt-10">
                 <p>$1,200, fixed: half when we start, half when the report is delivered. It covers everything on the check and fix lists above. Anything outside them is quoted before any work starts.</p>
-                <p>If something on the fix list isn&apos;t working at handover, I keep going at no extra cost until it does.</p>
-                <p>If the check finds nothing that needs changing, you get the written report confirming it and pay only the first half. Every finding in the report comes with a screenshot, so you can see what I saw.</p>
+                <p>If something on the fix list isn&apos;t working at handover, we keep going at no extra cost until it does.</p>
+                <p>If the check finds nothing that needs changing, you get the written report confirming it and pay only the first half. Every finding in the report comes with a screenshot, so you can see what we saw.</p>
               </div>
             </div>
           </div>
@@ -178,9 +179,9 @@ export default function Home() {
           <div className="wrap grid gap-10 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-16">
             <div>
               {hasPhoto ? (
-                <Image src="/matt.jpg" alt="Matt Strydom" width={800} height={1000} className="aspect-[4/5] w-full rounded-[10px] object-cover" />
+                <Image src="/matt.jpg" alt="Matt Strydom" width={512} height={512} className="aspect-square w-full rounded-[10px] object-cover" />
               ) : (
-                <div className="flex aspect-[4/5] w-full items-center justify-center rounded-[10px] border border-hairline bg-paper-2">
+                <div className="flex aspect-square w-full items-center justify-center rounded-[10px] border border-hairline bg-paper-2">
                   <Ph>[Photo]</Ph>
                 </div>
               )}
@@ -188,9 +189,9 @@ export default function Home() {
             <div>
               <h2>Who does the work</h2>
               <div className="prose-col mt-6 text-xl">
-                <p>I&apos;m Matt Strydom. I&apos;ve spent <Ph>[7+]</Ph> years in RevOps and marketing operations at B2B SaaS companies. My day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. <Ph>[One specific thing you built, stated so it holds up if a buyer asks about it.]</Ph></p>
-                <p>I&apos;m based in South Africa. Calls happen <Ph>[in US Eastern late morning to early afternoon]</Ph>.</p>
-                <p><a href="https://www.linkedin.com/in/mattstrydom" className="link">LinkedIn</a></p>
+                <p>We&apos;re After the Form, run by Matt Strydom. Matt has spent <Ph>[7+]</Ph> years in RevOps and marketing operations at B2B SaaS companies. Our day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. <Ph>[One specific thing Matt built, stated so it holds up if a buyer asks about it.]</Ph></p>
+                <p>We&apos;re based in South Africa. Calls happen <Ph>[in US Eastern late morning to early afternoon]</Ph>.</p>
+                <p><a href="https://www.linkedin.com/in/mattstrydom" className="link">Matt on LinkedIn</a></p>
               </div>
             </div>
           </div>
@@ -213,15 +214,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-hairline py-8 text-base text-grey">
-        <div className="wrap flex flex-wrap items-center justify-between gap-x-8 gap-y-2">
-          <p>After the Form is run by Matt Strydom. Reubika LLC, USA</p>
-          <p>
-            <a href="/privacy" className="link">Privacy policy</a>
-            <span className="ml-6">© {new Date().getFullYear()} Reubika LLC</span>
-          </p>
-        </div>
-      </footer>
+      <Footer />
     </>
   );
 }
