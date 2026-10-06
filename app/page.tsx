@@ -7,29 +7,36 @@ import RequestForm from "./components/request-form";
 import { ConsentMock, ConversionMock, CookieMock } from "./components/mocks";
 
 const checks: { t: string; mock?: React.ReactNode }[] = [
-  { t: "Which conversion actions are primary and used for bidding, and which are duplicates, tests or leftovers", mock: <ConversionMock /> },
-  { t: "Whether your lifecycle stages (MQL, SQL, opportunity, customer) are set up as Google Ads conversion events, included in account-level goals, and firing" },
-  { t: "Whether the same stage is sent more than once, through HubSpot, Google's Data Manager or a Zapier automation" },
-  { t: "Whether click IDs and hashed email reach Google, so HubSpot contacts can be matched to ad clicks", mock: <CookieMock /> },
-  { t: "Whether any events still use legacy offline conversion import, or send form data through a manager account, where HubSpot says it won't sync" },
-  { t: "Consent settings for UK and EEA traffic, if you advertise there", mock: <ConsentMock /> },
-  { t: "A side-by-side count for the same period: stage changes in HubSpot from Google Ads contacts, and conversions Google Ads recorded" },
+  { t: "Which conversions is Smart Bidding actually optimizing for, and which are duplicates, tests or leftovers?", mock: <ConversionMock /> },
+  { t: "Are your lifecycle stages (MQL, SQL, opportunity, customer) set up as conversions, included in your goals, and firing?" },
+  { t: "Is any stage sent more than once, through HubSpot, Data Manager or a Zapier automation?" },
+  { t: "Do click IDs and hashed emails reach Google, so contacts can be matched to ad clicks?", mock: <CookieMock /> },
+  { t: "Is anything still on legacy offline import, or routed through a manager account where HubSpot won't sync?" },
+  { t: "Are consent signals set correctly for UK and EEA traffic?", mock: <ConsentMock /> },
+  { t: "For the same period, do HubSpot's stage changes and Google Ads' conversions line up, and if not, why?" },
 ];
 
 const notIncluded = [
   "Code changes on your website outside Tag Manager",
-  "Redesigning lifecycle stages or lead scoring (We'll flag problems and quote separately)",
+  "Redesigning lifecycle stages or lead scoring (we'll flag problems and quote separately)",
   "Campaign management, keywords or ad copy",
   "Salesforce as your CRM",
 ];
 
+const included = [
+  "A written report, with a screenshot for every finding",
+  "A change log of everything we touched, with how to reverse each change",
+  "A recorded screen walkthrough of the findings",
+  "A 30-minute handover call",
+];
+
 const steps: [string, string][] = [
-  ["Request the check.", "Tell us your website and Marketing Hub tier."],
-  ["We have a 20-minute call", "to confirm it's a fit. If it isn't, we'll tell you on the call."],
-  ["You pay 50%", "and give us access to Google Ads, HubSpot and Tag Manager."],
-  ["We run the check", "and send you the proposed changes to approve."],
-  ["We make the approved changes", "and send the report within 15 business days of access, not counting time waiting for your approval. The remaining 50% is due when the report is delivered."],
-  ["We do the handover call,", "and remove our access."],
+  ["Request a check.", "Tell us your website and Marketing Hub tier."],
+  ["Fit call, 20 minutes.", "If it's not a fit, we'll say so on the call."],
+  ["Kickoff.", "You pay 50% and grant access to Google Ads, HubSpot and Tag Manager."],
+  ["Check and proposal.", "We run the check and send the proposed changes for your approval."],
+  ["Fix and report.", "We make the approved changes and deliver the report within 7 business days of access, not counting time waiting for your approval. The second 50% is due on delivery."],
+  ["Handover.", "A 30-minute call, then we remove our access."],
 ];
 
 const faq = [
@@ -37,14 +44,46 @@ const faq = [
   { q: "Will this disrupt my campaigns?", a: "Changing primary conversions changes what Smart Bidding optimizes for. That's the point of the work, so we agree each change and its timing before we make it." },
   { q: "Will past leads be fixed too?", a: "HubSpot only syncs stage changes that happen after an event is created. Results count from handover forward." },
   { q: "Do you work with agencies?", a: "Yes. The report can be delivered unbranded so you can present it to your client." },
+  { q: "What access do you need, and is it safe?", a: "Standard user access to Google Ads, HubSpot and Tag Manager. Every change is logged with how to reverse it, and we remove our access at handover." },
+  { q: "Will you change our website?", a: "No. We work in Google Ads, HubSpot and Tag Manager settings. Code changes outside Tag Manager aren't included." },
+  { q: "What happens after handover?", a: "Every change is documented in the change log, so your team can maintain it. If you'd like us to keep watching the connection, we'll explain the monthly plan on the handover call." },
 ];
 
 const terms = [
-  "$1,200, fixed",
-  "15 business days from access",
-  "Half now, half on delivery",
-  "Nothing changed without your approval",
+  "$1,200, fixed.",
+  "7 business days from access.",
+  "Half now, half on delivery.",
+  "Nothing changed without your approval.",
 ];
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.aftertheform.com/#organization",
+      name: "After the Form",
+      legalName: "Reubika LLC",
+      url: "https://www.aftertheform.com",
+      email: "hello@aftertheform.com",
+      founder: {
+        "@type": "Person",
+        name: "Matt Strydom",
+        sameAs: "https://www.linkedin.com/in/mattstrydom",
+      },
+    },
+    {
+      "@type": "Service",
+      name: "After the Form check",
+      provider: { "@id": "https://www.aftertheform.com/#organization" },
+      offers: {
+        "@type": "Offer",
+        price: "1200",
+        priceCurrency: "USD",
+      },
+    },
+  ],
+};
 
 const band = "py-20 sm:py-28";
 const row = "border-b border-hairline last:border-0";
@@ -61,40 +100,47 @@ function Arcs() {
 export default function Home() {
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <Header />
-      <main>
+      <main id="main" tabIndex={-1}>
         <section className="relative isolate overflow-hidden">
           <Arcs />
-          <div className="wrap pt-14 pb-20 sm:pt-20">
+          <div className="wrap pt-14 pb-8 sm:pt-20 sm:pb-20">
             <h1 className="max-w-[17ch] text-[clamp(2.75rem,6vw,4.75rem)] leading-[1.08] tracking-[-0.045em]">
-              Make sure Google Ads learns from <span className="accent">the leads your sales team qualifies.</span>
+              Google Ads is learning from your form fills. <span className="accent">It should be learning from your pipeline.</span>
             </h1>
             <p className="mt-7 max-w-[56ch] text-xl text-ink">
-              A fixed-price check and fix of the connection between HubSpot and Google Ads. $1,200.
-              Delivered within 15 business days of access. We do the work ourselves, start to finish.
+              We fix the connection between HubSpot and Google Ads, so Smart Bidding can see which leads your sales team qualifies. Fixed price, fixed scope, done within 7 business days of access.
             </p>
             <div className="mt-9 flex flex-wrap items-center gap-4">
               <a href="#request" className="btn">Request a check</a>
               <a href="/sample-report" className="btn btn-outline">See a sample report</a>
             </div>
-            <div className="mt-14">
+            <p className="mt-5 max-w-[56ch] font-medium">
+              $1,200 fixed. If we find nothing to fix, you pay half and keep the report.
+            </p>
+            <p className="mt-4 max-w-[60rem] rounded-2xl border border-hairline bg-white/70 px-5 py-3 text-base">
+              <span className="mr-3 border-r border-hairline pr-3 font-medium">Included in every check</span>
+              A written report with a screenshot for every finding. A change log showing how to reverse every change. A recorded walkthrough. A 30-minute handover call.
+            </p>
+            <div className="mt-10 sm:mt-14">
               <HeroFlow />
             </div>
           </div>
         </section>
 
-        <section className={band}>
+        <section className="pt-12 pb-20 sm:py-28">
           <div className="wrap">
-            <h2>The problem</h2>
+            <h2 className="max-w-[20ch]">Smart Bidding can only learn from what you tell it</h2>
             <div className="mt-12 grid gap-5 lg:grid-cols-3">
               <div className="panel prose-col">
-                <p>Google Ads bids toward the conversions you mark as primary. If your primary conversion is a form fill, Smart Bidding goes looking for more form fills. It can&apos;t tell which of those leads your sales team later qualified.</p>
+                <p>If your primary conversion is a form fill, Google Ads goes looking for more form fills. It can&apos;t see which of those leads your sales team qualified and which went nowhere.</p>
               </div>
               <div className="prose-col rounded-3xl bg-coral p-6 text-white sm:p-9">
-                <p>HubSpot and Google can pass those later stages back. HubSpot can send lifecycle stage changes to Google Ads as conversion events, and Google Ads can pull them in through Data Manager. Either route can be connected and syncing while those stages aren&apos;t used for bidding. When the counts disagree, HubSpot&apos;s own documentation says they aren&apos;t expected to match Google&apos;s, and its support team can&apos;t pull sync logs unless there&apos;s an error.</p>
+                <p>The fix exists. HubSpot can send lifecycle stages to Google Ads as conversions, and Google Ads can pull them in through Data Manager. But a connection can sync for months without those stages ever being used for bidding. And when the numbers disagree, HubSpot&apos;s own documentation says they aren&apos;t expected to match Google&apos;s.</p>
               </div>
               <div className="on-dark prose-col rounded-3xl bg-deep p-6 text-white sm:p-9">
-                <p>Google now calls offline conversion import a legacy method and recommends enhanced conversions for leads. If your setup is older than that change, it&apos;s worth a look.</p>
+                <p>If your setup still uses offline conversion import, there&apos;s one more reason to look: Google now calls it a legacy method and recommends enhanced conversions for leads.</p>
               </div>
             </div>
           </div>
@@ -102,7 +148,7 @@ export default function Home() {
 
         <section className="pb-20 sm:pb-28">
           <div className="wrap">
-            <h2>What we check</h2>
+            <h2 className="max-w-[20ch]">Seven questions we answer in every check</h2>
             <ul className="panel mt-12">
               {checks.map(({ t, mock }) => (
                 <li key={t} className={`grid gap-4 py-5 first:pt-0 last:pb-0 lg:grid-cols-[1fr_22rem] lg:gap-12 ${row}`}>
@@ -117,9 +163,9 @@ export default function Home() {
         <section className="pb-20 sm:pb-28">
           <div className="wrap grid gap-5 lg:grid-cols-2">
             <div className="panel">
-              <h2 className="text-[clamp(1.75rem,3vw,2.5rem)]">What we fix</h2>
+              <h2 className="text-[clamp(1.75rem,3vw,2.5rem)]">We fix it, with your sign-off</h2>
               <div className="prose-col mt-6">
-                <p>Anything on the check list that lives in Google Ads, HubSpot or Google Tag Manager settings. We send you the list of proposed changes first, and make only the ones you approve. Changing primary conversions changes what Smart Bidding optimizes for, so you decide the timing.</p>
+                <p>Everything on the list that lives in Google Ads, HubSpot or Tag Manager settings. You see every proposed change before we make it. You also choose when bidding changes go live, because Smart Bidding relearns when primary conversions change.</p>
               </div>
             </div>
             <div className="panel">
@@ -135,16 +181,18 @@ export default function Home() {
 
         <section className="pb-20 sm:pb-28">
           <div className="wrap">
-            <h2>What you get</h2>
-            <ul className="panel mt-12">
-              <li className={`pb-6 ${row}`}>
-                <p className="text-3xl font-medium tracking-[-0.03em]">A written After the Form report</p>
-                <a href="/sample-report" className="link mt-2 inline-block text-xl font-medium">See a sample report</a>
-              </li>
-              {["A change log of everything we touched, with how to reverse each change", "A recorded screen walkthrough of the findings", "A 30-minute handover call"].map((t) => (
-                <li key={t} className={`py-4 last:pb-0 ${row}`}>{t}</li>
-              ))}
-            </ul>
+            <h2 className="max-w-[20ch]">See exactly what you&apos;ll get before you pay</h2>
+            <div className="panel mt-12 grid gap-8 lg:grid-cols-2 lg:gap-14">
+              <div>
+                <p className="max-w-[44ch] text-xl">Our sample report is built on a fictional account, finding by finding: what we saw, why it matters, the change, and how to reverse it.</p>
+                <a href="/sample-report" className="btn mt-6">Read the sample report</a>
+              </div>
+              <ul>
+                {included.map((t) => (
+                  <li key={t} className={`py-4 first:pt-0 last:pb-0 ${row}`}>{t}</li>
+                ))}
+              </ul>
+            </div>
           </div>
         </section>
 
@@ -164,18 +212,24 @@ export default function Home() {
 
         <section id="price" className={band}>
           <div className="wrap">
-            <h2>Price</h2>
-            <div className="mt-12 grid gap-5 lg:grid-cols-2">
+            <h2>One price. Two promises.</h2>
+            <div className="mt-12 grid items-start gap-5 lg:grid-cols-2">
               <ul className="panel text-2xl font-medium tracking-[-0.03em]">
                 {terms.map((t) => (
                   <li key={t} className={`py-4 first:pt-0 last:pb-0 ${row}`}>{t}</li>
                 ))}
               </ul>
               <div className="prose-col rounded-3xl bg-paper-2 p-6 sm:p-9">
-                <p>$1,200, fixed: half when we start, half when the report is delivered. It covers everything on the check and fix lists above. Anything outside them is quoted before any work starts.</p>
-                <p>If something on the fix list isn&apos;t working at handover, we keep going at no extra cost until it does.</p>
-                <p>If the check finds nothing that needs changing, you get the written report confirming it and pay only the first half. Every finding in the report comes with a screenshot, so you can see what we saw.</p>
+                <p>$1,200, fixed. Half when we start, half when the report is delivered. It covers everything on the check and fix lists. Anything outside them is quoted before any work starts.</p>
               </div>
+            </div>
+            <div className="on-dark mt-5 grid gap-5 text-white lg:grid-cols-2">
+              <p className="rounded-3xl bg-deep p-6 text-2xl font-medium leading-snug tracking-[-0.03em] sm:p-9">
+                If something on the fix list isn&apos;t working at handover, we keep going at no extra cost until it does.
+              </p>
+              <p className="rounded-3xl bg-deep p-6 text-2xl font-medium leading-snug tracking-[-0.03em] sm:p-9">
+                If the check finds nothing that needs changing, you pay only the first half and keep the report confirming it.
+              </p>
             </div>
           </div>
         </section>
@@ -184,8 +238,8 @@ export default function Home() {
           <div className="wrap">
             <h2>Who it&apos;s for</h2>
             <div className="panel mt-12 space-y-5">
-              <p className="max-w-[64ch]">B2B companies that run Google Ads, use HubSpot Marketing Hub Starter, Professional or Enterprise, and qualify leads after the form. Agencies can buy it for a client and deliver it under their own name.</p>
-              <p className="max-w-[64ch] border-t border-hairline pt-5">It&apos;s a poor fit for e-commerce stores, teams on Salesforce, and accounts with no Google Ads spend.</p>
+              <p className="max-w-[64ch]">Built for B2B companies that run Google Ads, use HubSpot Marketing Hub (Starter, Professional or Enterprise), and qualify leads after the form. Agencies can buy it for a client and deliver it under their own name.</p>
+              <p className="max-w-[64ch] border-t border-hairline pt-5">Not a fit for e-commerce stores, teams on Salesforce, or accounts with no Google Ads spend.</p>
             </div>
           </div>
         </section>
@@ -195,10 +249,11 @@ export default function Home() {
             <div className="panel grid items-center gap-8 md:grid-cols-[minmax(0,20rem)_1fr] md:gap-14">
               <Image src="/matt.jpg" alt="Matt Strydom" width={512} height={512} className="aspect-square w-full rounded-3xl object-cover" />
               <div>
-                <h2>Who does the work</h2>
+                <h2>Who you&apos;ll work with</h2>
                 <div className="prose-col mt-6 text-xl">
-                  <p>We&apos;re After the Form, run by Matt Strydom. Matt has spent 7 years in RevOps and marketing operations at B2B SaaS companies. Our day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. Matt built a HubSpot sync.</p>
-                  <p>We&apos;re based in South Africa. Calls happen between 9am and 12pm US Eastern.</p>
+                  <p>After the Form is led by Matt Strydom, who has spent seven years in RevOps and marketing operations at B2B SaaS companies. His day-to-day work is HubSpot, Google Ads conversion tracking and attribution: click ID capture, offline conversion pipelines and enhanced conversions.</p>
+                  <p>The person on your fit call is the person working in your account. No handoffs.</p>
+                  <p>Based in South Africa. Calls between 9am and 12pm US Eastern.</p>
                   <p><a href="https://www.linkedin.com/in/mattstrydom" className="link">Matt on LinkedIn</a></p>
                 </div>
               </div>

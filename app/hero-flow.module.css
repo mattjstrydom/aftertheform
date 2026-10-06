@@ -11,7 +11,7 @@
   font-size: var(--u);
   position: relative;
   width: 100%;
-  aspect-ratio: 22 / 38;
+  aspect-ratio: 22 / 33;
   max-width: 26rem;
   margin-inline: auto;
 }
@@ -71,9 +71,9 @@
 
 .stageCard {
   left: calc(5em * var(--k));
-  top: calc((6em + var(--i) * 4em) * var(--k));
+  top: calc((4.8em + var(--i) * 3.6em) * var(--k));
   width: calc(12em * var(--k));
-  height: calc(3.2em * var(--k));
+  height: calc(3em * var(--k));
   justify-content: space-between;
   opacity: 0;
   animation:
@@ -101,9 +101,9 @@
 
 .google {
   left: calc(0.5em * var(--k));
-  top: calc(24.5em * var(--k));
+  top: calc(21em * var(--k));
   width: calc(21em * var(--k));
-  height: calc(13em * var(--k));
+  height: calc(12em * var(--k));
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
@@ -186,7 +186,7 @@
   80% { opacity: 1; }
   to {
     opacity: 0;
-    transform: translateY(calc((23.4em - var(--i) * 4em) * var(--k))) scale(0.6);
+    transform: translateY(calc((20.7em - var(--i) * 3.6em) * var(--k))) scale(0.6);
   }
 }
 @keyframes fly-wide {

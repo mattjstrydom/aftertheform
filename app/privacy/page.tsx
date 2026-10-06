@@ -6,6 +6,7 @@ import Footer from "../components/footer";
 export const metadata: Metadata = {
   title: "Privacy policy | After the Form",
   alternates: { canonical: "/privacy" },
+  openGraph: { title: "Privacy policy | After the Form", url: "/privacy", type: "website", images: ["/opengraph-image"] },
 };
 
 const h = "mt-12 text-2xl tracking-[-0.02em]";
@@ -14,7 +15,7 @@ export default function Privacy() {
   return (
     <>
       <Header />
-    <main className="wrap py-16">
+    <main id="main" tabIndex={-1} className="wrap py-16">
       <div className="prose-col">
         <h1 className="text-4xl tracking-[-0.03em]">Privacy policy</h1>
         <p className="text-grey">Last updated 6 October 2026</p>
@@ -62,8 +63,7 @@ export default function Privacy() {
           <code>analytics_storage</code>, <code>ad_user_data</code> and <code>ad_personalization</code>) is
           set to denied. If you press Accept they are set to granted. If you press Decline they stay denied.
           We store your choice in your browser&apos;s local storage under the key <code>atf-consent</code> so
-          we do not ask again. To change your mind, clear this site&apos;s data in your browser and the banner
-          will return.
+          we do not ask again. To change your mind, use the Cookie settings link at the bottom of any page.
         </p>
 
         <h2 className={h}>Who we share it with</h2>

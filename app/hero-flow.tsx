@@ -34,8 +34,8 @@ export default function HeroFlow() {
             </g>
           ))}
         </svg>
-        <svg className={`${s.lines} ${s.tall}`} viewBox="0 0 22 38">
-          <path className={s.fan} d="M11 3.4 V24.5" pathLength="1" />
+        <svg className={`${s.lines} ${s.tall}`} viewBox="0 0 22 33">
+          <path className={s.fan} d="M11 3.4 V21" pathLength="1" />
         </svg>
 
         <div className={`${s.card} ${s.form}`}>Form submitted</div>

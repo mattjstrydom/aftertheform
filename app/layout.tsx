@@ -24,16 +24,16 @@ const plexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aftertheform.com"),
-  title: "After the Form | Google Ads that learn from qualified leads",
+  metadataBase: new URL("https://www.aftertheform.com"),
+  title: "After the Form | Make Google Ads learn from qualified leads",
   description:
-    "A fixed-price check and fix of the connection between HubSpot and Google Ads, so Google Ads learns from the leads your sales team qualifies.",
-  alternates: { canonical: "https://aftertheform.com" },
+    "We fix the connection between HubSpot and Google Ads so Smart Bidding learns from the leads your sales team qualifies. $1,200 fixed, done within 7 business days.",
+  alternates: { canonical: "https://www.aftertheform.com" },
   openGraph: {
-    title: "After the Form | Google Ads that learn from qualified leads",
+    title: "After the Form | Make Google Ads learn from qualified leads",
     description:
-      "A fixed-price check and fix of the connection between HubSpot and Google Ads, so Google Ads learns from the leads your sales team qualifies.",
-    url: "https://aftertheform.com",
+      "We fix the connection between HubSpot and Google Ads so Smart Bidding learns from the leads your sales team qualifies. $1,200 fixed, done within 7 business days.",
+    url: "https://www.aftertheform.com",
     type: "website",
   },
 };
@@ -43,6 +43,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
       <body>
         <Script id="gtm" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: head }} />
+        <a href="#main" className="skip-link">Skip to content</a>
         <noscript>
           <iframe src={`https://www.googletagmanager.com/ns.html?id=${GTM}`} height="0" width="0" style={{ display: "none", visibility: "hidden" }} />
         </noscript>

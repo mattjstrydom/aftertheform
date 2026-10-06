@@ -8,9 +8,10 @@ export const metadata: Metadata = {
   title: "Sample report | After the Form",
   description: "An example After the Form report, built on a fictional account.",
   alternates: { canonical: "/sample-report" },
+  openGraph: { title: "Sample report | After the Form", url: "/sample-report", type: "website", images: ["/opengraph-image"] },
 };
 
-const findings: { t: string; saw: string; why: string; change: string; undo: string; evidence?: React.ReactNode }[] = [
+const findings: { t: string; saw: React.ReactNode; why: string; change: string; undo: string; evidence?: React.ReactNode }[] = [
   {
     t: "Qualified stages are imported but not used for bidding",
     saw: "“Lead form submit” is the only Primary conversion action. “HubSpot MQL” and “HubSpot SQL” are syncing, but they are set to Secondary and sit outside the account-level goal.",
@@ -28,7 +29,7 @@ const findings: { t: string; saw: string; why: string; change: string; undo: str
   },
   {
     t: "Click IDs are on the page but not reaching HubSpot",
-    saw: "The _gcl_aw cookie is set after an ad click, but the hidden click ID field on the demo form is empty on submit.",
+    saw: <>The <code className="font-mono text-[0.9em]">_gcl_aw</code> cookie is set after an ad click. The demo form is built in Webflow, not HubSpot, and its hidden click ID field is empty on submit.</>,
     why: "Without the click ID, HubSpot cannot match the contact to the ad click, so later stages cannot be attributed to the campaign that produced them.",
     change: "Add a Tag Manager tag that reads the cookie and fills the hidden field before the form is submitted. This stays inside Tag Manager, so no website code changes.",
     undo: "Pause or delete the new tag. The form keeps working without it.",
@@ -80,7 +81,7 @@ export default function SampleReport() {
   return (
     <>
       <Header />
-    <main>
+    <main id="main" tabIndex={-1}>
       <section className="wrap pt-12 pb-10 sm:pt-16">
         <p className="text-grey">After the Form report</p>
         <h1 className="mt-2 max-w-[18ch] text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.04] tracking-[-0.03em]">
