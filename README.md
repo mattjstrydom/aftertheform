@@ -32,15 +32,9 @@ Push to a private GitHub repo, import it in Vercel, set `SEQUENZY_API_KEY` in th
 | Privacy policy / sample report (fictional example) | `app/privacy/page.tsx`, `app/sample-report/page.tsx` |
 | Favicon ("AF"), OG image (wordmark only, placeholder) | `app/icon.tsx`, `app/opengraph-image.tsx` |
 
-## Remaining placeholders (production build fails until gone)
+## Remaining placeholders
 
-Every `<Ph>` in `app/` is one. Currently, all in the "Who does the work" section of `app/page.tsx`:
-
-- `[7+]` years
-- `[One specific thing Matt built...]`
-- Call times (`[in US Eastern late morning to early afternoon]`)
-
-The OG image is a wordmark-only placeholder (not enforced by the check). The sample report (`app/sample-report/page.tsx`) is a fictional example, labelled as such.
+None. `npm run build` passes the placeholder check. The OG image is a wordmark-only placeholder (not enforced by the check). The sample report (`app/sample-report/page.tsx`) is a fictional example, labelled as such.
 
 ## Notes
 

@@ -1,10 +1,8 @@
-import { existsSync } from "node:fs";
 import Image from "next/image";
 import HeroFlow from "./hero-flow";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Faq from "./components/faq";
-import Ph from "./components/ph";
 import RequestForm from "./components/request-form";
 import { ConsentMock, ConversionMock, CookieMock } from "./components/mocks";
 
@@ -52,7 +50,6 @@ const band = "py-16 sm:py-24";
 const split = "grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16";
 
 export default function Home() {
-  const hasPhoto = existsSync("public/matt.jpg");
   return (
     <>
       <Header />
@@ -178,19 +175,13 @@ export default function Home() {
         <section className={band}>
           <div className="wrap grid gap-10 md:grid-cols-[minmax(0,22rem)_1fr] md:gap-16">
             <div>
-              {hasPhoto ? (
-                <Image src="/matt.jpg" alt="Matt Strydom" width={512} height={512} className="aspect-square w-full rounded-[10px] object-cover" />
-              ) : (
-                <div className="flex aspect-square w-full items-center justify-center rounded-[10px] border border-hairline bg-paper-2">
-                  <Ph>[Photo]</Ph>
-                </div>
-              )}
+              <Image src="/matt.jpg" alt="Matt Strydom" width={512} height={512} className="aspect-square w-full rounded-[10px] object-cover" />
             </div>
             <div>
               <h2>Who does the work</h2>
               <div className="prose-col mt-6 text-xl">
-                <p>We&apos;re After the Form, run by Matt Strydom. Matt has spent <Ph>[7+]</Ph> years in RevOps and marketing operations at B2B SaaS companies. Our day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. <Ph>[One specific thing Matt built, stated so it holds up if a buyer asks about it.]</Ph></p>
-                <p>We&apos;re based in South Africa. Calls happen <Ph>[in US Eastern late morning to early afternoon]</Ph>.</p>
+                <p>We&apos;re After the Form, run by Matt Strydom. Matt has spent 7 years in RevOps and marketing operations at B2B SaaS companies. Our day-to-day work is HubSpot, Google Ads conversion tracking and attribution, including click ID capture, offline conversion pipelines and enhanced conversions. Matt built a HubSpot sync.</p>
+                <p>We&apos;re based in South Africa. Calls happen between 9am and 12pm US Eastern.</p>
                 <p><a href="https://www.linkedin.com/in/mattstrydom" className="link">Matt on LinkedIn</a></p>
               </div>
             </div>
