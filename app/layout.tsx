@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
 import ConsentBanner from "./components/consent-banner";
@@ -11,16 +11,23 @@ dl("consent","default",{ad_storage:"denied",analytics_storage:"denied",ad_user_d
 try{if(localStorage.getItem("atf-consent")==="granted")dl("consent","update",{ad_storage:"granted",analytics_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"})}catch(e){}
 (function(w,d,s,l,i){w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i;f.parentNode.insertBefore(j,f)})(window,document,"script","dataLayer","${GTM}");`;
 
-const archivo = Archivo({
+const archivo = localFont({
+  src: "./fonts/archivo-latin-var.woff2",
+  weight: "400 700",
+  style: "normal",
   variable: "--font-archivo",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
+  preload: true,
+  adjustFontFallback: "Arial",
 });
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400"],
+const azeret = localFont({
+  src: "./fonts/azeret-mono-latin-var.woff2",
+  weight: "400 500",
+  style: "normal",
+  variable: "--font-azeret",
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -40,7 +47,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${archivo.variable} ${plexMono.variable}`}>
+    <html lang="en-ZA" className={`${archivo.variable} ${azeret.variable}`}>
       <body>
         <Script id="gtm" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: head }} />
         <a href="#main" className="skip-link">Skip to content</a>

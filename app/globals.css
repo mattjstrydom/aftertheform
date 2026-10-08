@@ -1,172 +1,182 @@
 @import "tailwindcss";
 
-:root {
-  --paper: #f2f6f5;
-  --paper-2: #e6edeb;
-  --ink: #15171a;
-  --grey: #5c6764;
-  --hairline: #d3dcda;
-  --accent: #08906c; /* large type, fills and icons only */
-  --accent-text: #067857; /* text-size links */
-  --mint: #93dcc8;
-  --coral: #ce3c2b;
-  --coral-dark: #b33222;
-  --deep: #11302b;
+/* Fonts: next/font/local in app/layout.tsx sets --font-archivo and --font-azeret on <html>. */
+
+@theme {
+  --color-*: initial;               /* only the colours below exist */
+  --color-white: #ffffff;
+  --color-black: #15171a;           /* ink: text, Primary pills */
+  --color-gray-50: #f2f6f5;         /* page background (paper) */
+  --color-gray-100: #d9dfde;        /* hairlines inside fragments */
+  --color-gray-200: #bec9c6;        /* borders, A1 connector line */
+  --color-gray-300: #a5b2af;
+  --color-gray-400: #8b9a96;
+  --color-gray-500: #73817e;        /* decorative only, never text (4.06:1) */
+  --color-gray-600: #5c6764;        /* secondary text, chips */
+  --color-gray-700: #454e4c;
+  --color-gray-800: #2e3332;        /* lead paragraphs inside cards */
+  --color-green-100: #c4ece1;       /* OK tags, "To reverse" tiles, access tile */
+  --color-green-200: #93dcc8;       /* accent text on blue-700 */
+  --color-green-300: #60c7ac;
+  --color-green-400: #37a88a;
+  --color-green-500: #08906c;       /* accent phrase in large headings, check circles. Not for text under 24px */
+  --color-green-text: #067857;      /* small green text and links on white or gray-50 */
+  --color-green-deep: #05664a;      /* green text on green-100 */
+  --color-tint-ok: #eaf7f2;         /* A2 final row tint */
+  --color-coral-10: #fdfafa;
+  --color-coral-50: #fbeeec;
+  --color-coral-100: #f6dad5;
+  --color-coral-200: #ebb5ab;
+  --color-coral-400: #e06f68;
+  --color-coral-500: #ce3c2b;       /* primary button fill only; text use only on white */
+  --color-coral-text: #b33222;      /* coral text, fault tags, outlines, annotation */
+  --color-blue-50: #ebf5f9;
+  --color-blue-100: #d8ebf4;
+  --color-blue-200: #b0d4e8;
+  --color-blue-500: #478fb8;        /* decorative only (3.57:1 on white) */
+  --color-blue-600: #356f92;        /* small blue text */
+  --color-blue-700: #2b4d60;        /* dark surfaces, A1 card titles */
+  --color-purple-100: #edddf8;
+  --color-purple-text: #8a3bb0;     /* A1 "Smart Bidding" label */
+  --color-error: #b3261e;           /* form errors (existing) */
+
+  /* Type scale: values switch at 768 and 1280 via custom properties in @layer base */
+  --text-title-xl: var(--fs-title-xl); --text-title-xl--line-height: 1.2;  --text-title-xl--letter-spacing: -0.03em; --text-title-xl--font-weight: 500;
+  --text-title-l: var(--fs-title-l);   --text-title-l--line-height: 1.1;   --text-title-l--letter-spacing: -0.04em; --text-title-l--font-weight: 500;
+  --text-title-m: var(--fs-title-m);   --text-title-m--line-height: 1.2;   --text-title-m--letter-spacing: -0.03em; --text-title-m--font-weight: 500;
+  --text-title-s: var(--fs-title-s);   --text-title-s--line-height: 1.1;   --text-title-s--letter-spacing: -0.04em; --text-title-s--font-weight: 500;
+  --text-title-xs: var(--fs-title-xs); --text-title-xs--line-height: 1.2;  --text-title-xs--letter-spacing: -0.02em; --text-title-xs--font-weight: 500;
+  --text-text-xl: var(--fs-text-xl);   --text-text-xl--line-height: 1.4;   --text-text-xl--letter-spacing: -0.01em;
+  --text-text-l: var(--fs-text-l);     --text-text-l--line-height: 1.5;    --text-text-l--letter-spacing: -0.03em;
+  --text-text-m: var(--fs-text-m);     --text-text-m--line-height: 1.5;    --text-text-m--letter-spacing: 0;
+  --text-text-s: var(--fs-text-s);     --text-text-s--line-height: 1.5;    --text-text-s--letter-spacing: 0;
+
+  --radius-pill: 5rem;   /* 80px: buttons, chips, tags, nav pill, image labels */
+  --radius-card: 24px;   /* bento cards */
+  --radius-panel: 20px;
+  --radius-tile: 16px;   /* fragments, inner tiles, headshot */
+  --radius-chip: 12px;   /* icon tiles, small panels */
+
+  --shadow-float: 0 22px 22px rgba(43, 77, 96, .09), 0 5px 12px rgba(43, 77, 96, .1);  /* fragments only, never on cards */
+  --shadow-soft: 0 9px 9px rgba(0, 0, 0, .09);
+
+  --ease-zig: cubic-bezier(0.215, 0.61, 0.355, 1);   /* measured zig transform transition */
+  --ease-power4-out: cubic-bezier(0.22, 1, 0.36, 1);  /* entrances (inferred power4.out) */
+  --ease-power2-out: cubic-bezier(0.33, 1, 0.68, 1);  /* small parts (inferred power2.out) */
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-paper-2: var(--paper-2);
-  --color-ink: var(--ink);
-  --color-grey: var(--grey);
-  --color-hairline: var(--hairline);
-  --color-accent: var(--accent);
-  --color-coral: var(--coral);
-  --color-deep: var(--deep);
-  --color-mint: var(--mint);
-  --font-sans: var(--font-archivo);
-  --font-mono: var(--font-plex-mono);
+  --font-sans: var(--font-archivo), Arial, sans-serif;
+  --font-mono: var(--font-azeret), ui-monospace, monospace;
 }
 
-body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-archivo), system-ui, sans-serif;
-  font-size: 1.125rem;
-  line-height: 1.6;
-  letter-spacing: -0.005em;
-}
-
-h1,
-h2,
-h3 {
-  font-weight: 500;
-  text-wrap: balance;
-}
-
-:focus-visible {
-  outline: 3px solid var(--accent-text);
-  outline-offset: 3px;
-  border-radius: 4px;
-}
-.on-dark :focus-visible {
-  outline-color: var(--mint);
-}
-
-html {
-  scroll-padding-top: 5rem;
-}
-@media (prefers-reduced-motion: no-preference) {
-  html {
-    scroll-behavior: smooth;
+@layer base {
+  :root {
+    /* 768 to 1279 */
+    --fs-title-xl: 2.875rem; --fs-title-l: 2.5rem; --fs-title-m: 1.75rem; --fs-title-s: 1.375rem; --fs-title-xs: 1.25rem;
+    --fs-text-xl: 1.125rem; --fs-text-l: 1rem; --fs-text-m: .875rem; --fs-text-s: .75rem;
   }
-}
-
-h2 {
-  font-size: clamp(2rem, 4.2vw, 3.6rem);
-  letter-spacing: -0.04em;
-  line-height: 1.08;
-}
-.accent {
-  color: var(--accent);
-}
-
-.wrap {
-  max-width: 76rem;
-  margin-inline: auto;
-  padding-inline: 1rem;
-}
-@media (min-width: 640px) {
-  .wrap {
-    padding-inline: 2rem;
+  @media (min-width: 1280px) {
+    :root { --fs-title-xl: 4.5rem; --fs-title-l: 3.625rem; --fs-title-m: 2.25rem; --fs-title-s: 1.75rem; --fs-title-xs: 1.375rem;
+            --fs-text-xl: 1.25rem; --fs-text-l: 1.125rem; --fs-text-m: 1rem; --fs-text-s: .875rem; }
   }
-}
-
-.prose-col > * + * {
-  margin-top: 1.1em;
-}
-.prose-col {
-  max-width: 64ch;
-}
-
-.panel {
-  background: #fff;
-  border-radius: 1.5rem;
-  padding: 1.5rem;
-  box-shadow:
-    0 1px 2px rgb(21 23 26 / 0.04),
-    0 18px 40px -20px rgb(8 144 108 / 0.25);
-}
-@media (min-width: 640px) {
-  .panel {
-    padding: 2.25rem;
+  @media (max-width: 767px) {
+    /* zig uses 12px body here; we floor body at 14px for legibility */
+    :root { --fs-title-xl: 2rem; --fs-title-l: 1.75rem; --fs-title-m: 1.375rem; --fs-title-s: 1.25rem; --fs-title-xs: 1.125rem;
+            --fs-text-xl: 1rem; --fs-text-l: .875rem; --fs-text-m: .875rem; --fs-text-s: .75rem; }
   }
+  html { -webkit-text-size-adjust: 100%; scroll-padding-top: 5rem; }
+  @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+  body {
+    min-height: 100dvh; display: flex; flex-direction: column;
+    background: var(--color-gray-50); color: var(--color-black);
+    font-family: var(--font-sans); font-size: var(--fs-text-m); line-height: 1.5; letter-spacing: -0.03em;
+    -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  }
+  main { flex: 1 0 auto; }
+  main:focus { outline: none; }
+  h1, h2, h3 { font-weight: 500; text-wrap: balance; }
+  p, li, dd { text-wrap: pretty; }
+  :focus-visible { outline: 3px solid var(--color-green-text); outline-offset: 3px; border-radius: 6px; }
+  .on-dark :focus-visible { outline-color: var(--color-green-200); }
+  ::selection { background: var(--color-green-100); color: var(--color-black); }
 }
 
-.btn {
-  display: inline-block;
-  border-radius: 80px;
-  background: var(--coral);
-  color: #fff;
-  padding: 0.85rem 1.75rem;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.3;
-  letter-spacing: -0.02em;
-  border: 1.5px solid var(--coral);
-  cursor: pointer;
+@utility container-site {
+  width: 100%; max-width: calc(85rem + 80px); margin-inline: auto; padding-inline: 20px;
+  @media (min-width: 1024px) { padding-inline: 40px; }
 }
-.btn:hover {
-  background: var(--coral-dark);
-  border-color: var(--coral-dark);
-}
-.btn-sm {
-  padding: 0.5rem 1.15rem;
-  font-size: 0.9375rem;
-}
-.btn-outline {
-  background: transparent;
-  color: var(--coral-dark);
-}
-.btn-outline:hover {
-  background: #fff;
-  color: var(--coral-dark);
-}
-.link {
-  color: var(--accent-text);
-  text-decoration: underline;
-  text-underline-offset: 0.2em;
-}
-.on-dark .link {
-  color: var(--mint);
+@utility section-y {
+  padding-block: 60px;
+  @media (min-width: 480px) { padding-block: 100px; }
+  @media (min-width: 1280px) { padding-block: 120px; }
 }
 
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: -4rem;
-  z-index: 50;
-  background: #fff;
-  color: var(--ink);
-  padding: 0.6rem 1rem;
-  border-radius: 80px;
-  border: 2px solid var(--ink);
-  font-weight: 500;
-}
-.skip-link:focus {
-  top: 1rem;
+@layer components {
+  /* Primary pill: measured zig .button (16px 40px, 1rem/130%, 500, -0.03em, radius 80px, colour .3s).
+     Border added so the hover state (white fill) keeps its edge on white cards. */
+  .btn { @apply inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-pill border-[1.5px] border-solid border-coral-500 bg-coral-500 px-10 py-4 text-[1rem] leading-[1.3] font-medium tracking-[-0.03em] text-white no-underline transition-[background-color,color,transform] duration-300 hover:bg-white hover:text-coral-500 active:bg-coral-50 active:text-coral-text; }
+  .btn-outline { @apply inline-flex min-h-12 items-center justify-center whitespace-nowrap rounded-pill border-[1.5px] border-solid border-coral-500 bg-white px-10 py-4 text-[1rem] leading-[1.3] font-medium tracking-[-0.03em] text-coral-text no-underline transition-colors duration-300 hover:bg-coral-50 active:bg-coral-100; }
+  /* Nav-size variants: measured 12px 24px, 14px */
+  .btn-m { @apply inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-pill border-[1.5px] border-solid border-coral-500 bg-coral-500 px-6 py-2.5 text-[0.875rem] leading-[1.3] font-medium tracking-[-0.03em] text-white no-underline transition-colors duration-300 hover:bg-white hover:text-coral-500 active:bg-coral-50 active:text-coral-text; }
+  .btn-m-outline { @apply inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-pill border-[1.5px] border-solid border-coral-500 bg-white px-5 py-2.5 text-[0.875rem] leading-[1.3] font-medium tracking-[-0.03em] text-coral-text no-underline transition-colors duration-300 hover:bg-coral-50 active:bg-coral-100; }
+  /* Quiet white pill (LinkedIn link) */
+  .btn-quiet { @apply inline-flex min-h-10 items-center justify-center whitespace-nowrap rounded-pill border border-solid border-gray-200 bg-white px-4 py-2 text-[0.875rem] leading-[1.3] font-medium tracking-[-0.03em] text-black no-underline transition-colors duration-300 hover:bg-gray-50; }
+  .link { @apply text-green-text underline decoration-1 underline-offset-[0.2em] hover:decoration-2; }
+  .on-dark .link { @apply text-green-200; }
+
+  /* Section chip: 16px/130%/500/0, gray-600, 14px at <=479, round green dot */
+  .chip { @apply inline-flex items-center gap-2 text-[1rem] leading-[1.3] font-medium tracking-normal whitespace-nowrap text-gray-600 max-[479px]:text-[0.875rem]; }
+  .chip-dot { @apply inline-block size-2 rounded-full bg-green-500; }
+  .on-dark .chip { @apply text-green-200; }
+  .on-dark .chip-dot { @apply bg-green-200; }
+
+  /* Tags (mono 12px) */
+  .tag { @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill px-3 py-1 font-mono text-[12px] leading-[1.3] font-medium tracking-normal; }
+  .tag-bad { @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill px-3 py-1 font-mono text-[12px] leading-[1.3] font-medium tracking-normal bg-coral-text text-white; }
+  .tag-ok { @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill px-3 py-1 font-mono text-[12px] leading-[1.3] font-medium tracking-normal bg-green-100 text-green-deep; }
+  .tag-grey { @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill px-3 py-1 font-mono text-[12px] leading-[1.3] font-medium tracking-normal bg-gray-50 text-gray-600; }
+  .tag-info { @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill px-3 py-1 font-mono text-[12px] leading-[1.3] font-medium tracking-normal bg-blue-50 text-blue-700; }
+  .tag-wait { @apply inline-flex items-center gap-1.5 whitespace-nowrap rounded-pill px-3 py-1 font-mono text-[12px] leading-[1.3] font-medium tracking-normal bg-coral-50 text-coral-text; }
+  /* FIX: was white text on white/25 (3.88:1). Now coral-text on white (6.18:1) */
+  .tag-num { @apply inline-flex size-[16px] items-center justify-center rounded-full bg-white text-[10px] font-semibold text-coral-text; }
+  .goal-primary { @apply rounded-pill bg-black px-3 py-1 text-[0.75rem] leading-[1.3] text-white sm:text-[0.8125rem]; }
+  .goal-secondary { @apply rounded-pill border border-solid border-gray-200 bg-white px-3 py-1 text-[0.75rem] leading-[1.3] text-gray-600 sm:text-[0.8125rem]; }
+
+  /* Annotation */
+  .anno-box { @apply rounded-[6px] outline-[1.5px] outline-offset-[3px] outline-coral-text outline-solid; }
+  .note-num { @apply inline-flex size-[22px] shrink-0 items-center justify-center rounded-full bg-coral-text text-[12px] font-semibold leading-none tracking-normal text-white; }
+  .note-ok { @apply inline-flex size-[22px] shrink-0 items-center justify-center rounded-full bg-green-text text-[11px] leading-none text-white; }
+
+  /* Image labels (inside every example graphic) */
+  .img-label { @apply inline-flex items-center rounded-pill bg-white px-3 py-1.5 font-mono text-[12px] leading-none tracking-normal text-gray-600; }
+  .img-label-quiet { @apply inline-flex items-center rounded-pill bg-gray-50 px-3 py-1.5 font-mono text-[12px] leading-none tracking-normal text-gray-600; }   /* on white cards */
+  /* FIX: was green-200 on white/10 (4.31:1). Now green-100 (5.32:1) */
+  .img-label-dark { @apply inline-flex items-center rounded-pill bg-white/10 px-3 py-1.5 font-mono text-[12px] leading-none tracking-normal text-green-100; }
+
+  /* Surfaces */
+  .bento { @apply rounded-card bg-white p-8 max-[479px]:p-6; }   /* measured: padding 32, 24 at <=479, radius 24 */
+  .bento-dark { @apply rounded-card bg-blue-700 p-8 text-white max-[479px]:p-6 sm:p-10; }
+  .frag { @apply rounded-tile bg-white shadow-float; }
+  .tile { @apply rounded-tile bg-gray-50 p-3 sm:p-8; }           /* paper tile that holds fragments inside a white card */
 }
 
-main:focus {
-  outline: none;
-}
+/* Additions to the brief's base block (section 3.1): skip link, mobile menu popover, FAQ details. */
+@layer components {
+  .skip-link { @apply absolute left-4 -top-16 z-50 rounded-pill border-2 border-solid border-black bg-white px-4 py-2.5 font-medium text-black no-underline focus:top-4; }
 
-/* keep the footer at the bottom on short pages and tall screens */
-body {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-}
-main {
-  flex: 1 0 auto;
+  /* Mobile menu (native popover, zero JS for open/close/Esc/light dismiss) */
+  .site-menu { position: fixed; inset: 64px 0 auto 0; margin: 0; width: 100%; max-width: none; border: 0; border-top: 1px solid var(--color-gray-100); background: var(--color-white); padding: 20px; color: var(--color-black); box-shadow: var(--shadow-float); }
+  @media (max-width: 767px) { .site-menu { inset: 60px 0 auto 0; } }
+  .site-menu:not(:popover-open) { display: none; }
+
+  /* FAQ: native details/summary */
+  .faq summary { list-style: none; cursor: pointer; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary:hover { color: var(--color-green-text); }
+  .faq-icon { position: relative; flex: none; width: 20px; height: 20px; margin-top: 0.2em; }
+  .faq-icon::before, .faq-icon::after { content: ""; position: absolute; left: 50%; top: 50%; width: 14px; height: 1.5px; margin: -0.75px 0 0 -7px; background: currentColor; border-radius: 2px; }
+  .faq-icon::after { transform: rotate(90deg); }
+  .faq details[open] .faq-icon { transform: rotate(45deg); }
+  @media (prefers-reduced-motion: no-preference) { .faq-icon { transition: transform .3s var(--ease-power2-out); } }
 }
