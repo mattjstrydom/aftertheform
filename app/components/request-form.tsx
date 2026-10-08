@@ -1,14 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { useRef, useState } from "react";
 import { TIERS, validate, type Errors, type Fields, type FormType } from "@/app/validate";
+import { site } from "@/app/site.config";
 
 const empty: Fields = { name: "", email: "", website: "", tier: "", note: "" };
 const input =
-  "mt-1 block w-full rounded-xl border border-[#7b8a86] bg-paper px-3 py-2.5 text-base text-ink";
+  "mt-1 block w-full rounded-chip border border-solid border-[#7b8a86] bg-gray-50 px-3 py-2.5 text-[1rem] text-black transition-colors duration-300 hover:border-black";
 
-const CAL_URL = process.env.NEXT_PUBLIC_CAL_URL;
+const CAL_URL = site.calUrl;
 
 export default function RequestForm({ type = "check" }: { type?: FormType }) {
   const teardown = type === "teardown";
@@ -47,8 +47,8 @@ export default function RequestForm({ type = "check" }: { type?: FormType }) {
 
   if (status === "ok")
     return (
-      <div role="status" className="rounded-[10px] border border-hairline bg-white p-6">
-        <p className="text-xl font-medium">
+      <div role="status" className="rounded-chip border border-gray-100 bg-white p-6">
+        <p className="text-text-xl font-medium">
           {teardown ? "Thanks. We'll email you the recording." : "Thanks. We'll reply within one business day."}
         </p>
       </div>
@@ -59,7 +59,7 @@ export default function RequestForm({ type = "check" }: { type?: FormType }) {
       <label htmlFor={k} className="block font-medium">{label}</label>
       {el}
       {errors[k] && (
-        <p id={`${k}-err`} className="mt-1 text-base text-[#b3261e]">{errors[k]}</p>
+        <p id={`${k}-err`} className="mt-1 text-[1rem] text-error">{errors[k]}</p>
       )}
     </div>
   );
@@ -98,27 +98,27 @@ export default function RequestForm({ type = "check" }: { type?: FormType }) {
 
         <div aria-live="assertive">
           {status === "error" && (
-            <p className="text-base text-[#b3261e]">
+            <p className="text-[1rem] text-error">
               That didn&apos;t send. Check your connection and try again, or email <a href="mailto:hello@aftertheform.com" className="link">hello@aftertheform.com</a>.
             </p>
           )}
         </div>
-        <button type="submit" className="btn" disabled={status === "sending"}>
+        <button type="submit" className="btn w-full cursor-pointer disabled:cursor-wait disabled:opacity-70 sm:w-auto" disabled={status === "sending"}>
           {teardown ? "Request a teardown" : "Request a check"}
         </button>
-        <p className="text-grey">
+        <p className="text-gray-600">
           {teardown ? "We'll email you the recording." : "We reply personally within one business day."}
         </p>
       </form>
       {teardown ? (
         <p className="mt-6">
-          Ready for the full check? <Link href="/#request" className="link">Request a check</Link>
+          Ready for the full check? <a href={CAL_URL} className="link">Book a 20-minute fit call</a>
         </p>
       ) : (
         CAL_URL && (
           <p className="mt-6">
             Prefer to talk first?{" "}
-            <a href={CAL_URL} target="_blank" rel="noopener noreferrer" className="link">
+            <a href={CAL_URL} className="link">
               Book a 20-minute fit call
             </a>
           </p>

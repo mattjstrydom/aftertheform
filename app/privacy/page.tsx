@@ -1,24 +1,29 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { Slot } from "../components/ph";
+import { site } from "../site.config";
+import { pageMetadata } from "../seo";
 
-export const metadata: Metadata = {
-  title: "Privacy policy | After the Form",
-  alternates: { canonical: "/privacy" },
-  openGraph: { title: "Privacy policy | After the Form", url: "/privacy", type: "website", images: ["/opengraph-image"] },
-};
+export const metadata = pageMetadata({
+  title: "Privacy policy",
+  description:
+    "What aftertheform.com collects, why, who sees it, how long we keep it, and how to use your rights. After the Form is a service of Reubika LLC, USA.",
+  path: "/privacy",
+});
 
-const h = "mt-12 text-2xl tracking-[-0.02em]";
+const h = "pt-8 text-title-s";
 
 export default function Privacy() {
   return (
     <>
-      <Header />
-    <main id="main" tabIndex={-1} className="wrap py-16">
-      <div className="prose-col">
-        <h1 className="text-4xl tracking-[-0.03em]">Privacy policy</h1>
-        <p className="text-grey">Last updated 6 October 2026</p>
+      <Header path="/privacy" />
+    <main id="main" tabIndex={-1} className="container-site pb-20 pt-12 sm:pt-16">
+      <div className="max-w-[64ch] space-y-5 text-text-l [&_code]:font-mono [&_code]:text-[0.9em]">
+        <h1 className="text-title-l">Privacy policy</h1>
+        <p className="text-gray-600">
+          Last updated <Slot value={site.privacyLastUpdated} />
+        </p>
 
         <p>
           This policy explains what personal data aftertheform.com collects, why, who sees it and what
@@ -29,9 +34,10 @@ export default function Privacy() {
 
         <h2 className={h}>What we collect</h2>
         <p>
-          <strong>When you request a check.</strong> Your name, work email, company website, Marketing Hub
-          tier and any note you choose to write. We use it to reply to you, to decide whether the service is
-          a fit, and to prepare for a call if we have one.
+          <strong>When you book a call or request a teardown.</strong> If you book a fit call through Cal.com,
+          we receive the details you enter when booking. If you request a teardown, we receive your name, work
+          email, the page your ads point to and any note you choose to write. We use it to reply to you, to
+          decide whether the service is a fit, and to prepare for a call if we have one.
         </p>
         <p>
           <strong>When you email us.</strong> Your email address and whatever you send.
@@ -71,12 +77,14 @@ export default function Privacy() {
         <ul className="list-disc space-y-2 pl-6">
           <li><strong>Vercel</strong>: hosts the site.</li>
           <li><strong>Sequenzy</strong>: stores your request and lets us email you about it.</li>
+          <li><strong>Cal.com</strong>: books fit calls.</li>
+          <li><strong>Stripe</strong>: invoices and payments.</li>
           <li><strong>Google (Tag Manager and any tags loaded through it)</strong>: analytics and advertising measurement, only after you accept.</li>
         </ul>
         <p>
           If you become a client, you will give us access to your Google Ads, HubSpot and Tag Manager
           accounts. We use that access only to perform the work, we record every change in the change log,
-          and we remove our access at handover. We may also disclose data where the law requires it.
+          and we remove our access at handover unless you&apos;re on the monthly plan. We may also disclose data where the law requires it.
         </p>
 
         <h2 className={h}>International transfers</h2>
@@ -117,7 +125,7 @@ export default function Privacy() {
         <h2 className={h}>Changes to this policy</h2>
         <p>When we change this policy we will update the date at the top. If a change is significant we will make that clear on the site.</p>
 
-        <p className="mt-12">
+        <p className="pt-8">
           <Link href="/" className="link">Back to After the Form</Link>
         </p>
       </div>
