@@ -2,15 +2,13 @@
 
 import { useRef, useState } from "react";
 import { TIERS, validate, type Errors, type Fields, type FormType } from "@/app/validate";
-import { site } from "@/app/site.config";
 
 const empty: Fields = { name: "", email: "", website: "", tier: "", note: "" };
 const input =
   "mt-1 block w-full rounded-chip border border-solid border-[#7b8a86] bg-gray-50 px-3 py-2.5 text-[1rem] text-black transition-colors duration-300 hover:border-black";
 
-const CAL_URL = site.calUrl;
-
-export default function RequestForm({ type = "check" }: { type?: FormType }) {
+// email and calUrl come from site.config through the (server) page, so this client bundle doesn't carry the whole config.
+export default function RequestForm({ type = "check", email, calUrl }: { type?: FormType; email: string; calUrl: string }) {
   const teardown = type === "teardown";
   const [f, setF] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Errors>({});
@@ -100,7 +98,7 @@ export default function RequestForm({ type = "check" }: { type?: FormType }) {
         <div aria-live="assertive">
           {status === "error" && (
             <p className="text-[1rem] text-error">
-              That didn&apos;t send. Check your connection and try again, or email <a href={`mailto:${site.email}`} className="link">{site.email}</a>.
+              That didn&apos;t send. Check your connection and try again, or email <a href={`mailto:${email}`} className="link">{email}</a>.
             </p>
           )}
         </div>
@@ -113,13 +111,13 @@ export default function RequestForm({ type = "check" }: { type?: FormType }) {
       </form>
       {teardown ? (
         <p className="mt-6">
-          Ready for the full check? <a href={CAL_URL} className="link">Book a 20-minute fit call</a>
+          Ready for the full check? <a href={calUrl} className="link">Book a 20-minute fit call</a>
         </p>
       ) : (
-        CAL_URL && (
+        calUrl && (
           <p className="mt-6">
             Prefer to talk first?{" "}
-            <a href={CAL_URL} className="link">
+            <a href={calUrl} className="link">
               Book a 20-minute fit call
             </a>
           </p>

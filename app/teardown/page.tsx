@@ -1,6 +1,7 @@
 import Header from "../components/header";
 import Footer from "../components/footer";
 import RequestForm from "../components/request-form";
+import { site } from "../site.config";
 import { pageMetadata } from "../seo";
 
 export const metadata = pageMetadata({
@@ -48,7 +49,7 @@ export default function Teardown() {
             </div>
             <div className="bento">
               <div className="max-w-[36rem]">
-                <RequestForm type="teardown" />
+                <RequestForm type="teardown" email={site.email} calUrl={site.calUrl} />
               </div>
             </div>
           </div>
