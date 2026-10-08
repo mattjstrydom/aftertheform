@@ -65,7 +65,7 @@ than `main` (`WORKERS_CI_BRANCH`) and Vercel previews (`VERCEL_ENV=preview`).
 
 Brand name, monogram, domain, URL, email and legal lines live in `app/site.config.ts` and feed the copy, metadata,
 JSON-LD, terms, privacy, icons and the Worker. After a rename also:
-- re-render `public/og-image.png` (its text is baked into the image) from `outreach/dev-handoff/og-image.html`;
+- re-render `public/og-image.png` (its text is baked into the image): edit `outreach/dev-handoff/assets/images/og-image.html`, run `node outreach/dev-handoff/tools/render-handoff.mjs`, copy the PNG to `public/og-image.png` (these files are outside the repo);
 - `site.config.ts` `calUrl` and `linkedin` if those change; the Cal.com event itself lives in Cal.com;
 - optional: `name` in `wrangler.jsonc` and `package.json` (the Worker name, not shown to visitors);
 - the Sequenzy `source` attribute follows `site.domain`, so new leads carry the new domain.
