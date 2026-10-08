@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Script from "next/script";
 import ConsentBanner from "./components/consent-banner";
+import { site } from "./site.config";
+import { sharedOpenGraph } from "./seo";
 
 const GTM = "GTM-NCSN8BLM";
 // Consent defaults are set first, then any saved choice is applied, then GTM loads once.
@@ -34,18 +36,13 @@ const azeret = localFont({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://www.aftertheform.com"),
-  title: "After the Form | Make Google Ads learn from qualified leads",
-  description:
-    "We fix the connection between HubSpot and Google Ads so Smart Bidding learns from the leads your sales team qualifies. $1,200 fixed, done within 7 business days.",
-  alternates: { canonical: "https://www.aftertheform.com" },
-  openGraph: {
-    title: "After the Form | Make Google Ads learn from qualified leads",
-    description:
-      "We fix the connection between HubSpot and Google Ads so Smart Bidding learns from the leads your sales team qualifies. $1,200 fixed, done within 7 business days.",
-    url: "https://www.aftertheform.com",
-    type: "website",
-  },
+  metadataBase: new URL(site.url),
+  title: { default: "After the Form | Make Google Ads bid on pipeline", template: "%s | After the Form" },
+  applicationName: "After the Form",
+  openGraph: { ...sharedOpenGraph },
+  twitter: { card: "summary_large_image" },
+  // Non-production builds (previews, local) are noindex; next.config.ts adds the matching X-Robots-Tag header.
+  ...(site.indexable ? {} : { robots: { index: false, follow: false } }),
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

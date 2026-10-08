@@ -6,7 +6,6 @@ import { CalButton, SampleButton } from "./components/cta";
 
 export const metadata: Metadata = {
   title: "Page not found",
-  robots: { index: false },
 };
 
 export default function NotFound() {
