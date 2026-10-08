@@ -4,8 +4,16 @@ export type Cert = { name: string; verifyUrl: string };
 export type CaseStudy = { title: string; body: string; attribution: string };
 
 export const site = {
+  // Brand, domain, email and legal lines: the single source for copy, metadata, JSON-LD, terms, privacy, icons and the
+  // form API. A rename is a change here plus re-rendering public/og-image.png (its text is baked into the image).
+  brand: "After the Form",
+  monogram: "AF", // favicon and apple icon
+  domain: "aftertheform.com", // apex; redirects to url
   url: "https://www.aftertheform.com",
   email: "hello@aftertheform.com",
+  legalName: "Reubika LLC",
+  legalShort: "Reubika LLC, USA", // "<brand> is a service of <legalShort>"
+  legalEntity: "Reubika LLC, a New Mexico limited liability company", // Terms 1.1
   linkedin: "https://www.linkedin.com/in/mattstrydom",
   // Confirmed by Matt (8 Oct 2026). NEXT_PUBLIC_CAL_URL overrides it at build time if the event ever changes.
   calUrl: process.env.NEXT_PUBLIC_CAL_URL || "https://cal.com/aftertheform/20min-fit",
@@ -25,10 +33,7 @@ export const site = {
     "If the dispute isn't settled, the state and federal courts located in New Mexico have exclusive jurisdiction, and each of us submits to it.",
     "Nothing in this clause stops either of us from asking any court for urgent interim relief.",
   ],
-  dpaPosition: "{{DPA_POSITION}}", // Terms 9.6: placeholder until Steve sends the final text
-  terms13Pending: "{{TERMS_13_CONFIRM}}", // Terms 13: placeholder until Steve sends the final text
-  // Privacy "Who we share it with": where working files and recordings are stored (Matt's own tools, never an employer's).
-  workingFilesTools: "{{WORKING_FILES_TOOLS}}",
+  // Set both to the publish date at deploy, for example "12 October 2026".
   privacyLastUpdated: "{{PRIVACY_LAST_UPDATED}}",
   termsLastUpdated: "{{TERMS_LAST_UPDATED}}",
 

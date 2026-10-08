@@ -1,7 +1,8 @@
 import { validate, type FormType, type Fields } from "@/app/validate";
+import { site } from "@/app/site.config";
 
 const API = "https://api.sequenzy.com/api/v1";
-const NOTIFY_TO = "hello@aftertheform.com";
+const NOTIFY_TO = site.email;
 
 const str = (v: unknown) => (typeof v === "string" ? v : "");
 const esc = (s: string) =>
@@ -58,7 +59,7 @@ export async function POST(req: Request) {
         fullName: f.name,
         note: f.note,
         requestType: type,
-        source: type === "teardown" ? "aftertheform.com/teardown" : "aftertheform.com",
+        source: type === "teardown" ? `${site.domain}/teardown` : site.domain,
         website: f.website,
         ...(type === "check" ? { marketingHubTier: f.tier } : {}),
       },

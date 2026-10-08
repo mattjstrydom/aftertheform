@@ -18,23 +18,18 @@ import C3Finding from "./components/c3-finding";
 import C4Count from "./components/c4-count";
 import { site } from "./site.config";
 import { motionScript } from "./motion-script";
+import { sharedOpenGraph, ogImage } from "./seo";
 
+const homeTitle = `${site.brand} | Make Google Ads bid on pipeline`;
 const description =
   "We fix the HubSpot to Google Ads connection so Smart Bidding learns from the leads your sales team qualifies, not form fills. $1,200, fixed.";
 
 export const metadata: Metadata = {
-  title: { absolute: "After the Form | Make Google Ads bid on pipeline" },
+  title: { absolute: homeTitle },
   description,
   alternates: { canonical: "/" },
-  openGraph: {
-    siteName: "After the Form",
-    locale: "en_ZA",
-    type: "website",
-    url: "/",
-    title: "After the Form | Make Google Ads bid on pipeline",
-    description,
-  },
-  twitter: { card: "summary_large_image", title: "After the Form | Make Google Ads bid on pipeline", description },
+  openGraph: { ...sharedOpenGraph, url: "/", title: homeTitle, description, images: [ogImage] },
+  twitter: { card: "summary_large_image", title: homeTitle, description, images: [ogImage] },
 };
 
 const checks: { q: string; more?: string; mock?: React.ReactNode }[] = [
@@ -187,34 +182,34 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Where are you based, and how do we pay?",
-    a: "Matt works from South Africa. After the Form is a service of Reubika LLC, a US company. We invoice in USD through Stripe.",
+    a: `Matt works from South Africa. ${site.brand} is a service of ${site.legalName}, a US company. We invoice in USD through Stripe.`,
   },
 ];
 
-const ORG = "https://www.aftertheform.com/#organization";
+const ORG = `${site.url}/#organization`;
 const jsonLd = {
   "@context": "https://schema.org",
   "@graph": [
     {
       "@type": "Organization",
       "@id": ORG,
-      name: "After the Form",
-      legalName: "Reubika LLC",
-      url: "https://www.aftertheform.com",
-      email: "hello@aftertheform.com",
+      name: site.brand,
+      legalName: site.legalName,
+      url: site.url,
+      email: site.email,
       description: "A fixed-price check and fix of the HubSpot to Google Ads connection, so Smart Bidding learns from qualified leads.",
-      founder: { "@type": "Person", "@id": "https://www.aftertheform.com/#matt", name: "Matt Strydom", sameAs: ["https://www.linkedin.com/in/mattstrydom"] },
+      founder: { "@type": "Person", "@id": `${site.url}/#matt`, name: "Matt Strydom", sameAs: [site.linkedin] },
     },
-    { "@type": "WebSite", "@id": "https://www.aftertheform.com/#website", url: "https://www.aftertheform.com", name: "After the Form", inLanguage: "en-ZA", publisher: { "@id": ORG } },
+    { "@type": "WebSite", "@id": `${site.url}/#website`, url: site.url, name: site.brand, inLanguage: "en-ZA", publisher: { "@id": ORG } },
     {
       "@type": "Service",
-      "@id": "https://www.aftertheform.com/#check",
+      "@id": `${site.url}/#check`,
       name: "HubSpot to Google Ads conversion check and fix",
       serviceType: "Conversion tracking audit and fix",
       provider: { "@id": ORG },
       description:
         "Seven checks of the HubSpot to Google Ads connection, fixes to the settings that need changing, a report, a change log with how to reverse each change, and a day 30 recheck.",
-      offers: { "@type": "Offer", price: "1200", priceCurrency: "USD", url: "https://www.aftertheform.com/#pricing" },
+      offers: { "@type": "Offer", price: "1200", priceCurrency: "USD", url: `${site.url}/#pricing` },
     },
   ],
 };
@@ -244,7 +239,7 @@ export default function Home() {
                 Google Ads should bid on pipeline, <Accent>not form fills.</Accent>
               </h1>
               <p className="text-text-l max-w-[33.75rem]">
-                We fix the connection between HubSpot and Google Ads, so Smart Bidding can learn from the leads your sales team qualifies. Fixed price, fixed scope, delivered within 7 business days of access.
+                We check how HubSpot sends lifecycle stages to Google Ads and fix it inside your own accounts, with your sign-off, so Smart Bidding uses the stages your sales team qualifies. Fixed price, fixed scope, delivered within 7 business days of access.
               </p>
               <div className="mt-4 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
                 <CalButton className="w-full sm:w-auto" />
@@ -270,11 +265,11 @@ export default function Home() {
         <section id="problem" aria-labelledby="problem-title" className="section-y">
           <div className="container-site">
             <SectionHead id="problem" chip="The problem">
-              Smart Bidding can only learn <Accent>from what you tell it</Accent>
+              A stage that syncs <Accent>isn&apos;t always a stage that bids</Accent>
             </SectionHead>
             <div className="mt-10 grid gap-5 lg:grid-cols-3">
               <div className="bento text-text-l">
-                <p>If your primary conversion is a form fill, Google Ads goes looking for more form fills. It can&apos;t see which of those leads your sales team qualified and which went nowhere.</p>
+                <p>If HubSpot already sends your lifecycle stages to Google Ads, the question is whether Smart Bidding uses them. A stage set as Secondary, or outside the goal your campaigns bid on, is reported but never bid on.</p>
               </div>
               <div className="bento space-y-4 text-text-m">
                 <p>
@@ -439,7 +434,7 @@ export default function Home() {
 
                 <dl className="mt-8 grid grid-cols-1 gap-x-6 gap-y-1 text-[1rem] leading-[1.5] tracking-[-0.02em] sm:grid-cols-[120px_1fr] sm:gap-y-3">
                   <dt className="text-gray-600">Company</dt>
-                  <dd className="mb-3 sm:mb-0">After the Form is a service of Reubika LLC, USA. Invoices in USD through Stripe.</dd>
+                  <dd className="mb-3 sm:mb-0">{site.brand} is a service of {site.legalShort}. Invoices in USD through Stripe.</dd>
                   <dt className="text-gray-600">Reply time</dt>
                   <dd className="mb-3 sm:mb-0">
                     <Slot value={site.replyTime} />
@@ -461,7 +456,7 @@ export default function Home() {
             <div className="bento mt-5 grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-12">
               <div>
                 <h3 className="text-title-m">
-                  Monthly plan: <Accent small>we watch the connection for you</Accent>
+                  Monthly plan: <Accent small>we keep the connection fixed</Accent>
                 </h3>
                 <p className="mt-4 text-text-l">A monitored-accounts plan, not an hours bank.</p>
               </div>

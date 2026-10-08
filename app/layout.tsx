@@ -4,7 +4,7 @@ import "./globals.css";
 import Script from "next/script";
 import ConsentBanner from "./components/consent-banner";
 import { site } from "./site.config";
-import { sharedOpenGraph } from "./seo";
+import { sharedOpenGraph, ogImage } from "./seo";
 
 const GTM = "GTM-NCSN8BLM";
 // Consent defaults are set first, then any saved choice is applied. GTM itself loads once, after the load event
@@ -43,10 +43,10 @@ const azeret = localFont({
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: { default: "After the Form | Make Google Ads bid on pipeline", template: "%s | After the Form" },
-  applicationName: "After the Form",
-  openGraph: { ...sharedOpenGraph },
-  twitter: { card: "summary_large_image" },
+  title: { default: `${site.brand} | Make Google Ads bid on pipeline`, template: `%s | ${site.brand}` },
+  applicationName: site.brand,
+  openGraph: { ...sharedOpenGraph, images: [ogImage] },
+  twitter: { card: "summary_large_image", images: [ogImage] },
   // Non-production builds (previews, local) are noindex; next.config.ts adds the matching X-Robots-Tag header.
   ...(site.indexable ? {} : { robots: { index: false, follow: false } }),
 };

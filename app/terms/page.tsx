@@ -7,8 +7,7 @@ import { pageMetadata } from "../seo";
 
 export const metadata = pageMetadata({
   title: "Terms of service",
-  description:
-    "Terms for the After the Form check and fix, the agency pilot and the monthly plan: prices, payment, scope, the fix cap, refunds, access and liability.",
+  description: `Terms for the ${site.brand} check and fix, the agency pilot and the monthly plan: prices, payment, scope, the fix cap, refunds, access and liability.`,
   path: "/terms",
 });
 
@@ -36,7 +35,7 @@ export default function Terms() {
 
           <h2 id="clause-1" className={h2}>1. Who we are</h2>
           <C n="1.1">
-            &quot;We&quot; and &quot;us&quot; means Reubika LLC, a New Mexico limited liability company, trading as After the Form. &quot;You&quot; means the business that buys from us. That can be an agency buying for one of its clients, or a company buying for itself.
+            &quot;We&quot; and &quot;us&quot; means {site.legalEntity}, trading as {site.brand}. &quot;You&quot; means the business that buys from us. That can be an agency buying for one of its clients, or a company buying for itself.
           </C>
           <C n="1.2">These terms apply to the check and fix (including the agency pilot) and to the monthly plan. They also apply to any extra work we quote in writing.</C>
 
@@ -115,8 +114,69 @@ export default function Terms() {
           <C n="9.4">We delete working files within 30 days of the work ending.</C>
           <C n="9.5">For personal data in your accounts, we act only on your instructions, as a processor.</C>
           <C n="9.6">
-            <Slot value={site.dpaPosition} />
+            <strong className="font-medium">Data processing terms.</strong> When we process personal data for you under these terms, this clause is our data processing agreement, including for article 28 of the UK GDPR and the EU GDPR. If you&apos;re an agency acting for your client, we act as your sub-processor on the same terms.
           </C>
+          <div className="space-y-3 pl-6">
+            <p>
+              <strong className="font-medium">(a) Subject matter and duration:</strong> the work in these terms, for as long as we have access to your accounts, plus the 30 days in clause 9.4.
+            </p>
+            <p>
+              <strong className="font-medium">(b) Nature and purpose:</strong> reviewing and changing settings in your HubSpot, Google Ads and Tag Manager accounts, testing conversions, and preparing the report, change log and recorded walkthrough of the report. We don&apos;t record calls with you unless you agree in writing beforehand.
+            </p>
+            <p>
+              <strong className="font-medium">(c) Types of personal data:</strong> contact and lead data in your accounts that we see while doing the work, such as names, work email addresses, lifecycle stages, form submissions and click IDs, and the names and email addresses of your account users. We don&apos;t export or copy contact records (clause 9.3).
+            </p>
+            <p>
+              <strong className="font-medium">(d) Data subjects:</strong> your contacts and leads, and the users of your accounts.
+            </p>
+            <p>
+              <strong className="font-medium">(e) Instructions:</strong> we process personal data only on your documented instructions. Those are these terms, the fix list you approve, and your written instructions by email. We&apos;ll tell you if we think an instruction breaks data protection law.
+            </p>
+            <p>
+              <strong className="font-medium">(f) Confidentiality:</strong> anyone who works on your accounts is bound by confidentiality.
+            </p>
+            <p>
+              <strong className="font-medium">(g) Security:</strong> we keep the measures in clauses 9.1 to 9.4: named user invites, two-step login, only the access the work needs, no exports, blurred screenshots, and deletion of working files within 30 days of the work ending.
+            </p>
+            <p>
+              <strong className="font-medium">(h) Sub-processors:</strong>
+            </p>
+            <ul className={list}>
+              <li>You authorise us to use the providers listed in our <Link href="/privacy" className="link">privacy policy</Link> as sub-processors.</li>
+              <li>We keep working files, including screenshots, the walkthrough recording and any call recording you agreed to, only in accounts that {site.legalName} holds with those providers.</li>
+              <li>We&apos;ll email you at least 14 days before we add or replace a sub-processor. You can object in that time.</li>
+              <li>If we can&apos;t resolve your objection, you can end the work, and we&apos;ll refund fees for work we haven&apos;t done.</li>
+            </ul>
+            <p>
+              <strong className="font-medium">(i) Assistance:</strong> as far as we reasonably can, we help you answer requests from people using their data protection rights. We also help with security, breach notifications, impact assessments and consultations with regulators.
+            </p>
+            <p>
+              <strong className="font-medium">(j) Breaches:</strong> we tell you without undue delay after we become aware of a personal data breach affecting your data.
+            </p>
+            <p>
+              <strong className="font-medium">(k) End of the work:</strong> we delete your personal data as set out in clause 9.4, unless the law requires us to keep it. We&apos;ll confirm the deletion if you ask.
+            </p>
+            <p>
+              <strong className="font-medium">(l) Audits:</strong> we give you the information you need to show compliance with this clause. We also allow audits by you, or by an auditor you appoint, on reasonable notice and at your cost, no more than once a year unless a regulator requires it.
+            </p>
+            <p>
+              <strong className="font-medium">(m) International transfers:</strong>
+            </p>
+            <ul className={list}>
+              <li>We work from South Africa, and our company is in the United States.</li>
+              <li>
+                Where data protection law requires a safeguard for a transfer, these apply and form part of these terms:
+                <ul className="mt-2 list-[circle] space-y-2 pl-6">
+                  <li>the EU standard contractual clauses (Commission Implementing Decision (EU) 2021/914, module two, controller to processor);</li>
+                  <li>for UK data, the UK International Data Transfer Addendum.</li>
+                </ul>
+              </li>
+              <li>The details those clauses need are in (a) to (d), and the security measures are in (g).</li>
+            </ul>
+            <p>
+              <strong className="font-medium">(n) Signed copy:</strong> if you need a signed copy of these data processing terms, ask before kickoff and we&apos;ll sign one.
+            </p>
+          </div>
 
           <h2 id="clause-10" className={h2}>10. White-label work for agencies</h2>
           <C n="10.1">We never contact your client unless you invite us.</C>
@@ -141,14 +201,11 @@ export default function Terms() {
           ))}
 
           <h2 id="clause-13" className={h2}>13. Changes to these terms</h2>
-          <p>
-            We may update these terms. A check and fix or pilot stays under the version in force when you paid the kickoff invoice. For the monthly plan, we give at least 30 days&apos; notice by email before a change applies, and you can cancel before it takes effect without the 30-day notice in clause 6.4 (the 3-month minimum still applies).
-          </p>
-          {site.terms13Pending && (
-            <p>
-              <Slot value={site.terms13Pending} />
-            </p>
-          )}
+          <C n="13.1">We may update these terms. We&apos;ll publish the new version on this page with a new &quot;last updated&quot; date.</C>
+          <C n="13.2">A check and fix or pilot stays under the version in force when you paid its kickoff invoice.</C>
+          <C n="13.3">
+            For the monthly plan, we&apos;ll email you at least 30 days before a change applies to you. A change doesn&apos;t apply during your 3-month minimum unless the law, or a change that Google or HubSpot makes, requires it. If you don&apos;t accept a change, you can cancel by email before it takes effect. You won&apos;t need to give the 30-day notice in clause 6.4, and if the change applies during your 3-month minimum, you won&apos;t pay for the rest of the minimum.
+          </C>
 
           <h2 id="contact" className={h2}>Contact</h2>
           <p>
@@ -156,7 +213,7 @@ export default function Terms() {
           </p>
 
           <p className="pt-8">
-            <Link href="/" className="link">Back to After the Form</Link>
+            <Link href="/" className="link">Back to {site.brand}</Link>
           </p>
         </article>
       </main>

@@ -1,9 +1,10 @@
 import type { NextConfig } from "next";
+import { site } from "./app/site.config";
 
-// Same rule as site.indexable in app/site.config.ts: only the production build is indexable. On Cloudflare Workers
-// Builds that is the build of the main branch (WORKERS_CI_BRANCH); SITE_INDEXABLE=1 forces it; VERCEL_ENV keeps Vercel working.
-const indexable =
-  process.env.VERCEL_ENV === "production" || process.env.SITE_INDEXABLE === "1" || process.env.WORKERS_CI_BRANCH === "main";
+// Only the production build is indexable (site.indexable: Workers Builds of main, SITE_INDEXABLE=1, or Vercel production).
+const indexable = site.indexable;
+const apex = site.domain;
+const canonicalHost = new URL(site.url).host;
 
 // Google hosts for GA4 through GTM only (Matt, 8 Oct 2026: no other tags), from Google's tag CSP guide
 // (https://developers.google.com/tag-platform/security/guides/csp, "Google Analytics" with Ads-linked features, checked
@@ -51,7 +52,8 @@ const nextConfig: NextConfig = {
   },
   // Apex to www (canonical host). Hosts usually do this at the edge too; this keeps it host-independent.
   async redirects() {
-    return [{ source: "/:path*", has: [{ type: "host", value: "aftertheform.com" }], destination: "https://www.aftertheform.com/:path*", permanent: true }];
+    if (apex === canonicalHost) return [];
+    return [{ source: "/:path*", has: [{ type: "host", value: apex }], destination: `${site.url}/:path*`, permanent: true }];
   },
   // browsers probe /favicon.ico regardless of <link rel=icon>
   async rewrites() {

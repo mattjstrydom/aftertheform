@@ -99,7 +99,7 @@ export default function RequestForm({ type = "check" }: { type?: FormType }) {
         <div aria-live="assertive">
           {status === "error" && (
             <p className="text-[1rem] text-error">
-              That didn&apos;t send. Check your connection and try again, or email <a href="mailto:hello@aftertheform.com" className="link">hello@aftertheform.com</a>.
+              That didn&apos;t send. Check your connection and try again, or email <a href={`mailto:${site.email}`} className="link">{site.email}</a>.
             </p>
           )}
         </div>

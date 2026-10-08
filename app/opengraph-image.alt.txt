@@ -1,1 +1,0 @@
-After the Form: Google Ads should bid on pipeline, not form fills. Example of a HubSpot SQL counted for bidding in Google Ads.

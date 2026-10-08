@@ -6,6 +6,7 @@ import { Chip, TickPath } from "../components/ui";
 import { CountTable } from "../components/c4-count";
 import { ConsentMock, ConversionMock, CookieMock } from "../components/mocks";
 import { pageMetadata } from "../seo";
+import { site } from "../site.config";
 
 export const metadata = pageMetadata({
   title: "Sample report: HubSpot to Google Ads check",
@@ -101,7 +102,7 @@ export default function SampleReport() {
       <main id="main" tabIndex={-1}>
         <div className="container-site pb-16 pt-12 sm:pb-24 sm:pt-16">
           <section aria-labelledby="report-title">
-            <Chip>After the Form report</Chip>
+            <Chip>{site.brand} report</Chip>
             <h1 id="report-title" className="mt-4 text-title-l">Sample report</h1>
             <p className="mt-6 max-w-[62ch] text-text-l">
               This is an example of what you receive, built on a fictional account. The company, the figures and the screenshots are illustrative. They are not a client result.

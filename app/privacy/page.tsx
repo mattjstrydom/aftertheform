@@ -7,8 +7,7 @@ import { pageMetadata } from "../seo";
 
 export const metadata = pageMetadata({
   title: "Privacy policy",
-  description:
-    "What aftertheform.com collects, why, who sees it, how long we keep it, and how to use your rights. After the Form is a service of Reubika LLC, USA.",
+  description: `What ${site.domain} collects, why, who sees it, how long we keep it, and how to use your rights. ${site.brand} is a service of ${site.legalShort}.`,
   path: "/privacy",
 });
 
@@ -26,10 +25,10 @@ export default function Privacy() {
         </p>
 
         <p>
-          This policy explains what personal data aftertheform.com collects, why, who sees it and what
-          your choices are. After the Form is run by Matt Strydom through Reubika LLC, USA (&quot;we&quot;,
+          This policy explains what personal data {site.domain} collects, why, who sees it and what
+          your choices are. {site.brand} is run by Matt Strydom through {site.legalShort} (&quot;we&quot;,
           &quot;us&quot;). We are the controller of the data described here. Contact us at{" "}
-          <a href="mailto:hello@aftertheform.com" className="link">hello@aftertheform.com</a>.
+          <a href={`mailto:${site.email}`} className="link">{site.email}</a>.
         </p>
 
         <h2 className={h}>What we collect</h2>
@@ -77,7 +76,7 @@ export default function Privacy() {
         <p>We do not sell your personal data. We use these providers to run the site and the service:</p>
         <ul className="list-disc space-y-2 pl-6">
           <li>
-            <strong>Cloudflare</strong>: hosts the site. (<a href="https://www.cloudflare.com/privacypolicy/" className="link">privacy policy</a>,{" "}
+            <strong>Cloudflare</strong>: hosts the site and protects it from abuse. (<a href="https://www.cloudflare.com/privacypolicy/" className="link">privacy policy</a>,{" "}
             <a href="https://www.cloudflare.com/cloudflare-customer-dpa/" className="link">DPA</a>)
           </li>
           <li>
@@ -86,7 +85,7 @@ export default function Privacy() {
           </li>
           <li>
             <strong>Google (Tag Manager, and Google Analytics 4 loaded through it)</strong>: measures how the site is used, only after you accept
-            cookies. (<a href="https://policies.google.com/privacy" className="link">privacy policy</a>,{" "}
+            cookies. Google Analytics 4 is the only tag we load. We&apos;ll update this policy before we add any advertising tags. (<a href="https://policies.google.com/privacy" className="link">privacy policy</a>,{" "}
             <a href="https://policies.google.com/technologies/partner-sites" className="link">how Google uses data from sites that use its services</a>)
           </li>
           <li>
@@ -98,11 +97,13 @@ export default function Privacy() {
             <a href="https://stripe.com/privacy" className="link">privacy policy</a>, <a href="https://stripe.com/legal/dpa" className="link">DPA</a>)
           </li>
           <li>
-            <strong>MXroute</strong>: hosts our email inbox (hello@aftertheform.com). (<a href="https://mxroute.com/terms" className="link">terms</a>,{" "}
+            <strong>MXroute</strong>: hosts our email inbox ({site.email}). (<a href="https://mxroute.com/terms" className="link">terms</a>,{" "}
             <a href="https://docs.mxroute.com/docs/general/gdpr.html" className="link">GDPR statement</a>)
           </li>
           <li>
-            <Slot value={site.workingFilesTools} />, only if you become a client.
+            <strong>Google Workspace</strong>: our work email for outreach, and where we keep client working files (only if you become a client). (
+            <a href="https://cloud.google.com/terms/cloud-privacy-notice" className="link">Google Cloud privacy notice</a>,{" "}
+            <a href="https://cloud.google.com/terms/data-processing-addendum" className="link">data processing addendum</a>)
           </li>
         </ul>
         <p>
@@ -121,7 +122,8 @@ export default function Privacy() {
 
         <h2 className={h}>How long we keep it</h2>
         <p>
-          Teardown requests and booking details that don&apos;t lead to an engagement are deleted within 24 months. If you become a client we
+          Teardown requests and booking details that don&apos;t lead to an engagement are deleted within 24 months. Details of
+          people we emailed about our service are deleted within 12 months of our last email, apart from do-not-contact entries. If you become a client we
           keep the work records for the length of the engagement and then for as long as tax and accounting
           rules require. Analytics data follows the retention settings of the analytics tool and is not
           collected at all if you decline cookies. You can ask us to delete your data sooner.
@@ -133,7 +135,7 @@ export default function Privacy() {
           right to access your data, correct it, delete it, restrict or object to its use, receive a copy in
           a portable format, withdraw consent, and not be discriminated against for using these rights.
           Email{" "}
-          <a href="mailto:hello@aftertheform.com" className="link">hello@aftertheform.com</a> and we will
+          <a href={`mailto:${site.email}`} className="link">{site.email}</a> and we will
           respond within one month. You can also complain to your local data protection authority.
         </p>
         <p>We do not sell or share personal information for cross-context behavioural advertising as those terms are defined in California law.</p>
@@ -150,7 +152,7 @@ export default function Privacy() {
         <p>When we change this policy we will update the date at the top. If a change is significant we will make that clear on the site.</p>
 
         <p className="pt-8">
-          <Link href="/" className="link">Back to After the Form</Link>
+          <Link href="/" className="link">Back to {site.brand}</Link>
         </p>
       </div>
     </main>
