@@ -1,32 +1,17 @@
-"use client";
+// Native <details name="faq"> accordion: zero JS, keyboard support built in, one open at a time.
+export type FaqItem = { q: string; a: React.ReactNode; aText: string };
 
-import { useState } from "react";
-
-export default function Faq({ items }: { items: { q: string; a: string }[] }) {
-  const [open, setOpen] = useState<number | null>(null);
+export default function Faq({ items }: { items: FaqItem[] }) {
   return (
-    <div>
-      {items.map(({ q, a }, i) => (
-        <div key={q} className="border-b border-hairline last:border-0">
-          <h3 className="text-lg">
-            <button
-              type="button"
-              id={`faq-b-${i}`}
-              aria-expanded={open === i}
-              aria-controls={`faq-p-${i}`}
-              onClick={() => setOpen(open === i ? null : i)}
-              className="flex w-full items-center justify-between gap-6 py-5 text-left font-medium"
-            >
-              {q}
-              <span aria-hidden="true" className="text-2xl leading-none text-grey">
-                {open === i ? "−" : "+"}
-              </span>
-            </button>
-          </h3>
-          <div id={`faq-p-${i}`} role="region" aria-labelledby={`faq-b-${i}`} hidden={open !== i}>
-            <p className="max-w-[64ch] pb-5 text-grey">{a}</p>
-          </div>
-        </div>
+    <div className="faq">
+      {items.map(({ q, a }) => (
+        <details key={q} name="faq" className="border-t border-gray-100 first:border-0">
+          <summary className="flex justify-between gap-6 py-5 text-text-xl font-medium">
+            {q}
+            <span className="faq-icon" aria-hidden="true" />
+          </summary>
+          <p className="max-w-[64ch] pb-5 text-gray-600">{a}</p>
+        </details>
       ))}
     </div>
   );
