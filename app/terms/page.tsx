@@ -36,7 +36,7 @@ export default function Terms() {
 
           <h2 id="clause-1" className={h2}>1. Who we are</h2>
           <C n="1.1">
-            &quot;We&quot; and &quot;us&quot; means Reubika LLC, a US company, trading as After the Form. &quot;You&quot; means the business that buys from us. That can be an agency buying for one of its clients, or a company buying for itself.
+            &quot;We&quot; and &quot;us&quot; means Reubika LLC, a New Mexico limited liability company, trading as After the Form. &quot;You&quot; means the business that buys from us. That can be an agency buying for one of its clients, or a company buying for itself.
           </C>
           <C n="1.2">These terms apply to the check and fix (including the agency pilot) and to the monthly plan. They also apply to any extra work we quote in writing.</C>
 
@@ -134,9 +134,11 @@ export default function Terms() {
           <C n="11.4">Google and HubSpot change their products, features and documentation, and that&apos;s outside our control.</C>
 
           <h2 id="clause-12" className={h2}>12. Governing law and venue</h2>
-          <p>
-            <Slot value={site.governingLaw} />
-          </p>
+          {site.governingLaw.map((t, i) => (
+            <C key={i} n={`12.${i + 1}`}>
+              {t}
+            </C>
+          ))}
 
           <h2 id="clause-13" className={h2}>13. Changes to these terms</h2>
           <p>

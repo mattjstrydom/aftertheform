@@ -144,27 +144,22 @@ const faqs: FaqItem[] = [
   {
     q: "Do I need Marketing Hub Professional?",
     a: "No. Marketing Hub Starter supports lifecycle stage conversion events too, up to five events. Professional allows up to 50 and Enterprise up to 100.",
-    aText: "No. Marketing Hub Starter supports lifecycle stage conversion events too, up to five events. Professional allows up to 50 and Enterprise up to 100.",
   },
   {
     q: "Will this disrupt my campaigns?",
     a: "Changing primary conversions changes what Smart Bidding optimises for. That's the point of the work. Google says bidding takes 1 to 2 conversion cycles in most cases to relearn after a change, so we agree each change and its timing with you before we make it.",
-    aText: "Changing primary conversions changes what Smart Bidding optimises for. That's the point of the work. Google says bidding takes 1 to 2 conversion cycles in most cases to relearn after a change, so we agree each change and its timing with you before we make it.",
   },
   {
     q: "Does lead volume matter?",
     a: "Yes. Google says the learning period depends on the number of conversions, and suggests judging performance over the last 30 days with at least 30 conversions. If a qualified stage only gets a handful a month, we'll tell you in the report.",
-    aText: "Yes. Google says the learning period depends on the number of conversions, and suggests judging performance over the last 30 days with at least 30 conversions. If a qualified stage only gets a handful a month, we'll tell you in the report.",
   },
   {
     q: "Will past leads be fixed too?",
     a: "HubSpot's own sync only counts stage changes that happen after an event is created. If the fix uses Google's Data Manager connection, Google imports the last 14 days of HubSpot data on the first run. Either way, results count from handover forward.",
-    aText: "HubSpot's own sync only counts stage changes that happen after an event is created. If the fix uses Google's Data Manager connection, Google imports the last 14 days of HubSpot data on the first run. Either way, results count from handover forward.",
   },
   {
     q: "Will my HubSpot and Google Ads counts match after the fix?",
     a: "Not necessarily. HubSpot says the totals may not match because Google calculates each metric differently. We explain the gap in the report and fix the parts that are errors.",
-    aText: "Not necessarily. HubSpot says the totals may not match because Google calculates each metric differently. We explain the gap in the report and fix the parts that are errors.",
   },
   {
     q: "Do you work with agencies?",
@@ -173,7 +168,6 @@ const faqs: FaqItem[] = [
         Yes. Agencies can buy a check for a client and deliver it under their own name. See “<Link href="#agencies" className="link">For agencies: the pilot</Link>”.
       </>
     ),
-    aText: "Yes. Agencies can buy a check for a client and deliver it under their own name. See “For agencies: the pilot”.",
   },
   {
     q: "What access do you need, and is it safe?",
@@ -182,23 +176,18 @@ const faqs: FaqItem[] = [
         Admin on your individual Google Ads account, Publish access to HubSpot&apos;s ads tools at minimum, and Tag Manager only if a tag needs changing. Named invites only, every change logged with how to reverse it. See “<Link href="#access" className="link">Access and security</Link>”.
       </>
     ),
-    aText:
-      "Admin on your individual Google Ads account, Publish access to HubSpot's ads tools at minimum, and Tag Manager only if a tag needs changing. Named invites only, every change logged with how to reverse it. See “Access and security”.",
   },
   {
     q: "Will you change our website?",
     a: "No. We work in Google Ads, HubSpot and Tag Manager settings. Code changes outside Tag Manager aren't included.",
-    aText: "No. We work in Google Ads, HubSpot and Tag Manager settings. Code changes outside Tag Manager aren't included.",
   },
   {
     q: "What happens after handover?",
     a: "Every change is in the change log, and we recheck your counts for free at day 30. If you'd like us to keep watching the connection, that's the monthly plan. We remove our access at handover unless you're on the monthly plan.",
-    aText: "Every change is in the change log, and we recheck your counts for free at day 30. If you'd like us to keep watching the connection, that's the monthly plan. We remove our access at handover unless you're on the monthly plan.",
   },
   {
     q: "Where are you based, and how do we pay?",
     a: "Matt works from South Africa. After the Form is a service of Reubika LLC, a US company. We invoice in USD through Stripe.",
-    aText: "Matt works from South Africa. After the Form is a service of Reubika LLC, a US company. We invoice in USD through Stripe.",
   },
 ];
 
@@ -227,7 +216,6 @@ const jsonLd = {
         "Seven checks of the HubSpot to Google Ads connection, fixes to the settings that need changing, a report, a change log with how to reverse each change, and a day 30 recheck.",
       offers: { "@type": "Offer", price: "1200", priceCurrency: "USD", url: "https://www.aftertheform.com/#pricing" },
     },
-    { "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.aText } })) },
   ],
 };
 

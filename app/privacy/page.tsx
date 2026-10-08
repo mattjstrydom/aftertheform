@@ -43,10 +43,11 @@ export default function Privacy() {
           <strong>When you email us.</strong> Your email address and whatever you send.
         </p>
         <p>
-          <strong>When you visit the site, and only if you accept cookies.</strong> Analytics and advertising
-          measurement data, such as pages viewed, referrer, approximate location, device and browser
-          details, and cookie identifiers. These are loaded through Google Tag Manager and are switched off
-          until you press Accept.
+          <strong>When you visit the site, and only if you accept cookies.</strong> Google Analytics 4 measures
+          pages viewed, referrer, approximate location, device and browser details, and cookie identifiers.
+          It&apos;s loaded through Google Tag Manager and switched off until you press Accept. Tag Manager itself
+          loads on every visit so it can apply your choice. Google says it keeps only standard request logs
+          from it, deleted within 14 days.
         </p>
         <p>
           <strong>Technical logs.</strong> Our host records standard request data, such as IP address and
@@ -58,7 +59,7 @@ export default function Privacy() {
         <ul className="list-disc space-y-2 pl-6">
           <li>Replying to your request and taking steps you ask for before any agreement: legitimate interests, and steps at your request before entering a contract.</li>
           <li>Running a service you have bought, including access to your accounts: performance of a contract.</li>
-          <li>Analytics and advertising measurement cookies: your consent, which you can withdraw at any time.</li>
+          <li>Analytics cookies: your consent, which you can withdraw at any time.</li>
           <li>Keeping the site secure and preventing spam: legitimate interests.</li>
           <li>Keeping records we are legally required to keep, such as invoices: legal obligation.</li>
         </ul>
@@ -75,11 +76,34 @@ export default function Privacy() {
         <h2 className={h}>Who we share it with</h2>
         <p>We do not sell your personal data. We use these providers to run the site and the service:</p>
         <ul className="list-disc space-y-2 pl-6">
-          <li><strong>Vercel</strong>: hosts the site.</li>
-          <li><strong>Sequenzy</strong>: stores your request and lets us email you about it.</li>
-          <li><strong>Cal.com</strong>: books fit calls.</li>
-          <li><strong>Stripe</strong>: invoices and payments.</li>
-          <li><strong>Google (Tag Manager and any tags loaded through it)</strong>: analytics and advertising measurement, only after you accept.</li>
+          <li>
+            <strong>Cloudflare</strong>: hosts the site. (<a href="https://www.cloudflare.com/privacypolicy/" className="link">privacy policy</a>,{" "}
+            <a href="https://www.cloudflare.com/cloudflare-customer-dpa/" className="link">DPA</a>)
+          </li>
+          <li>
+            <strong>Sequenzy (Nic Tech Solutions, LLC)</strong>: stores teardown requests and lets us email you about them. (
+            <a href="https://www.sequenzy.com/privacy" className="link">privacy policy</a>, <a href="https://www.sequenzy.com/dpa" className="link">DPA</a>)
+          </li>
+          <li>
+            <strong>Google (Tag Manager, and Google Analytics 4 loaded through it)</strong>: measures how the site is used, only after you accept
+            cookies. (<a href="https://policies.google.com/privacy" className="link">privacy policy</a>,{" "}
+            <a href="https://policies.google.com/technologies/partner-sites" className="link">how Google uses data from sites that use its services</a>)
+          </li>
+          <li>
+            <strong>Cal.com</strong>: books fit calls and receives the details you enter when you book. (
+            <a href="https://cal.com/privacy" className="link">privacy policy</a>, <a href="https://trust.cal.com/subprocessors" className="link">subprocessors</a>)
+          </li>
+          <li>
+            <strong>Stripe</strong>: sends our invoices and takes payments. Card details go to Stripe, not to us. (
+            <a href="https://stripe.com/privacy" className="link">privacy policy</a>, <a href="https://stripe.com/legal/dpa" className="link">DPA</a>)
+          </li>
+          <li>
+            <strong>MXroute</strong>: hosts our email inbox (hello@aftertheform.com). (<a href="https://mxroute.com/terms" className="link">terms</a>,{" "}
+            <a href="https://docs.mxroute.com/docs/general/gdpr.html" className="link">GDPR statement</a>)
+          </li>
+          <li>
+            <Slot value={site.workingFilesTools} />, only if you become a client.
+          </li>
         </ul>
         <p>
           If you become a client, you will give us access to your Google Ads, HubSpot and Tag Manager
@@ -97,7 +121,7 @@ export default function Privacy() {
 
         <h2 className={h}>How long we keep it</h2>
         <p>
-          Requests that do not lead to an engagement are deleted within 24 months. If you become a client we
+          Teardown requests and booking details that don&apos;t lead to an engagement are deleted within 24 months. If you become a client we
           keep the work records for the length of the engagement and then for as long as tax and accounting
           rules require. Analytics data follows the retention settings of the analytics tool and is not
           collected at all if you decline cookies. You can ask us to delete your data sooner.

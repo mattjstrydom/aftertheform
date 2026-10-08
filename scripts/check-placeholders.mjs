@@ -6,7 +6,9 @@ import nextEnv from "@next/env";
 nextEnv.loadEnvConfig(process.cwd()); // same .env files next build reads
 
 // Preview deployments may show placeholders; production (and local builds) may not.
-if (process.env.VERCEL_ENV === "preview") {
+// Preview = a Vercel preview, or a Cloudflare Workers Builds build of any branch other than main.
+const cfPreview = process.env.WORKERS_CI === "1" && process.env.WORKERS_CI_BRANCH && process.env.WORKERS_CI_BRANCH !== "main";
+if (process.env.VERCEL_ENV === "preview" || cfPreview) {
   console.log("Preview deployment: skipping placeholder check.");
   process.exit(0);
 }
@@ -28,7 +30,9 @@ const walk = (dir) => {
 };
 walk("app");
 if (!existsSync("public/matt.jpg")) hits.push("public/matt.jpg (headshot) is missing");
-if (!process.env.NEXT_PUBLIC_CAL_URL) hits.push("NEXT_PUBLIC_CAL_URL is not set (Cal.com booking link)");
+// The confirmed Cal.com link is the default in site.config.ts; NEXT_PUBLIC_CAL_URL only overrides it.
+if (process.env.NEXT_PUBLIC_CAL_URL && !/^https:\/\/cal\.com\//.test(process.env.NEXT_PUBLIC_CAL_URL))
+  hits.push("NEXT_PUBLIC_CAL_URL is set but is not a https://cal.com/ link");
 
 const cfg = readFileSync("app/site.config.ts", "utf8");
 if (/headshotConfirmed:\s*false/.test(cfg)) console.warn("Warning: headshotConfirmed is false (public/matt.jpg not confirmed by Matt).");

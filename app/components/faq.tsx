@@ -1,5 +1,5 @@
 // Native <details name="faq"> accordion: zero JS, keyboard support built in, one open at a time.
-export type FaqItem = { q: string; a: React.ReactNode; aText: string };
+export type FaqItem = { q: string; a: React.ReactNode };
 
 export default function Faq({ items }: { items: FaqItem[] }) {
   return (
