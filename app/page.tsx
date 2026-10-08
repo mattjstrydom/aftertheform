@@ -254,7 +254,7 @@ export default function Home() {
                 <span className="font-medium text-black">$1,200 fixed.</span> If none of our seven checks finds anything that needs changing, you pay only the first half and keep the report.
               </p>
               <div className="flex items-center gap-3 rounded-pill bg-white py-2 pl-2 pr-5">
-                <Image src="/matt.jpg" alt="" width={40} height={40} sizes="40px" className="size-10 rounded-full object-cover" />
+                <Image src="/matt.jpg" alt="" width={40} height={40} className="size-10 rounded-full object-cover" />
                 <p className="text-left text-[0.875rem] leading-[1.3] tracking-[-0.02em]">
                   <span className="font-medium">Matt Strydom</span>
                   <br />
@@ -411,7 +411,6 @@ export default function Home() {
                     alt="Matt Strydom"
                     width={168}
                     height={168}
-                    sizes="(min-width: 640px) 168px, 148px"
                     className="aspect-square w-[148px] shrink-0 rounded-tile object-cover sm:w-[168px]"
                   />
                   <div className="min-w-0">

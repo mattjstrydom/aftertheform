@@ -39,8 +39,11 @@ const security = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Images are pre-sized to AVIF and WebP (scripts/build-images.mjs) and served as static files by
+  // app/image-loader.ts, so no image optimiser is needed on Cloudflare Workers. qualities stays as Next 16 requires.
   images: {
-    formats: ["image/avif", "image/webp"],
+    loader: "custom",
+    loaderFile: "./app/image-loader.ts",
     qualities: [75],
   },
   // browsers probe /favicon.ico regardless of <link rel=icon>
