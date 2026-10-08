@@ -1,7 +1,9 @@
 // Small shared pieces for the v3 sections. Server components, no client JS.
 
-export function Accent({ children, dark = false }: { children: React.ReactNode; dark?: boolean }) {
-  return <span className={dark ? "text-green-200" : "text-green-500"}>{children}</span>;
+// green-500 is only large text (3:1). In text-title-m headings that is 22px below 768px, under the 24px large-text
+// size, so `small` switches to green-text (5.48:1 on white, 5.03:1 on gray-50) there.
+export function Accent({ children, dark = false, small = false }: { children: React.ReactNode; dark?: boolean; small?: boolean }) {
+  return <span className={dark ? "text-green-200" : small ? "text-green-text md:text-green-500" : "text-green-500"}>{children}</span>;
 }
 
 export function Chip({ children, className = "" }: { children: React.ReactNode; className?: string }) {

@@ -21,7 +21,7 @@ export default function A2SecondaryToPrimary() {
       <div className="flex min-w-0 flex-col gap-5 lg:col-start-1 lg:row-start-1">
         <Chip>The fix, step by step</Chip>
         <h3 id="a2-title" className="text-title-m">
-          One setting decides <Accent>what Google Ads learns from</Accent>
+          One setting decides <Accent small>what Google Ads learns from</Accent>
         </h3>
         <p className="text-text-l text-gray-800">Set “HubSpot SQL” to Primary and include it in the account-level goal. Move “Lead form submit” to Secondary. You choose the date, because bidding relearns.</p>
       </div>

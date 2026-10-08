@@ -461,7 +461,7 @@ export default function Home() {
             <div className="bento mt-5 grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-12">
               <div>
                 <h3 className="text-title-m">
-                  Monthly plan: <Accent>we watch the connection for you</Accent>
+                  Monthly plan: <Accent small>we watch the connection for you</Accent>
                 </h3>
                 <p className="mt-4 text-text-l">A monitored-accounts plan, not an hours bank.</p>
               </div>

@@ -68,7 +68,7 @@ export default function C4Count() {
       <div className="flex min-w-0 flex-col lg:col-start-1 lg:row-start-1">
         <Chip>Side-by-side count</Chip>
         <h3 id="c4-title" className="mt-4 text-title-m">
-          Which gaps are faults, <Accent>and which are normal</Accent>
+          Which gaps are faults, <Accent small>and which are normal</Accent>
         </h3>
         <p className="mt-4 text-text-l text-gray-800">HubSpot says the totals may not match, so differences alone aren&apos;t a fault. These ones are explained.</p>
 

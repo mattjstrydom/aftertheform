@@ -22,7 +22,7 @@ export default function C3Finding() {
       <div className="flex min-w-0 flex-col lg:col-start-1 lg:row-start-1">
         <Chip>Finding, close up</Chip>
         <h3 id="c3-title" className="mt-4 text-title-m">
-          Qualified stages are imported <Accent>but not used for bidding</Accent>
+          Qualified stages are imported <Accent small>but not used for bidding</Accent>
         </h3>
         <p className="mt-4 text-text-l text-gray-800">“Lead form submit” is the only Primary conversion action. “HubSpot MQL” and “HubSpot SQL” are syncing, but they are set to Secondary.</p>
 
