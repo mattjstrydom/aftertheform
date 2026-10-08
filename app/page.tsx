@@ -1,6 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
+import Script from "next/script";
 import type { Metadata } from "next";
+import "./motion.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Faq, { type FaqItem } from "./components/faq";
@@ -8,10 +10,14 @@ import { CalButton, SampleButton } from "./components/cta";
 import { Accent, Chip, SectionHead, Tick, TickList } from "./components/ui";
 import { Slot } from "./components/ph";
 import { ConsentMock, ConversionMock, CookieMock } from "./components/mocks";
+import A1LeadToBid from "./components/a1-lead-to-bid";
+import A2SecondaryToPrimary from "./components/a2-secondary-to-primary";
+import A3ChangeLog from "./components/a3-change-log";
 import C1Report from "./components/c1-report";
 import C3Finding from "./components/c3-finding";
 import C4Count from "./components/c4-count";
 import { site } from "./site.config";
+import { motionScript } from "./motion-script";
 
 const description =
   "We fix the HubSpot to Google Ads connection so Smart Bidding learns from the leads your sales team qualifies, not form fills. $1,200, fixed.";
@@ -268,6 +274,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+            <A1LeadToBid />
           </div>
         </section>
 
@@ -333,6 +340,7 @@ export default function Home() {
               <p>You also choose when bidding changes go live. Google says Smart Bidding takes some time to relearn after a change to conversion goals or actions (1 to 2 conversion cycles in most cases).</p>
             </div>
             <C3Finding />
+            <A2SecondaryToPrimary />
           </div>
         </section>
 
@@ -375,6 +383,7 @@ export default function Home() {
                   </li>
                 ))}
               </ol>
+              <A3ChangeLog />
             </div>
           </div>
         </section>
@@ -619,6 +628,7 @@ export default function Home() {
         </section>
       </main>
       <Footer />
+      <Script id="motion" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: motionScript }} />
     </>
   );
 }
