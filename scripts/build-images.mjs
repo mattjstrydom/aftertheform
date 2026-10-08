@@ -12,7 +12,8 @@ const manifest = JSON.parse(readFileSync("images.manifest.json", "utf8"));
 
 for (const [src, widths] of Object.entries(manifest)) {
   const input = join("public", src);
-  const base = join("public/_img", src.replace(/\.(png|jpe?g)$/i, ""));
+  // No "@" in output names: Cloudflare static assets redirect "@" to "%40", which costs a round trip.
+  const base = join("public/_img", src.replace(/\.(png|jpe?g)$/i, "").replace(/@/g, "-"));
   mkdirSync(dirname(base), { recursive: true });
   for (const w of widths) {
     const img = () => sharp(input).resize({ width: w, withoutEnlargement: true });

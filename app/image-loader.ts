@@ -10,7 +10,8 @@ function pick(src: string, width: number, ext: "webp" | "avif") {
   const sizes = ladder[src];
   if (!sizes) return src;
   const w = sizes.find((s) => s >= width) ?? sizes[sizes.length - 1];
-  return `/_img${src.replace(/\.(png|jpe?g)$/i, "")}-${w}.${ext}`;
+  // Same naming as scripts/build-images.mjs ("@" becomes "-").
+  return `/_img${src.replace(/\.(png|jpe?g)$/i, "").replace(/@/g, "-")}-${w}.${ext}`;
 }
 
 export default function webpLoader({ src, width }: Args) {
