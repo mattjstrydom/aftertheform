@@ -1,21 +1,25 @@
 import Link from "next/link";
-import type { Metadata } from "next";
 import Header from "../components/header";
 import Footer from "../components/footer";
+import { CalButton } from "../components/cta";
+import { Chip, TickPath } from "../components/ui";
+import { CountTable } from "../components/c4-count";
 import { ConsentMock, ConversionMock, CookieMock } from "../components/mocks";
+import { pageMetadata } from "../seo";
 
-export const metadata: Metadata = {
-  title: "Sample report | After the Form",
-  description: "An example After the Form report, built on a fictional account.",
-  alternates: { canonical: "/sample-report" },
-  openGraph: { title: "Sample report | After the Form", url: "/sample-report", type: "website", images: ["/opengraph-image"] },
-};
+export const metadata = pageMetadata({
+  title: "Sample report: HubSpot to Google Ads check",
+  description:
+    "See what you receive before you pay: six findings, a side-by-side count, and a change log with how to reverse each change. Built on a fictional account.",
+  path: "/sample-report",
+});
 
+// No motion on this page: static final states only.
 const findings: { t: string; saw: React.ReactNode; why: string; change: string; undo: string; evidence?: React.ReactNode }[] = [
   {
     t: "Qualified stages are imported but not used for bidding",
     saw: "“Lead form submit” is the only Primary conversion action. “HubSpot MQL” and “HubSpot SQL” are syncing, but they are set to Secondary and sit outside the account-level goal.",
-    why: "Smart Bidding optimizes toward Primary actions in the goal. With form fills as the only Primary action, it looks for more form fills and cannot tell which leads sales later qualified.",
+    why: "Smart Bidding optimises toward Primary actions in the goal. With form fills as the only Primary action, it looks for more form fills and cannot tell which leads sales later qualified.",
     change: "Set “HubSpot SQL” to Primary and include it in the account-level goal. Move “Lead form submit” to Secondary. You decide the date, because bidding will relearn.",
     undo: "Set “Lead form submit” back to Primary and “HubSpot SQL” back to Secondary.",
     evidence: <ConversionMock />,
@@ -29,7 +33,11 @@ const findings: { t: string; saw: React.ReactNode; why: string; change: string; 
   },
   {
     t: "Click IDs are on the page but not reaching HubSpot",
-    saw: <>The <code className="font-mono text-[0.9em]">_gcl_aw</code> cookie is set after an ad click. The demo form is built in Webflow, not HubSpot, and its hidden click ID field is empty on submit.</>,
+    saw: (
+      <>
+        The <code className="font-mono text-[0.9em]">_gcl_aw</code> cookie is set after an ad click. The demo form is built in Webflow, not HubSpot, and its hidden click ID field is empty on submit.
+      </>
+    ),
     why: "Without the click ID, HubSpot cannot match the contact to the ad click, so later stages cannot be attributed to the campaign that produced them.",
     change: "Add a Tag Manager tag that reads the cookie and fills the hidden field before the form is submitted. This stays inside Tag Manager, so no website code changes.",
     undo: "Pause or delete the new tag. The form keeps working without it.",
@@ -44,189 +52,167 @@ const findings: { t: string; saw: React.ReactNode; why: string; change: string; 
   },
   {
     t: "Consent defaults load after the Google tags",
-    saw: "On pages served to UK and EEA visitors, the consent defaults are set after the first Google tag fires, and ad_user_data is not set at all.",
-    why: "Consent signals have to be in place before any Google tag loads, or the tags run without them.",
+    saw: "On pages served to EEA visitors, the consent defaults are set after the first Google tag fires, and ad_user_data is not set at all.",
+    why: "Google says to set the default consent state first, before the visitor interacts with the page. Here the tags run before it is set.",
     change: "Add a consent default tag that fires first and sets all four signals to denied until the visitor accepts.",
     undo: "Pause the consent default tag.",
     evidence: <ConsentMock />,
   },
+  // MATT TO CONFIRM: Test conversion set to Secondary (brief 4.4.1)
   {
-    t: "A test conversion is counted as a goal",
-    saw: "“Test conversion” is a Primary action and is included in the account-level goal.",
-    why: "It is a leftover from setup. Any traffic that triggers it adds noise to what bidding learns from.",
-    change: "Remove it from the goal and set it to Secondary.",
-    undo: "Set it back to Primary and add it to the goal.",
+    t: "A leftover test conversion sits in the goal",
+    saw: "“Test conversion” is a leftover from setup. It is set to Secondary, so it isn't used for bidding today, but it is still active and sits in the account-level goal.",
+    why: "It adds noise to conversion reporting, and if anyone switches it to Primary, test traffic would feed straight into what bidding learns from.",
+    change: "Remove it from the goal. It stays Secondary.",
+    undo: "Add it back to the goal as a Secondary action.",
   },
 ];
 
-const counts: [string, string, string][] = [
-  ["MQL", "142", "131"],
-  ["SQL", "61", "118"],
-  ["Opportunity", "24", "22"],
-  ["Customer", "9", "0"],
+type Status = "scheduled" | "done" | "waiting";
+const changeLog: [string, Status][] = [
+  ["Set “HubSpot SQL” to Primary; “Lead form submit” to Secondary", "scheduled"],
+  ["Pause the Zapier automation", "done"],
+  ["Tag Manager tag to fill the hidden click ID field", "done"],
+  ["Move Customer to the HubSpot integration; retire CSV upload", "waiting"],
+  ["Consent default tag in Tag Manager", "done"],
+  ["Remove “Test conversion” from the goal", "done"],
 ];
 
-const changeLog: [string, string][] = [
-  ["Set “HubSpot SQL” to Primary; “Lead form submit” to Secondary", "Approved, scheduled"],
-  ["Pause the Zapier automation", "Approved, done"],
-  ["Tag Manager tag to fill the hidden click ID field", "Approved, done"],
-  ["Move Customer to the HubSpot integration; retire CSV upload", "Approved, waiting on first conversions"],
-  ["Consent default tag in Tag Manager", "Approved, done"],
-  ["Remove “Test conversion” from the goal", "Approved, done"],
-];
+function StatusTag({ s }: { s: Status }) {
+  if (s === "scheduled") return <span className="tag-info">Approved, scheduled</span>;
+  if (s === "waiting") return <span className="tag-wait max-sm:whitespace-normal">Approved, waiting on first conversions</span>;
+  return (
+    <span className="tag-ok">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+        <TickPath />
+      </svg>
+      Approved, done
+    </span>
+  );
+}
 
-const h2 = "text-[clamp(1.5rem,2.4vw,2rem)] tracking-[-0.02em]";
+const h2 = "text-title-m";
+const sectionGap = "mt-16 sm:mt-20";
 
 export default function SampleReport() {
   return (
     <>
-      <Header />
-    <main id="main" tabIndex={-1}>
-      <section className="wrap pt-12 pb-10 sm:pt-16">
-        <p className="text-grey">After the Form report</p>
-        <h1 className="mt-2 max-w-[18ch] text-[clamp(2.25rem,4.5vw,3.75rem)] leading-[1.04] tracking-[-0.03em]">
-          Sample report
-        </h1>
-        <p className="mt-6 max-w-[62ch]">
-          This is an example of what you receive, built on a fictional account. The company, the figures
-          and the screenshots are illustrative. They are not a client result.
-        </p>
-        <dl className="mt-8 grid max-w-[40rem] grid-cols-[auto_1fr] gap-x-8 gap-y-1 border-t border-hairline pt-4">
-          <dt className="text-grey">Account</dt>
-          <dd>Example Co (fictional), B2B software</dd>
-          <dt className="text-grey">Stack</dt>
-          <dd>HubSpot Marketing Hub Professional, Google Ads, Google Tag Manager</dd>
-          <dt className="text-grey">Period compared</dt>
-          <dd>The last 30 days</dd>
-        </dl>
-      </section>
-
-      <section className="bg-paper-2 py-14 sm:py-20">
-        <div className="wrap grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <h2 className={h2}>Summary</h2>
-          <div className="prose-col">
-            <p>
-              Google Ads is bidding on form fills. The qualified stages exist in the account, but they are
-              Secondary, one of them is sent twice, and Customer arrives through a legacy upload that records
-              nothing. Click IDs are not reaching HubSpot, so later stages cannot be tied back to ad clicks.
+      <Header path="/sample-report" />
+      <main id="main" tabIndex={-1}>
+        <div className="container-site pb-16 pt-12 sm:pb-24 sm:pt-16">
+          <section aria-labelledby="report-title">
+            <Chip>After the Form report</Chip>
+            <h1 id="report-title" className="mt-4 text-title-l">Sample report</h1>
+            <p className="mt-6 max-w-[62ch] text-text-l">
+              This is an example of what you receive, built on a fictional account. The company, the figures and the screenshots are illustrative. They are not a client result.
             </p>
-            <p>
-              Six changes are proposed. All of them live in Google Ads, HubSpot or Tag Manager settings. None
-              touches the website outside Tag Manager.
-            </p>
-          </div>
-        </div>
-      </section>
+            <dl className="bento mt-8 grid max-w-[48rem] grid-cols-1 gap-x-8 gap-y-1 sm:grid-cols-[auto_1fr] sm:gap-y-2">
+              <dt className="text-gray-600">Account</dt>
+              <dd className="mb-2 sm:mb-0">Example Co (fictional), B2B software</dd>
+              <dt className="text-gray-600">Stack</dt>
+              <dd className="mb-2 sm:mb-0">HubSpot Marketing Hub Professional, Google Ads, Google Tag Manager</dd>
+              <dt className="text-gray-600">Period compared</dt>
+              <dd>The last 30 days</dd>
+            </dl>
+          </section>
 
-      <section className="py-14 sm:py-20">
-        <div className="wrap">
-          <h2 className={h2}>Findings</h2>
-          <p className="mt-3 max-w-[62ch] text-grey">
-            Each finding comes with what we saw, why it matters, the change we propose and how to reverse it.
-            In a real report every finding also has a screenshot.
-          </p>
-          <ul className="mt-10 border-t border-hairline">
-            {findings.map((f) => (
-              <li key={f.t} className="grid gap-6 border-b border-hairline py-8 lg:grid-cols-[1fr_22rem] lg:gap-12">
-                <div className="prose-col">
-                  <h3 className="text-xl font-semibold tracking-[-0.01em]">{f.t}</h3>
-                  <p><span className="font-medium">What we saw.</span> {f.saw}</p>
-                  <p><span className="font-medium">Why it matters.</span> {f.why}</p>
-                  <p><span className="font-medium">Proposed change.</span> {f.change}</p>
-                  <p><span className="font-medium">To reverse.</span> {f.undo}</p>
-                </div>
-                <div>{f.evidence}</div>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      <section className="bg-paper-2 py-14 sm:py-20">
-        <div className="wrap grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <div>
-            <h2 className={h2}>Side-by-side count</h2>
-            <p className="mt-3 max-w-[36ch] text-grey">Same 30 days. Example data.</p>
-          </div>
-          <div>
-            <table className="w-full max-w-[40rem] border-collapse text-left">
-              <caption className="sr-only">Stage changes in HubSpot against conversions recorded in Google Ads</caption>
-              <thead>
-                <tr className="border-b border-ink">
-                  <th className="py-2 pr-4 font-medium">Stage</th>
-                  <th className="py-2 pr-4 text-right font-medium">HubSpot, from Google Ads contacts</th>
-                  <th className="py-2 text-right font-medium">Google Ads recorded</th>
-                </tr>
-              </thead>
-              <tbody>
-                {counts.map(([s, a, b]) => (
-                  <tr key={s} className="border-b border-hairline">
-                    <td className="py-3 pr-4">{s}</td>
-                    <td className="py-3 pr-4 text-right">{a}</td>
-                    <td className="py-3 text-right">{b}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-            <div className="prose-col mt-6">
-              <p>
-                HubSpot says the two counts are not expected to match, so differences alone are not a fault.
-                These ones are explained. SQL in Google Ads is about double because it is sent twice.
-                Customer is zero because the legacy upload is not recording. MQL and Opportunity are close.
-              </p>
+          <section aria-labelledby="summary-title" className={sectionGap}>
+            <div className="bento grid gap-6 lg:grid-cols-[1fr_2fr] lg:gap-12">
+              <h2 id="summary-title" className={h2}>Summary</h2>
+              <div className="max-w-[64ch] space-y-4 text-text-l">
+                <p>
+                  Google Ads is bidding on form fills. The qualified stages exist in the account, but they are Secondary, one of them is sent twice, and Customer arrives through a legacy upload that records nothing. Click IDs are not reaching HubSpot, so later stages cannot be tied back to ad clicks.
+                </p>
+                <p>Six changes are proposed. All of them live in Google Ads, HubSpot or Tag Manager settings. None touches the website outside Tag Manager.</p>
+              </div>
             </div>
-          </div>
-        </div>
-      </section>
+          </section>
 
-      <section className="py-14 sm:py-20">
-        <div className="wrap grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <h2 className={h2}>Change log</h2>
-          <div>
-            <p className="max-w-[62ch] text-grey">
-              We send the proposed changes first and make only the ones you approve. This log lists what we
-              touched. Each change has its reversal in the findings above.
+          <section aria-labelledby="findings-title" className={sectionGap}>
+            <h2 id="findings-title" className={h2}>Findings</h2>
+            <p className="mt-3 max-w-[62ch] text-gray-600">
+              Each finding comes with what we saw, why it matters, the change we propose and how to reverse it. In a real report every finding also has a screenshot.
             </p>
-            <table className="mt-6 w-full max-w-[44rem] border-collapse text-left">
-              <caption className="sr-only">Changes made, with status</caption>
-              <thead>
-                <tr className="border-b border-ink">
-                  <th className="py-2 pr-4 font-medium">Change</th>
-                  <th className="py-2 font-medium">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {changeLog.map(([c, s]) => (
-                  <tr key={c} className="border-b border-hairline align-top">
-                    <td className="py-3 pr-4">{c}</td>
-                    <td className="py-3 text-grey">{s}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </section>
+            <ol className="mt-8 grid gap-5">
+              {findings.map((f) => (
+                <li key={f.t} className="bento grid gap-6 lg:grid-cols-[1fr_22rem] lg:gap-12">
+                  <div className="max-w-[64ch] space-y-4 text-text-m">
+                    <h3 className="text-title-s">{f.t}</h3>
+                    <p><span className="font-medium">What we saw.</span> {f.saw}</p>
+                    <p><span className="font-medium">Why it matters.</span> {f.why}</p>
+                    <p><span className="font-medium">Proposed change.</span> {f.change}</p>
+                    <p><span className="font-medium">To reverse.</span> {f.undo}</p>
+                  </div>
+                  {f.evidence && <div>{f.evidence}</div>}
+                </li>
+              ))}
+            </ol>
+          </section>
 
-      <section className="bg-paper-2 py-14 sm:py-20">
-        <div className="wrap grid gap-8 lg:grid-cols-[1fr_2fr] lg:gap-16">
-          <h2 className={h2}>Handover</h2>
-          <div className="prose-col">
-            <p>
-              The report comes with a recorded screen walkthrough of the findings and a 30-minute handover
-              call. If something on the fix list is not working at handover, we keep going until it does.
-            </p>
-            <p>
-              HubSpot only syncs stage changes that happen after an event is created, so results count from
-              handover forward.
-            </p>
-            <p className="mt-8">
-              <Link href="/#request" className="btn">Request a check</Link>
-            </p>
-          </div>
+          <section aria-labelledby="count-title" className={sectionGap}>
+            <div className="bento grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-12">
+              <div>
+                <h2 id="count-title" className={h2}>Side-by-side count</h2>
+                <p className="mt-3 text-gray-600">Same 30 days. Example data.</p>
+                <p className="mt-6 max-w-[64ch] text-text-m">
+                  HubSpot says the two counts may not match, so differences alone are not a fault. These ones are explained. SQL in Google Ads is about double because it is sent twice. Customer is zero because the legacy upload is not recording. MQL and Opportunity are close.
+                </p>
+              </div>
+              <div className="tile min-w-0">
+                <CountTable />
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="log-title" className={sectionGap}>
+            <div className="bento grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-12">
+              <div>
+                <h2 id="log-title" className={h2}>Change log</h2>
+                <p className="mt-3 max-w-[62ch] text-gray-600">
+                  We send the proposed changes first and make only the ones you approve. This log lists what we touched. Each change has its reversal in the findings above.
+                </p>
+              </div>
+              <div className="tile min-w-0">
+                <div className="frag overflow-hidden">
+                  <table className="w-full border-collapse text-left text-[0.875rem] leading-[1.4] sm:text-[0.9375rem]">
+                    <caption className="sr-only">Changes made, with status</caption>
+                    <thead>
+                      <tr className="text-[0.75rem] text-gray-600 sm:text-[0.8125rem]">
+                        <th scope="col" className="py-3 pl-4 pr-2 font-normal sm:pl-5">Change</th>
+                        <th scope="col" className="py-3 pl-2 pr-4 font-normal sm:pr-5">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {changeLog.map(([c, s]) => (
+                        <tr key={c} className="border-t border-gray-100 align-top">
+                          <td className="py-3.5 pl-4 pr-2 sm:pl-5">{c}</td>
+                          <td className="py-3.5 pl-2 pr-4 sm:pr-5"><StatusTag s={s} /></td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section aria-labelledby="handover-title" className={sectionGap}>
+            <div className="bento grid gap-6 lg:grid-cols-[1fr_2fr] lg:gap-12">
+              <h2 id="handover-title" className={h2}>Handover</h2>
+              <div className="max-w-[64ch] space-y-4 text-text-l">
+                <p>
+                  The report comes with a recorded screen walkthrough of the findings and a 30-minute handover call. If something on the fix list isn&apos;t working at handover, we put in up to 10 extra hours within 30 days, as set out in our{" "}
+                  <Link href="/terms" className="link">terms</Link>.
+                </p>
+                <p>HubSpot only syncs stage changes that happen after an event is created, so results count from handover forward.</p>
+                <p className="pt-4">
+                  <CalButton className="w-full sm:w-auto" />
+                </p>
+              </div>
+            </div>
+          </section>
         </div>
-      </section>
-    </main>
+      </main>
       <Footer />
     </>
   );

@@ -29,6 +29,36 @@ const rows: [string, string, React.ReactNode, React.ReactNode][] = [
   ["Customer", "9", <span key="e" className="anno-box inline-flex px-1.5">0</span>, <BadTag key="f" n={2}>Not recording</BadTag>],
 ];
 
+/** The count fragment on its own; reused by /sample-report (same figures and tags). */
+export function CountTable({ className = "" }: { className?: string }) {
+  return (
+    <div className={`frag overflow-hidden ${className}`}>
+      <p className="border-b border-gray-100 px-4 py-3.5 text-[0.9375rem] tracking-[-0.01em] sm:px-5">Same 30 days. Stage changes in HubSpot against conversions recorded in Google Ads.</p>
+      <table className="w-full border-collapse text-left text-[0.875rem] leading-snug sm:text-[0.9375rem]">
+        <caption className="sr-only">Example: HubSpot stage changes against Google Ads conversions, same 30 days</caption>
+        <thead>
+          <tr className="text-[0.75rem] text-gray-600 sm:text-[0.8125rem]">
+            <th scope="col" className="py-3 pl-4 pr-2 font-normal sm:pl-5">Stage</th>
+            <th scope="col" className="px-2 py-3 text-right font-normal">HubSpot, from Google Ads contacts</th>
+            <th scope="col" className="px-2 py-3 text-right font-normal">Google Ads recorded</th>
+            <th scope="col" className="py-3 pl-2 pr-4 font-normal sm:pr-5"><span className="sr-only">Notes</span></th>
+          </tr>
+        </thead>
+        <tbody className="font-mono [&_td]:h-[60px] [&_tr]:border-t [&_tr]:border-gray-100">
+          {rows.map(([stage, hs, ga, tag]) => (
+            <tr key={stage}>
+              <td className="pl-4 pr-2 font-sans sm:pl-5">{stage}</td>
+              <td className="px-2 text-right">{hs}</td>
+              <td className="px-2 text-right">{ga}</td>
+              <td className="pl-2 pr-4 text-right sm:pr-5">{tag}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
 export default function C4Count() {
   return (
     <figure
@@ -63,30 +93,7 @@ export default function C4Count() {
       </div>
 
       <div className="tile min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
-        <div className="frag overflow-hidden">
-          <p className="border-b border-gray-100 px-4 py-3.5 text-[0.9375rem] tracking-[-0.01em] sm:px-5">Same 30 days. Stage changes in HubSpot against conversions recorded in Google Ads.</p>
-          <table className="w-full border-collapse text-left text-[0.875rem] leading-snug sm:text-[0.9375rem]">
-            <caption className="sr-only">Example: HubSpot stage changes against Google Ads conversions, same 30 days</caption>
-            <thead>
-              <tr className="text-[0.75rem] text-gray-600 sm:text-[0.8125rem]">
-                <th scope="col" className="py-3 pl-4 pr-2 font-normal sm:pl-5">Stage</th>
-                <th scope="col" className="px-2 py-3 text-right font-normal">HubSpot, from Google Ads contacts</th>
-                <th scope="col" className="px-2 py-3 text-right font-normal">Google Ads recorded</th>
-                <th scope="col" className="py-3 pl-2 pr-4 font-normal sm:pr-5"><span className="sr-only">Notes</span></th>
-              </tr>
-            </thead>
-            <tbody className="font-mono [&_td]:h-[60px] [&_tr]:border-t [&_tr]:border-gray-100">
-              {rows.map(([stage, hs, ga, tag]) => (
-                <tr key={stage}>
-                  <td className="pl-4 pr-2 font-sans sm:pl-5">{stage}</td>
-                  <td className="px-2 text-right">{hs}</td>
-                  <td className="px-2 text-right">{ga}</td>
-                  <td className="pl-2 pr-4 text-right sm:pr-5">{tag}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+        <CountTable />
       </div>
 
       <figcaption className="img-label-quiet justify-self-start self-start lg:col-start-1 lg:row-start-2 lg:self-end">Example data, fictional account</figcaption>
