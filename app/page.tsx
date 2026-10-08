@@ -8,6 +8,9 @@ import { CalButton, SampleButton } from "./components/cta";
 import { Accent, Chip, SectionHead, Tick, TickList } from "./components/ui";
 import { Slot } from "./components/ph";
 import { ConsentMock, ConversionMock, CookieMock } from "./components/mocks";
+import C1Report from "./components/c1-report";
+import C3Finding from "./components/c3-finding";
+import C4Count from "./components/c4-count";
 import { site } from "./site.config";
 
 const description =
@@ -290,6 +293,7 @@ export default function Home() {
                 </p>
               </div>
             </div>
+            <C4Count />
           </div>
         </section>
 
@@ -328,6 +332,7 @@ export default function Home() {
               <p>We fix everything on the list that lives in Google Ads, HubSpot or Tag Manager settings. You see every proposed change before we make it, and nothing changes without your approval.</p>
               <p>You also choose when bidding changes go live. Google says Smart Bidding takes some time to relearn after a change to conversion goals or actions (1 to 2 conversion cycles in most cases).</p>
             </div>
+            <C3Finding />
           </div>
         </section>
 
@@ -351,6 +356,7 @@ export default function Home() {
                 ))}
               </ul>
             </div>
+            <C1Report />
           </div>
         </section>
 

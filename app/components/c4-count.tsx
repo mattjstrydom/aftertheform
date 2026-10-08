@@ -1,0 +1,95 @@
+import { Accent, Chip, Tick, TickPath } from "./ui";
+
+// C4 annotated count. Port of the approved v3 graphic as live markup. Figures match /sample-report (fictional).
+function OkTag() {
+  return (
+    <span className="tag-ok">
+      <svg width="11" height="11" viewBox="0 0 12 12" fill="none" aria-hidden="true" focusable="false">
+        <TickPath />
+      </svg>
+      <span className="max-md:hidden">Close</span>
+      <span className="sr-only md:hidden">Close</span>
+    </span>
+  );
+}
+
+function BadTag({ n, children }: { n: number; children: string }) {
+  return (
+    <span className="tag-bad">
+      <span className="tag-num">{n}</span>
+      <span className="max-md:hidden">{children}</span>
+    </span>
+  );
+}
+
+const rows: [string, string, React.ReactNode, React.ReactNode][] = [
+  ["MQL", "142", "131", <OkTag key="a" />],
+  ["SQL", "61", <span key="b" className="anno-box inline-flex px-1.5">118</span>, <BadTag key="c" n={1}>Sent twice</BadTag>],
+  ["Opportunity", "24", "22", <OkTag key="d" />],
+  ["Customer", "9", <span key="e" className="anno-box inline-flex px-1.5">0</span>, <BadTag key="f" n={2}>Not recording</BadTag>],
+];
+
+export default function C4Count() {
+  return (
+    <figure
+      aria-labelledby="c4-title"
+      className="mt-5 grid grid-cols-1 gap-8 rounded-card bg-white p-5 sm:p-10 lg:grid-cols-[5fr_7fr] lg:grid-rows-[1fr_auto] lg:gap-x-12"
+    >
+      <div className="flex min-w-0 flex-col lg:col-start-1 lg:row-start-1">
+        <Chip>Side-by-side count</Chip>
+        <h3 id="c4-title" className="mt-4 text-title-m">
+          Which gaps are faults, <Accent>and which are normal</Accent>
+        </h3>
+        <p className="mt-4 text-text-l text-gray-800">HubSpot says the totals may not match, so differences alone aren&apos;t a fault. These ones are explained.</p>
+
+        <ol className="mt-7 space-y-4 text-text-m">
+          <li className="flex gap-3 text-green-text">
+            <Tick size={22} />
+            <span><span className="font-medium">MQL.</span> Close. Differences alone aren&apos;t a fault.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="note-num" aria-hidden="true">1</span>
+            <span><span className="font-medium">SQL.</span> Sent twice: HubSpot integration and a Zapier automation.</span>
+          </li>
+          <li className="flex gap-3 text-green-text">
+            <Tick size={22} />
+            <span><span className="font-medium">Opportunity.</span> Close, so not a fault.</span>
+          </li>
+          <li className="flex gap-3">
+            <span className="note-num" aria-hidden="true">2</span>
+            <span><span className="font-medium">Customer.</span> Zero: legacy upload isn&apos;t recording.</span>
+          </li>
+        </ol>
+      </div>
+
+      <div className="tile min-w-0 lg:col-start-2 lg:row-span-2 lg:row-start-1">
+        <div className="frag overflow-hidden">
+          <p className="border-b border-gray-100 px-4 py-3.5 text-[0.9375rem] tracking-[-0.01em] sm:px-5">Same 30 days. Stage changes in HubSpot against conversions recorded in Google Ads.</p>
+          <table className="w-full border-collapse text-left text-[0.875rem] leading-snug sm:text-[0.9375rem]">
+            <caption className="sr-only">Example: HubSpot stage changes against Google Ads conversions, same 30 days</caption>
+            <thead>
+              <tr className="text-[0.75rem] text-gray-600 sm:text-[0.8125rem]">
+                <th scope="col" className="py-3 pl-4 pr-2 font-normal sm:pl-5">Stage</th>
+                <th scope="col" className="px-2 py-3 text-right font-normal">HubSpot, from Google Ads contacts</th>
+                <th scope="col" className="px-2 py-3 text-right font-normal">Google Ads recorded</th>
+                <th scope="col" className="py-3 pl-2 pr-4 font-normal sm:pr-5"><span className="sr-only">Notes</span></th>
+              </tr>
+            </thead>
+            <tbody className="font-mono [&_td]:h-[60px] [&_tr]:border-t [&_tr]:border-gray-100">
+              {rows.map(([stage, hs, ga, tag]) => (
+                <tr key={stage}>
+                  <td className="pl-4 pr-2 font-sans sm:pl-5">{stage}</td>
+                  <td className="px-2 text-right">{hs}</td>
+                  <td className="px-2 text-right">{ga}</td>
+                  <td className="pl-2 pr-4 text-right sm:pr-5">{tag}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <figcaption className="img-label-quiet justify-self-start self-start lg:col-start-1 lg:row-start-2 lg:self-end">Example data, fictional account</figcaption>
+    </figure>
+  );
+}
