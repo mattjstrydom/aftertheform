@@ -4,11 +4,12 @@ export type Cert = { name: string; verifyUrl: string };
 export type CaseStudy = { title: string; body: string; attribution: string };
 
 export const site = {
-  // Brand, domain, email and legal lines: the single source for copy, metadata, JSON-LD, terms, privacy, icons and the
-  // form API. A rename is a change here plus re-rendering public/og-image.png (its text is baked into the image).
+  // Brand, domain, email and legal lines: the single source for copy, metadata, JSON-LD, terms, privacy, icons, the
+  // generated headers and the form Worker (worker/index.ts). A rename is a change here plus re-rendering
+  // public/og-image.png, whose text is baked into the image (see README, "Renaming").
   brand: "After the Form",
   monogram: "AF", // favicon and apple icon
-  domain: "aftertheform.com", // apex; redirects to url
+  domain: "aftertheform.com", // apex; redirects to url (a Cloudflare redirect rule, see README)
   url: "https://www.aftertheform.com",
   email: "hello@aftertheform.com",
   legalName: "Reubika LLC",
@@ -18,11 +19,11 @@ export const site = {
   // Confirmed by Matt (8 Oct 2026). NEXT_PUBLIC_CAL_URL overrides it at build time if the event ever changes.
   calUrl: process.env.NEXT_PUBLIC_CAL_URL || "https://cal.com/aftertheform/20min-fit",
   // Only the production build is indexable: the Cloudflare Workers Builds build of main, or any build with
-  // SITE_INDEXABLE=1. VERCEL_ENV keeps a Vercel production build working. Keep in step with next.config.ts.
+  // SITE_INDEXABLE=1. VERCEL_ENV keeps a Vercel production build working.
   indexable:
     process.env.VERCEL_ENV === "production" || process.env.SITE_INDEXABLE === "1" || process.env.WORKERS_CI_BRANCH === "main",
 
-  // Option B from matt-decisions-drafts.md section 1, pending Matt's final OK. Swap the string to change it.
+  // Option B from matt-decisions-drafts.md section 1 (Steve: option B unless Matt says otherwise).
   experienceLine:
     "I've spent 7+ years across RevOps, go-to-market strategy, marketing automation and growth engineering, and I work hands-on in HubSpot and Google Tag Manager.",
   replyTime: "Within one business day",

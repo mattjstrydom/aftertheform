@@ -37,11 +37,10 @@ yarn-error.log*
 # vercel
 .vercel
 
-# cloudflare (OpenNext build output, wrangler state, local secrets)
-/.open-next/
+# cloudflare (wrangler state, local secrets; the static export itself is /out/ above)
 /.wrangler/
 .dev.vars*
-cloudflare-env.d.ts
+worker-configuration.d.ts
 
 # typescript
 *.tsbuildinfo

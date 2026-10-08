@@ -1,19 +1,29 @@
-// Cloudflare Workers config for the OpenNext adapter (@opennextjs/cloudflare). Nothing here creates account resources:
-// no R2, KV, D1, Durable Objects or Images binding is used, because every page is static and images are pre-sized.
-// Runtime secret: SEQUENZY_API_KEY (set it with `npx wrangler secret put SEQUENZY_API_KEY` or in the dashboard, never here).
+// Cloudflare Workers config. The site is a Next.js static export (out/) served by Workers static assets: page and
+// file requests never run code and don't count towards the free plan's 100,000 Worker requests a day. The Worker
+// (worker/index.ts) runs only for /api/*. Nothing here creates account resources: no R2, KV, D1, Durable Objects,
+// Images binding or image transformations.
+// Runtime secret: SEQUENZY_API_KEY (`npx wrangler secret put SEQUENZY_API_KEY` or the dashboard, never here).
 {
   "$schema": "node_modules/wrangler/config-schema.json",
+  // Worker name only: it is the *.workers.dev subdomain and the dashboard label, not the brand (see README, "Renaming").
   "name": "aftertheform",
-  "main": ".open-next/worker.js",
+  "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": [
-    // Node.js APIs for the Next.js server code
+    // process.env for app/site.config.ts, which the Worker imports for the brand facts
     "nodejs_compat",
     // fetch() in the Worker can only reach public addresses (the form API calls api.sequenzy.com)
     "global_fetch_strictly_public"
   ],
   "assets": {
-    "directory": ".open-next/assets",
-    "binding": "ASSETS"
-  }
+    "directory": "out",
+    "binding": "ASSETS",
+    // /teardown serves out/teardown.html; /teardown.html and /teardown/ redirect to /teardown
+    "html_handling": "auto-trailing-slash",
+    // unknown paths get out/404.html with a 404 status, still without running the Worker
+    "not_found_handling": "404-page",
+    // the one path that needs code
+    "run_worker_first": ["/api/*"]
+  },
+  "observability": { "enabled": true }
 }
