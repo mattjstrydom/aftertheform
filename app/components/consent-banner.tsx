@@ -57,16 +57,16 @@ export default function ConsentBanner() {
 
   if (!show) return null;
   const b =
-    "rounded-full border-2 border-ink bg-white px-6 py-2 text-base font-medium text-ink hover:bg-paper-2";
+    "inline-flex min-h-10 items-center justify-center rounded-pill border-[1.5px] border-solid border-black bg-white px-6 py-2 text-[1rem] leading-[1.3] font-medium text-black transition-colors duration-300 hover:bg-gray-50";
   return (
     <section
       ref={box}
       tabIndex={-1}
       aria-label="Cookie consent"
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-hairline bg-white p-4 shadow-[0_-4px_16px_rgb(23_32_42/0.08)] outline-none"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-gray-100 bg-white py-4 shadow-float outline-none"
     >
-      <div className="wrap flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <p className="text-base">
+      <div className="container-site flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <p className="text-[1rem]">
           This site uses cookies for analytics and advertising measurement.{" "}
           <a href="/privacy" className="link">Privacy policy</a>
         </p>

@@ -2,9 +2,9 @@
 
 import { OPEN_EVENT } from "./consent-banner";
 
-export default function CookieSettings() {
+export default function CookieSettings({ className = "link" }: { className?: string }) {
   return (
-    <button type="button" className="link" onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}>
+    <button type="button" className={className} onClick={() => window.dispatchEvent(new Event(OPEN_EVENT))}>
       Cookie settings
     </button>
   );

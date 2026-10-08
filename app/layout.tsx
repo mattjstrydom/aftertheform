@@ -11,6 +11,9 @@ dl("consent","default",{ad_storage:"denied",analytics_storage:"denied",ad_user_d
 try{if(localStorage.getItem("atf-consent")==="granted")dl("consent","update",{ad_storage:"granted",analytics_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"})}catch(e){}
 (function(w,d,s,l,i){w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i;f.parentNode.insertBefore(j,f)})(window,document,"script","dataLayer","${GTM}");`;
 
+// Closes the mobile menu popover when a link inside it is clicked (in-page anchors do not close popovers on their own).
+const menu = `document.getElementById("site-menu")?.addEventListener("click",function(e){if(e.target.closest("a"))e.currentTarget.hidePopover()});`;
+
 const archivo = localFont({
   src: "./fonts/archivo-latin-var.woff2",
   weight: "400 700",
@@ -56,6 +59,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </noscript>
         {children}
         <ConsentBanner />
+        <Script id="menu" strategy="afterInteractive" dangerouslySetInnerHTML={{ __html: menu }} />
       </body>
     </html>
   );
