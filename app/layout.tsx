@@ -7,11 +7,15 @@ import { site } from "./site.config";
 import { sharedOpenGraph } from "./seo";
 
 const GTM = "GTM-NCSN8BLM";
-// Consent defaults are set first, then any saved choice is applied, then GTM loads once.
+// Consent defaults are set first, then any saved choice is applied. GTM itself loads once, after the load event
+// and an idle callback (max 2 s), so it does not compete with the page for LCP and TBT (open item O11).
 const head = `window.dataLayer=window.dataLayer||[];function dl(){dataLayer.push(arguments)}
 dl("consent","default",{ad_storage:"denied",analytics_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});
 try{if(localStorage.getItem("atf-consent")==="granted")dl("consent","update",{ad_storage:"granted",analytics_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"})}catch(e){}
-(function(w,d,s,l,i){w[l].push({"gtm.start":new Date().getTime(),event:"gtm.js"});var f=d.getElementsByTagName(s)[0],j=d.createElement(s);j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id="+i;f.parentNode.insertBefore(j,f)})(window,document,"script","dataLayer","${GTM}");`;
+dataLayer.push({"gtm.start":Date.now(),event:"gtm.js"});
+function atfG(){var j=document.createElement("script");j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id=${GTM}";document.head.appendChild(j)}
+function atfQ(){window.requestIdleCallback?requestIdleCallback(atfG,{timeout:2000}):setTimeout(atfG,1)}
+document.readyState==="complete"?atfQ():addEventListener("load",atfQ,{once:true});`;
 
 // Closes the mobile menu popover when a link inside it is clicked (in-page anchors do not close popovers on their own).
 const menu = `document.getElementById("site-menu")?.addEventListener("click",function(e){if(e.target.closest("a"))e.currentTarget.hidePopover()});`;
