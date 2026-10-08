@@ -32,7 +32,9 @@ const rows: [string, string, React.ReactNode, React.ReactNode][] = [
 /** The count fragment on its own; reused by /sample-report (same figures and tags). */
 export function CountTable({ className = "" }: { className?: string }) {
   return (
-    <div className={`frag overflow-hidden ${className}`}>
+    // overflow-x-auto, not hidden: below about 360px the table is wider than the card, so it scrolls sideways instead of
+    // being clipped (WCAG 1.4.10 allows this for data tables). Chrome and Firefox make such scrollers keyboard-focusable.
+    <div className={`frag overflow-x-auto ${className}`}>
       <p className="border-b border-gray-100 px-4 py-3.5 text-[0.9375rem] tracking-[-0.01em] sm:px-5">Same 30 days. Stage changes in HubSpot against conversions recorded in Google Ads.</p>
       <table className="w-full border-collapse text-left text-[0.875rem] leading-snug sm:text-[0.9375rem]">
         <caption className="sr-only">Example: HubSpot stage changes against Google Ads conversions, same 30 days</caption>

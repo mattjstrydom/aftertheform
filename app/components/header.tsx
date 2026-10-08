@@ -13,13 +13,13 @@ export default function Header({ path = "/" }: { path?: string }) {
   return (
     <header className="sticky top-0 z-20 bg-gray-50">
       <div className="container-site grid h-16 grid-cols-[1fr_auto] items-center gap-4 max-md:h-[60px] lg:grid-cols-[1fr_auto_1fr]">
-        <Link href="/" className="justify-self-start text-[1.25rem] leading-none font-medium tracking-[-0.04em] text-black no-underline">
+        <Link href="/" className="inline-flex min-h-6 items-center justify-self-start text-[1.25rem] leading-none font-medium tracking-[-0.04em] text-black no-underline">
           After the Form
         </Link>
 
-        <nav aria-label="Main" className="hidden items-center gap-8 rounded-pill bg-white px-7 py-3 text-[0.875rem] leading-[1.3] font-medium tracking-[-0.03em] lg:flex">
+        <nav aria-label="Main" className="hidden items-center gap-8 rounded-pill bg-white px-7 py-2 text-[0.875rem] leading-[1.3] font-medium tracking-[-0.03em] lg:flex">
           {links.map(([href, label]) => (
-            <Link key={href} href={href} className="text-black no-underline underline-offset-[0.2em] hover:underline">
+            <Link key={href} href={href} className="inline-flex min-h-[26px] items-center text-black no-underline underline-offset-[0.2em] hover:underline">
               {label}
             </Link>
           ))}

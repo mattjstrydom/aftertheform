@@ -17,6 +17,8 @@
 }
 
 /* ---------- A1: lead to bid. Hero card stack, 9s loop, CSS only ---------- */
+/* Without JS the pause control can't work, so A1 shows its final frame, still (layout.tsx adds html.js before paint). */
+html:not(.js) .ltb * { animation: none !important; }
 .ltb-line { stroke-dasharray: 1; stroke-dashoffset: 0; }
 @media (prefers-reduced-motion: no-preference) {
   .ltb .ltb-card-in, .ltb .ltb-check, .ltb .ltb-line, .ltb .ltb-foot {

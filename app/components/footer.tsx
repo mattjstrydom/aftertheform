@@ -1,7 +1,8 @@
 import Link from "next/link";
 import CookieSettings from "./cookie-settings";
 
-const link = "text-black underline underline-offset-[0.2em] hover:decoration-2";
+// min-h-6: 24px targets (WCAG 2.5.8)
+const link = "inline-flex min-h-6 items-center text-black underline underline-offset-[0.2em] hover:decoration-2";
 
 export default function Footer() {
   return (

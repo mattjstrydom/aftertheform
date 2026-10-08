@@ -17,6 +17,8 @@ function atfG(){var j=document.createElement("script");j.async=true;j.src="https
 function atfQ(){window.requestIdleCallback?requestIdleCallback(atfG,{timeout:2000}):setTimeout(atfG,1)}
 document.readyState==="complete"?atfQ():addEventListener("load",atfQ,{once:true});`;
 
+const jsFlag = `document.documentElement.classList.add("js")`;
+
 // Closes the mobile menu popover when a link inside it is clicked (in-page anchors do not close popovers on their own).
 const menu = `document.getElementById("site-menu")?.addEventListener("click",function(e){if(e.target.closest("a"))e.currentTarget.hidePopover()});`;
 
@@ -51,8 +53,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en-ZA" className={`${archivo.variable} ${azeret.variable}`}>
+    <html lang="en-ZA" className={`${archivo.variable} ${azeret.variable}`} suppressHydrationWarning>
       <body>
+        {/* Marks JS as available before first paint, so the A1 loop only runs when its pause control can work (WCAG 2.2.2). */}
+        <script dangerouslySetInnerHTML={{ __html: jsFlag }} />
         <Script id="gtm" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: head }} />
         <a href="#main" className="skip-link">Skip to content</a>
         <noscript>
