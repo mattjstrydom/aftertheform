@@ -1,24 +1,27 @@
 import type { NextConfig } from "next";
 
-// Same rule as site.indexable in app/site.config.ts: only the production deployment is indexable.
-const indexable = process.env.VERCEL_ENV === "production" || process.env.SITE_INDEXABLE === "1";
+// Same rule as site.indexable in app/site.config.ts: only the production build is indexable. On Cloudflare Workers
+// Builds that is the build of the main branch (WORKERS_CI_BRANCH); SITE_INDEXABLE=1 forces it; VERCEL_ENV keeps Vercel working.
+const indexable =
+  process.env.VERCEL_ENV === "production" || process.env.SITE_INDEXABLE === "1" || process.env.WORKERS_CI_BRANCH === "main";
 
-// Google tag hosts (GTM, GA4, Google Ads conversion and remarketing, conversion linker, user data beacons).
-// Checked against https://developers.google.com/tag-platform/security/guides/csp (October 2026): the guide also lists
-// pagead2.googlesyndication.com and ad.doubleclick.net for Ads, so they are added. Country Google domains
-// (www.google.co.za and so on) cannot be wildcarded in CSP and are not listed.
+// Google hosts for GA4 through GTM only (Matt, 8 Oct 2026: no other tags), from Google's tag CSP guide
+// (https://developers.google.com/tag-platform/security/guides/csp, "Google Analytics" with Ads-linked features, checked
+// October 2026). If Google Ads conversion or remarketing tags are ever added in GTM, add https://*.googleadservices.com and
+// https://ad.doubleclick.net to script-src/img-src/connect-src and https://td.doubleclick.net to frame-src first.
+// Country Google domains (www.google.co.za and so on) cannot be wildcarded in CSP and are not listed.
 const G =
-  "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://*.google.com https://*.googleadservices.com https://pagead2.googlesyndication.com https://ad.doubleclick.net";
+  "https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://*.g.doubleclick.net https://*.google.com https://pagead2.googlesyndication.com";
 
 // 'unsafe-inline' for scripts is deliberate: nonces would force every page to render dynamically. No 'unsafe-eval'.
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://*.googleadservices.com https://*.google.com https://*.g.doubleclick.net",
+  "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com",
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: ${G}`,
   `connect-src 'self' ${G}`,
   "font-src 'self'",
-  "frame-src https://*.googletagmanager.com https://td.doubleclick.net",
+  "frame-src https://*.googletagmanager.com",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
@@ -45,6 +48,10 @@ const nextConfig: NextConfig = {
     loader: "custom",
     loaderFile: "./app/image-loader.ts",
     qualities: [75],
+  },
+  // Apex to www (canonical host). Hosts usually do this at the edge too; this keeps it host-independent.
+  async redirects() {
+    return [{ source: "/:path*", has: [{ type: "host", value: "aftertheform.com" }], destination: "https://www.aftertheform.com/:path*", permanent: true }];
   },
   // browsers probe /favicon.ico regardless of <link rel=icon>
   async rewrites() {
