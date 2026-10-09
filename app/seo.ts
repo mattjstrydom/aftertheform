@@ -13,9 +13,9 @@ export const ogImage = { url: "/closedlogic-og-1200x630.png", width: 1200, heigh
 export const twitterImage = { url: "/closedlogic-og-x-1200x600.png", width: 1200, height: 600, alt: ogAlt, type: "image/png" };
 
 /** Page metadata: title (the layout template adds " | <brand>"), description, canonical, Open Graph and Twitter. */
-export function pageMetadata({ title, description, path }: { title: string; description: string; path: string }): Metadata {
+export function pageMetadata({ title, description, path, absoluteTitle = false }: { title: string; description: string; path: string; absoluteTitle?: boolean }): Metadata {
   return {
-    title,
+    title: absoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: path },
     openGraph: { ...sharedOpenGraph, url: path, title, description, images: [ogImage] },

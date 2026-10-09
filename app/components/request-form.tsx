@@ -8,7 +8,7 @@ const input =
   "mt-1 block w-full rounded-chip border border-solid border-[#7b8a86] bg-gray-50 px-3 py-2.5 text-[1rem] text-black transition-colors duration-300 hover:border-black";
 
 // email and calUrl come from site.config through the (server) page, so this client bundle doesn't carry the whole config.
-export default function RequestForm({ type = "check", email, calUrl }: { type?: FormType; email: string; calUrl: string }) {
+export default function RequestForm({ type = "check", email, calUrl, agency = false }: { type?: FormType; email: string; calUrl: string; agency?: boolean }) {
   const teardown = type === "teardown";
   const [f, setF] = useState<Fields>(empty);
   const [errors, setErrors] = useState<Errors>({});
@@ -76,7 +76,7 @@ export default function RequestForm({ type = "check", email, calUrl }: { type?: 
         {field("email", "Work email", <input {...aria("email")} required type="email" className={input} autoComplete="email" value={f.email} onChange={set("email")} />)}
         {field(
           "website",
-          teardown ? "The page your ads point to" : "Company website",
+          teardown ? (agency ? "The landing page to review" : "The page your ads point to") : "Company website",
           <input {...aria("website")} required className={input} autoComplete="url" inputMode="url" value={f.website} onChange={set("website")} />,
         )}
         {!teardown &&
@@ -106,12 +106,12 @@ export default function RequestForm({ type = "check", email, calUrl }: { type?: 
           {teardown ? "Request a teardown" : "Request a check"}
         </button>
         <p className="text-gray-600">
-          {teardown ? "We'll email you the recording." : "We reply within one business day."}
+          {teardown ? (agency ? "We'll email you the recording, unbranded." : "We'll email you the recording.") : "We reply within one business day."}
         </p>
       </form>
       {teardown ? (
         <p className="mt-6">
-          Ready for the full check? <a href={calUrl} className="link">Book a 20-minute fit call</a>
+          {agency ? "Ready for a pilot?" : "Ready for the full check?"} <a href={calUrl} className="link">Book a 20-minute fit call</a>
         </p>
       ) : (
         calUrl && (

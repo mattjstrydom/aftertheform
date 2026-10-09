@@ -1,12 +1,21 @@
 import Link from "next/link";
 import { site } from "../site.config";
 
-// Every booking button on the site goes to the Cal.com link in site.calUrl, same tab, no embed.
-export function CalButton({ className = "", children = "Book a 20-minute fit call" }: { className?: string; children?: React.ReactNode }) {
+// Direct booking buttons go to /book (a redirect to the direct Cal.com link, see site.config.ts). Agency pages pass
+// href={site.agencyBookingUrl}. Same tab, no embed.
+export function CalButton({ className = "", href = site.bookPath, children = "Book a 20-minute fit call" }: { className?: string; href?: string; children?: React.ReactNode }) {
   return (
-    <a href={site.calUrl} className={`btn ${className}`}>
+    <a href={href} className={`btn ${className}`}>
       {children}
     </a>
+  );
+}
+
+export function TeardownButton({ className = "", href = "/teardown", children = "Get a free teardown" }: { className?: string; href?: string; children?: React.ReactNode }) {
+  return (
+    <Link href={href} className={`btn-outline ${className}`}>
+      {children}
+    </Link>
   );
 }
 

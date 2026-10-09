@@ -2,15 +2,25 @@ import Link from "next/link";
 import { site } from "../site.config";
 import Wordmark from "./wordmark";
 
-const links: [string, string][] = [
+const directLinks: [string, string][] = [
   ["/#how", "How it works"],
   ["/#pricing", "Pricing"],
-  ["/#agencies", "Agencies"],
+  ["/agencies", "Agencies"],
   ["/#questions", "Questions"],
 ];
 
-export default function Header({ path = "/" }: { path?: string }) {
+// On the agency pages, Pricing and Questions point at the agency page's own sections.
+const agencyLinks: [string, string][] = [
+  ["/#how", "How it works"],
+  ["/agencies#pricing", "Pricing"],
+  ["/agencies", "Agencies"],
+  ["/agencies#questions", "Questions"],
+];
+
+export default function Header({ path = "/", agency = false }: { path?: string; agency?: boolean }) {
   const onSample = path === "/sample-report";
+  const links = agency ? agencyLinks : directLinks;
+  const bookHref = agency ? site.agencyBookingUrl : site.bookPath;
   return (
     <header className="sticky top-0 z-20 bg-gray-50">
       <div className="container-site grid h-16 grid-cols-[1fr_auto] items-center gap-4 max-md:h-[60px] lg:grid-cols-[1fr_auto_1fr]">
@@ -30,7 +40,7 @@ export default function Header({ path = "/" }: { path?: string }) {
           <Link href="/sample-report" className="btn-m-outline" aria-current={onSample ? "page" : undefined}>
             See a sample report
           </Link>
-          <a href={site.calUrl} className="btn-m">Book a fit call</a>
+          <a href={bookHref} className="btn-m">Book a fit call</a>
         </div>
 
         <button
@@ -60,7 +70,7 @@ export default function Header({ path = "/" }: { path?: string }) {
           <Link href="/sample-report" className="btn-outline w-full" aria-current={onSample ? "page" : undefined}>
             See a sample report
           </Link>
-          <a href={site.calUrl} className="btn w-full">Book a 20-minute fit call</a>
+          <a href={bookHref} className="btn w-full">Book a 20-minute fit call</a>
         </div>
       </nav>
     </header>

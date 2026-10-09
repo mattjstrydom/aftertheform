@@ -46,12 +46,12 @@ export default function Terms() {
           </C>
           <C n="2.3">You pay 50% at kickoff and 50% on delivery of the report. Both are by Stripe invoice, due on receipt.</C>
           <C n="2.4">
-            <strong className="font-medium">Monthly plan:</strong> $1,500 a month for up to 3 client accounts, $2,500 a month for up to 5, and $400 a month for each extra account. It&apos;s billed monthly in advance by Stripe subscription.
+            <strong className="font-medium">Monthly plan:</strong> $750 a month for one HubSpot portal and one Google Ads account. For agencies, $500 a month for each client account for the first four accounts, then $400 a month for each account from the fifth. It&apos;s billed monthly in advance by Stripe subscription.
           </C>
           <C n="2.5">
             <strong className="font-medium">Extra work:</strong> ops work outside the monthly plan (for example routing, clean-up, reporting or new builds) is sold in blocks at $150 an hour, with a 5-hour minimum. We agree it in writing before we start.
           </C>
-          <C n="2.6">If you join the monthly plan within 14 days of the day 30 recheck, we credit the pilot fee against your first month.</C>
+          <C n="2.6">If you join the monthly plan within 14 days of the day 30 recheck, we credit the pilot fee against your monthly invoices until it&apos;s used up.</C>
 
           <h2 id="clause-3" className={h2}>3. What the check and fix includes</h2>
           <C n="3.1">One HubSpot portal and one individual Google Ads account (not a manager account).</C>
@@ -91,7 +91,7 @@ export default function Terms() {
           <C n="6.2">Each month, on each account, we:</C>
           <ul className={list}>
             <li>run monthly checks of the HubSpot to Google Ads connection (sync errors, the count gap, click ID coverage, changes to Primary conversions, and consent);</li>
-            <li>send a white-label monthly note; and</li>
+            <li>send a monthly note (white-label for agencies); and</li>
             <li>fix anything that breaks, up to 1.5 hours per account.</li>
           </ul>
           <C n="6.3">Other work is quoted separately under clause 2.5.</C>

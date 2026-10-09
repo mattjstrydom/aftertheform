@@ -5,14 +5,13 @@ import "./motion.css";
 import Header from "./components/header";
 import Footer from "./components/footer";
 import Faq, { type FaqItem } from "./components/faq";
-import { CalButton, SampleButton } from "./components/cta";
+import { CalButton, SampleButton, TeardownButton } from "./components/cta";
 import { Accent, Chip, SectionHead, Tick, TickList } from "./components/ui";
 import { Slot } from "./components/ph";
 import { ConsentMock, ConversionMock, CookieMock } from "./components/mocks";
 import A1LeadToBid from "./components/a1-lead-to-bid";
 import A2SecondaryToPrimary from "./components/a2-secondary-to-primary";
 import A3ChangeLog from "./components/a3-change-log";
-import C1Report from "./components/c1-report";
 import C3Finding from "./components/c3-finding";
 import C4Count from "./components/c4-count";
 import { site } from "./site.config";
@@ -83,26 +82,10 @@ const accessMine = [
   "You can revoke our access at any time. We remove it at handover unless you're on the monthly plan.",
 ];
 
-const plans: [string, string, string][] = [
-  ["Up to 3", "$1,500 a month", "up to 3 client accounts"],
-  ["Up to 5", "$2,500 a month", "up to 5 client accounts"],
-  ["Extra accounts", "$400 a month each", "above your plan"],
-];
-
-const monthly = [
+const monthlyDirect = [
   "Monthly checks of the HubSpot to Google Ads connection: sync errors, the gap between HubSpot and Google Ads counts, click ID coverage, changes to Primary conversions, and consent signals.",
-  "A white-label monthly note on what changed and what needs a decision.",
-  "Fixes for anything that breaks, up to 1.5 hours per account a month.",
-];
-
-const pilot: React.ReactNode[] = [
-  <>
-    <strong className="font-medium">$900</strong> with a short case study and a 20-minute debrief, or <strong className="font-medium">$1,200</strong> without. The case study uses wording you approve.
-  </>,
-  "One HubSpot portal and one Google Ads account, the client's own account rather than a manager account.",
-  "The seven checks, with fixes in HubSpot, Google Ads and Tag Manager settings.",
-  "White-label report, change log with undo steps, recorded walkthrough and a 30-minute handover with your team.",
-  "Free day 30 recheck. If you join the monthly plan within 14 days of the recheck, the pilot fee comes off your first month.",
+  "A monthly note on what changed and what needs a decision.",
+  "Fixes for anything that breaks, up to 1.5 hours a month.",
 ];
 
 const working = [
@@ -159,7 +142,7 @@ const faqs: FaqItem[] = [
     q: "Do you work with agencies?",
     a: (
       <>
-        Yes. Agencies can buy a check for a client and deliver it under their own name. See “<Link href="#agencies" className="link">For agencies: the pilot</Link>”.
+        Yes. Agencies can buy a check for a client and deliver it under their own name. <Link href="/agencies" className="link">See how we work with agencies</Link>.
       </>
     ),
   },
@@ -242,7 +225,7 @@ export default function Home() {
               </p>
               <div className="mt-4 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
                 <CalButton className="w-full sm:w-auto" />
-                <SampleButton className="w-full sm:w-auto" />
+                <TeardownButton className="w-full sm:w-auto" />
               </div>
               <p className="text-text-m text-gray-600 max-w-[33.75rem]">
                 <span className="font-medium text-black">$1,200 fixed.</span> If none of our seven checks finds anything that needs changing, you pay only the first half and keep the report.
@@ -252,6 +235,25 @@ export default function Home() {
               </div>
             </div>
             <A1LeadToBid />
+          </div>
+        </section>
+
+        {/* 1b. Who this is for */}
+        <section id="for" aria-labelledby="for-title" className="section-y">
+          <div className="container-site">
+            <SectionHead id="for">Who this is for</SectionHead>
+            <div className="bento mt-10 max-w-[64rem] space-y-5 text-text-l">
+              <p>This check fits if all of these are true:</p>
+              <TickList
+                items={[
+                  "You run Google Ads with Smart Bidding, such as Maximize conversions or Maximize conversion value.",
+                  "Your leads go into HubSpot, and your sales team moves them through lifecycle stages there.",
+                  "You have Marketing Hub Starter, Professional or Enterprise.",
+                  "Enough leads reach a qualified stage each month for bidding to learn from. We check this on the fit call, and if the volume isn't there, we'll tell you.",
+                ]}
+              />
+              <p>It isn&apos;t a fit if your CRM is Salesforce, or your HubSpot sync runs from a Google Ads manager account.</p>
+            </div>
           </div>
         </section>
 
@@ -269,7 +271,7 @@ export default function Home() {
                 <p>
                   The fix exists. HubSpot can send lifecycle stages to Google Ads as conversions, and Google Ads can pull them in through Data Manager. But Google only bids on a conversion that is set as Primary and sits in a goal your campaigns use. So a connection can sync without those stages ever being used for bidding.
                 </p>
-                <p>And when the numbers disagree, HubSpot&apos;s own documentation says the totals may not match Google&apos;s. HubSpot Support won&apos;t investigate the gap unless there&apos;s a sync error.</p>
+                <p>And when the numbers disagree, HubSpot Support won&apos;t investigate the gap unless there&apos;s a sync error.</p>
               </div>
               <div className="bento-dark on-dark text-text-m">
                 <p>
@@ -341,7 +343,6 @@ export default function Home() {
                 ))}
               </ul>
             </div>
-            <C1Report />
           </div>
         </section>
 
@@ -388,7 +389,6 @@ export default function Home() {
                 </ul>
                 <div className="mt-6 flex flex-wrap items-center gap-4 lg:mt-auto lg:pt-6">
                   <CalButton className="w-full sm:w-auto" />
-                  <span className="text-[0.875rem] tracking-[-0.02em] text-green-200">Booked through Cal.com</span>
                 </div>
               </div>
 
@@ -412,7 +412,7 @@ export default function Home() {
                   </dd>
                   <dt className="text-gray-600">Booking</dt>
                   <dd>
-                    <a href={site.calUrl} className="link">Book a 20-minute fit call</a> through Cal.com. If it&apos;s not a fit, we&apos;ll say so on the call.
+                    <a href={site.bookPath} className="link">Book a 20-minute fit call</a>. If it&apos;s not a fit, we&apos;ll say so on the call.
                   </dd>
                 </dl>
 
@@ -429,30 +429,11 @@ export default function Home() {
                 <h3 className="text-title-m">
                   Monthly plan: <Accent small>we keep the connection fixed</Accent>
                 </h3>
-                <p className="mt-4 text-text-l">A monitored-accounts plan, not an hours bank.</p>
+                <p className="mt-4 text-text-l">A monitored-account plan, not an hours bank. $750 a month for one HubSpot portal and one Google Ads account.</p>
               </div>
               <div className="min-w-0">
-                <table className="w-full border-collapse text-left text-text-m">
-                  <caption className="sr-only">Monthly plan prices</caption>
-                  <thead>
-                    <tr className="text-gray-600">
-                      <th scope="col" className="py-3 pr-3 font-normal">Plan</th>
-                      <th scope="col" className="px-3 py-3 font-normal">Price</th>
-                      <th scope="col" className="py-3 pl-3 font-normal">Accounts</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {plans.map(([p, price, acc]) => (
-                      <tr key={p} className="border-t border-gray-100 align-top">
-                        <th scope="row" className="py-3 pr-3 font-normal">{p}</th>
-                        <td className="px-3 py-3 font-medium">{price}</td>
-                        <td className="py-3 pl-3">{acc}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                <p className="mt-6 font-medium">On each account, every month:</p>
-                <TickList items={monthly} className="mt-3" />
+                <p className="font-medium">Every month:</p>
+                <TickList items={monthlyDirect} className="mt-3" />
                 <p className="mt-4 text-text-m text-gray-600">Other ops work (routing, clean-up, reporting, new builds) is quoted separately in blocks at $150 an hour, 5-hour minimum.</p>
                 <p className="mt-4 text-text-m text-gray-600">3-month minimum, then month to month with 30 days&apos; notice. Billed monthly in advance by Stripe subscription.</p>
               </div>
@@ -460,24 +441,12 @@ export default function Home() {
           </div>
         </section>
 
-        {/* 8. For agencies */}
-        <section id="agencies" aria-labelledby="agencies-title" className="section-y">
+        {/* 8. Agencies: one line, the rest lives on /agencies */}
+        <section id="agencies" aria-label="Agencies" className="pb-4">
           <div className="container-site">
-            <SectionHead id="agencies" chip="For agencies">
-              For agencies: <Accent>the pilot</Accent>
-            </SectionHead>
-            <div className="bento mt-10 grid gap-8 lg:grid-cols-[5fr_7fr] lg:gap-12">
-              <div>
-                <p className="text-text-l max-w-[33.75rem]">We&apos;re opening a small paid pilot for HubSpot partner agencies. It&apos;s one check and fix on one client account, delivered under your agency&apos;s name.</p>
-                <CalButton className="mt-6 w-full sm:w-auto" />
-              </div>
-              <div>
-                <TickList items={pilot} />
-                <p className="mt-6 rounded-tile bg-gray-50 p-5">
-                  White-label means our name appears nowhere in the deliverables. We never contact your client unless you invite us, and we don&apos;t sell directly to your clients for 12 months.
-                </p>
-              </div>
-            </div>
+            <p className="text-text-l">
+              <Link href="/agencies" className="link">Agency? See how we work under your name.</Link>
+            </p>
           </div>
         </section>
 

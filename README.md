@@ -27,7 +27,6 @@ than `main` (`WORKERS_CI_BRANCH`) and Vercel previews (`VERCEL_ENV=preview`).
 | Name | Where | Purpose |
 |---|---|---|
 | `SEQUENZY_API_KEY` | Runtime **secret** on the Worker (dashboard: Worker > Settings > Variables and Secrets, or `npx wrangler secret put SEQUENZY_API_KEY`) | Used only by `worker/index.ts`. Without it the form shows its error state. |
-| `NEXT_PUBLIC_CAL_URL` | Build variable, optional | Overrides the confirmed Cal.com link in `app/site.config.ts`. Must be a `https://cal.com/` link. |
 | `SITE_INDEXABLE` | Build variable, optional | `1` makes a build indexable. Not needed on Workers Builds: the build of `main` is indexable automatically; every other build sends `noindex`. |
 | `FORM_DRY_RUN` | `.dev.vars` only | Local testing, see above. |
 
@@ -69,7 +68,7 @@ Brand name, domain, URL, email and legal lines live in `app/site.config.ts` and 
 JSON-LD, terms, privacy and the Worker. After a rename also:
 - replace the artwork: `app/components/wordmark.tsx` (inline SVG), `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico`, `public/closedlogic-og-1200x630.png` and `public/closedlogic-og-x-1200x600.png` (all from Nova's files in `outreach/design/brand-closedlogic/`);
 - `notifyTo` (form notifications) and the Sequenzy sender domain, once the new mailbox works;
-- `site.config.ts` `calUrl` and `linkedin` if those change; the Cal.com event itself lives in Cal.com;
+- `app/booking.json` (both Cal.com links) and `site.config.ts` `linkedin` if those change; the Cal.com events themselves live in Cal.com;
 - optional: `name` in `wrangler.jsonc` and `package.json` (the Worker name, not shown to visitors);
 - the Sequenzy `source` attribute follows `site.domain`, so new leads carry the new domain.
 
@@ -100,6 +99,11 @@ JSON-LD, terms, privacy and the Worker. After a rename also:
 | Static image loader and sizes | `app/image-loader.ts`, `images.manifest.json`, `scripts/build-images.mjs` |
 | Cloudflare | `wrangler.jsonc`, `worker/index.ts`, `scripts/cf-postbuild.mjs` |
 
+## Pages and booking links
+
+- `/` is for companies buying for themselves; `/agencies` and `/agencies/teardown` are for agencies.
+- Both Cal.com links live in `app/booking.json`. Direct buttons link to `/book`, a 302 written to `out/_redirects` by `scripts/cf-postbuild.mjs`, so direct pages never show a Cal.com address. Agency buttons link straight to the agency URL.
+
 ## Remaining placeholders
 
 `npm run build` fails until these are filled in `app/site.config.ts`:
@@ -107,7 +111,7 @@ JSON-LD, terms, privacy and the Worker. After a rename also:
 | ID | Setting | Where it shows | Status |
 |---|---|---|---|
 | P2 | `replyTime` | C2 "Reply time" | Filled: Within one business day |
-| P3 | `calUrl` / `NEXT_PUBLIC_CAL_URL` | every "Book" CTA | Filled: https://cal.com/aftertheform/20min-fit (Cal.com account slug, old brand; works as is) |
+| P3 | `app/booking.json` | every "Book" CTA | Done: direct `https://cal.com/closedlogic/20min-fit` (via the `/book` redirect), agency `https://cal.com/closedlogic/20-minute-fit-agency` |
 | P6 | `c3Label` (and an optional test-account screenshot) | C3 | Default label "Example data, fictional account" |
 | P7 | `governingLaw` | Terms clause 12 | Filled: New Mexico (12.1 to 12.4) |
 | P13 | `email`, `emailLive`, `notifyTo` | contact links, privacy, form notifications | Done: `hello@closedlogic.com` is live and receives form notifications |

@@ -72,7 +72,7 @@ export default function C4Count() {
         <h3 id="c4-title" className="mt-4 text-title-m">
           Which gaps are faults, <Accent small>and which are normal</Accent>
         </h3>
-        <p className="mt-4 text-text-l text-gray-800">HubSpot says the totals may not match, so differences alone aren&apos;t a fault. These ones are explained.</p>
+        <p className="mt-4 text-text-l text-gray-800">Some difference between the two counts is normal. These ones are explained.</p>
 
         <ol className="mt-7 space-y-4 text-text-m">
           <li className="flex gap-3 text-green-text">

@@ -5,7 +5,7 @@ import { site } from "../site.config";
 // min-h-6: 24px targets (WCAG 2.5.8)
 const link = "inline-flex min-h-6 items-center text-black underline underline-offset-[0.2em] hover:decoration-2";
 
-export default function Footer() {
+export default function Footer({ teardownHref = "/teardown" }: { teardownHref?: string }) {
   return (
     <footer className="border-t border-gray-100 bg-gray-50 py-10 text-text-s text-gray-600">
       <div className="container-site flex flex-col gap-4">
@@ -15,7 +15,7 @@ export default function Footer() {
             <Link href="/terms" className={link}>Terms</Link>
             <Link href="/privacy" className={link}>Privacy policy</Link>
             <CookieSettings className={`${link} cursor-pointer`} />
-            <Link href="/teardown" className={link}>Get a free teardown</Link>
+            <Link href={teardownHref} className={link}>Get a free teardown</Link>
           </nav>
         </div>
         <p className="max-w-[80ch]">

@@ -29,9 +29,6 @@ const walk = (dir) => {
   }
 };
 walk("app");
-// The confirmed Cal.com link is the default in site.config.ts; NEXT_PUBLIC_CAL_URL only overrides it.
-if (process.env.NEXT_PUBLIC_CAL_URL && !/^https:\/\/cal\.com\//.test(process.env.NEXT_PUBLIC_CAL_URL))
-  hits.push("NEXT_PUBLIC_CAL_URL is set but is not a https://cal.com/ link");
 
 const cfg = readFileSync("app/site.config.ts", "utf8");
 // The new mailbox isn't set up yet (rename to Closed Logic): block production until Matt confirms it receives mail.

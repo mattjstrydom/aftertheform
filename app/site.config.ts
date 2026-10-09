@@ -1,5 +1,7 @@
 // Site facts and every open placeholder. scripts/check-placeholders.mjs fails the
 // production build while any double-brace token is left in app/.
+import booking from "./booking.json";
+
 export type CaseStudy = { title: string; body: string; attribution: string };
 
 export const site = {
@@ -23,9 +25,12 @@ export const site = {
     return `${this.brand} is a trading name of ${this.legalEntity}`;
   },
   linkedin: "https://www.linkedin.com/in/mattstrydom",
-  // Confirmed by Matt (8 Oct 2026). The slug is the Cal.com account name, which still carries the old brand; it keeps
-  // working after the rename. If Matt renames the Cal.com account, change it here (or set NEXT_PUBLIC_CAL_URL).
-  calUrl: process.env.NEXT_PUBLIC_CAL_URL || "https://cal.com/aftertheform/20min-fit",
+  // Booking links. The two Cal.com URLs live in app/booking.json (one place, also read by scripts/cf-postbuild.mjs).
+  // Direct buttons link to bookPath, a redirect to the direct URL written to out/_redirects at build time, so the
+  // homepage never shows a Cal.com address. Agency buttons link straight to the agency URL.
+  bookPath: "/book",
+  directBookingUrl: booking.direct,
+  agencyBookingUrl: booking.agency,
   // Only the production build is indexable: the Cloudflare Workers Builds build of main, or any build with
   // SITE_INDEXABLE=1. VERCEL_ENV keeps a Vercel production build working.
   indexable:
