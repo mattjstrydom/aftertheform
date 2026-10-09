@@ -1,6 +1,5 @@
 // Site facts and every open placeholder. scripts/check-placeholders.mjs fails the
 // production build while any double-brace token is left in app/.
-export type Cert = { name: string; verifyUrl: string };
 export type CaseStudy = { title: string; body: string; attribution: string };
 
 export const site = {
@@ -32,9 +31,6 @@ export const site = {
   indexable:
     process.env.VERCEL_ENV === "production" || process.env.SITE_INDEXABLE === "1" || process.env.WORKERS_CI_BRANCH === "main",
 
-  // Option B from matt-decisions-drafts.md section 1 (Steve: option B unless Matt says otherwise).
-  experienceLine:
-    "I've spent 7+ years across RevOps, go-to-market strategy, marketing automation and growth engineering, and I work hands-on in HubSpot and Google Tag Manager.",
   replyTime: "Within one business day",
   // Terms clause 12 (Reubika LLC is a New Mexico LLC), text from matt-decisions-drafts.md section 5.
   governingLaw: [
@@ -47,8 +43,6 @@ export const site = {
   privacyLastUpdated: "9 October 2026",
   termsLastUpdated: "9 October 2026",
 
-  headshotConfirmed: true, // Matt confirmed the current public/matt.jpg (8 Oct 2026)
-  certifications: [] as Cert[], // none for now (Matt, 8 Oct 2026); the line stays hidden while empty
   c3Label: "Example data, fictional account",
   caseStudy: null as CaseStudy | null,
 };

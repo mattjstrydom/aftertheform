@@ -10,7 +10,7 @@ export default function Footer() {
     <footer className="border-t border-gray-100 bg-gray-50 py-10 text-text-s text-gray-600">
       <div className="container-site flex flex-col gap-4">
         <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3">
-          <p>{site.legalLine}. Led by Matt Strydom.</p>
+          <p>{site.legalLine}.</p>
           <nav aria-label="Footer" className="flex flex-wrap items-center gap-x-6 gap-y-2">
             <Link href="/terms" className={link}>Terms</Link>
             <Link href="/privacy" className={link}>Privacy policy</Link>

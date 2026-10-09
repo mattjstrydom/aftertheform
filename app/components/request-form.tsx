@@ -106,7 +106,7 @@ export default function RequestForm({ type = "check", email, calUrl }: { type?: 
           {teardown ? "Request a teardown" : "Request a check"}
         </button>
         <p className="text-gray-600">
-          {teardown ? "We'll email you the recording." : "We reply personally within one business day."}
+          {teardown ? "We'll email you the recording." : "We reply within one business day."}
         </p>
       </form>
       {teardown ? (

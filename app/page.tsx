@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import Script from "next/script";
 import type { Metadata } from "next";
@@ -78,10 +77,10 @@ const priceTerms = [
 ];
 
 const accessMine = [
-  "Named user invites only, never shared passwords. My accounts use two-step login.",
-  "I use only the access the work needs. I don't export or copy contact records.",
+  "Named user invites only, never shared passwords. Our accounts use two-step login.",
+  "We use only the access the work needs. We don't export or copy contact records.",
   "Every change is logged with how to reverse it, and nothing changes without your approval.",
-  "You can revoke my access at any time. I remove it at handover unless you're on the monthly plan.",
+  "You can revoke our access at any time. We remove it at handover unless you're on the monthly plan.",
 ];
 
 const plans: [string, string, string][] = [
@@ -182,7 +181,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Where are you based, and how do we pay?",
-    a: `Matt works from South Africa. ${site.legalLine}. We invoice in USD through Stripe.`,
+    a: `We work from South Africa. ${site.legalLine}. We invoice in USD through Stripe.`,
   },
 ];
 
@@ -248,13 +247,8 @@ export default function Home() {
               <p className="text-text-m text-gray-600 max-w-[33.75rem]">
                 <span className="font-medium text-black">$1,200 fixed.</span> If none of our seven checks finds anything that needs changing, you pay only the first half and keep the report.
               </p>
-              <div className="flex items-center gap-3 rounded-pill bg-white py-2 pl-2 pr-5">
-                <Image src="/matt.jpg" alt="" width={40} height={40} className="size-10 rounded-full object-cover" />
-                <p className="text-left text-[0.875rem] leading-[1.3] tracking-[-0.02em]">
-                  <span className="font-medium">Matt Strydom</span>
-                  <br />
-                  <span className="text-gray-600">On your fit call and in your account</span>
-                </p>
+              <div className="rounded-pill bg-white px-5 py-3">
+                <p className="text-left text-[0.875rem] leading-[1.3] tracking-[-0.02em] font-medium">A named lead on every check</p>
               </div>
             </div>
             <A1LeadToBid />
@@ -378,7 +372,7 @@ export default function Home() {
             <Chip>Pricing</Chip>
             <h2 id="pricing-title" className="mt-4 max-w-[900px] text-title-l">
               One price.
-              <br className="max-lg:hidden" /> <Accent>One person in your account.</Accent>
+              <br className="max-lg:hidden" /> <Accent>A named lead on every check.</Accent>
             </h2>
             <div className="mt-10 grid grid-cols-1 gap-4 lg:grid-cols-[5fr_7fr]">
               {/* Price card */}
@@ -398,38 +392,13 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Personal card, first person */}
+              {/* Company card */}
               <div className="bento p-6 sm:p-10">
-                <div className="flex flex-col gap-6 sm:flex-row sm:items-start">
-                  <Image
-                    src="/matt.jpg"
-                    alt="Matt Strydom"
-                    width={168}
-                    height={168}
-                    className="aspect-square w-[148px] shrink-0 rounded-tile object-cover sm:w-[168px]"
-                  />
-                  <div className="min-w-0">
-                    <p className="text-title-m">Matt Strydom</p>
-                    <p className="mt-2 text-text-l text-gray-800">I&apos;m the person on your fit call and the person working in your account. No handoffs.</p>
-                    <p className="mt-3">
-                      <Slot value={site.experienceLine} />
-                    </p>
-                    {site.certifications.length > 0 && (
-                      <p className="mt-3 text-text-s text-gray-600">
-                        Current certifications:{" "}
-                        {site.certifications.map((c, i) => (
-                          <span key={c.name}>
-                            {i > 0 && ", "}
-                            <a href={c.verifyUrl} className="link">
-                              {c.name}
-                              <span className="sr-only"> (verify)</span>
-                            </a>
-                          </span>
-                        ))}
-                      </p>
-                    )}
-                    <a href={site.linkedin} className="btn-quiet mt-4">Matt on LinkedIn</a>
-                  </div>
+                <div className="min-w-0">
+                  <p className="text-title-m">{site.brand}</p>
+                  <p className="mt-2 text-text-l text-gray-800">Every check has a named lead who joins your fit call and stays on your account through handover, so nothing gets handed off mid-check.</p>
+                  <p className="mt-3 text-text-m text-gray-800">Founded by Matt Strydom.</p>
+                  <a href={site.linkedin} className="btn-quiet mt-4">Matt on LinkedIn</a>
                 </div>
 
                 <dl className="mt-8 grid grid-cols-1 gap-x-6 gap-y-1 text-[1rem] leading-[1.5] tracking-[-0.02em] sm:grid-cols-[120px_1fr] sm:gap-y-3">
@@ -443,12 +412,12 @@ export default function Home() {
                   </dd>
                   <dt className="text-gray-600">Booking</dt>
                   <dd>
-                    <a href={site.calUrl} className="link">Book a 20-minute fit call</a> through Cal.com. If it&apos;s not a fit, I&apos;ll say so on the call.
+                    <a href={site.calUrl} className="link">Book a 20-minute fit call</a> through Cal.com. If it&apos;s not a fit, we&apos;ll say so on the call.
                   </dd>
                 </dl>
 
                 <div className="mt-8 rounded-tile bg-green-100 p-5 sm:p-7">
-                  <h3 className="text-title-xs">How I handle access</h3>
+                  <h3 className="text-title-xs">How we handle access</h3>
                   <TickList items={accessMine} className="mt-4 gap-x-8 md:grid-cols-2" itemClassName="text-[0.9375rem] leading-[1.45] tracking-[-0.01em] text-gray-800" />
                 </div>
               </div>

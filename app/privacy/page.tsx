@@ -27,7 +27,7 @@ export default function Privacy() {
 
         <p>
           This policy explains what personal data {site.domain} collects, why, who sees it and what
-          your choices are. {site.legalLine}, run by Matt Strydom (&quot;we&quot;,
+          your choices are. {site.legalLine} (&quot;we&quot;,
           &quot;us&quot;). We are the controller of the data described here. Contact us at{" "}
           <a href={`mailto:${site.email}`} className="link">{site.email}</a>.
         </p>

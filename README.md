@@ -106,11 +106,8 @@ JSON-LD, terms, privacy and the Worker. After a rename also:
 
 | ID | Setting | Where it shows | Status |
 |---|---|---|---|
-| P1 | `experienceLine` | C2 personal card | Filled with option B |
 | P2 | `replyTime` | C2 "Reply time" | Filled: Within one business day |
 | P3 | `calUrl` / `NEXT_PUBLIC_CAL_URL` | every "Book" CTA | Filled: https://cal.com/aftertheform/20min-fit (Cal.com account slug, old brand; works as is) |
-| P4 | `public/matt.jpg`, `headshotConfirmed` | hero pill, C2 | Confirmed (current headshot) |
-| P5 | `certifications` | C2 | None; line hidden |
 | P6 | `c3Label` (and an optional test-account screenshot) | C3 | Default label "Example data, fictional account" |
 | P7 | `governingLaw` | Terms clause 12 | Filled: New Mexico (12.1 to 12.4) |
 | P13 | `email`, `emailLive`, `notifyTo` | contact links, privacy, form notifications | Done: `hello@closedlogic.com` is live and receives form notifications |
