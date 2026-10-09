@@ -38,7 +38,8 @@ export function securityHeaders(indexable) {
     ["Referrer-Policy", "strict-origin-when-cross-origin"],
     ["Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=(), usb=()"],
     ["X-Frame-Options", "DENY"],
-    ["Cross-Origin-Opener-Policy", "same-origin"],
+    // No Cross-Origin-Opener-Policy: Tag Assistant (GTM preview) opens this site from tagassistant.google.com and talks to
+    // it through window.opener, which COOP: same-origin severs ("Couldn't connect"). Revisit once GTM preview isn't needed.
     ...(indexable ? [] : [["X-Robots-Tag", "noindex, nofollow"]]),
   ];
 }
