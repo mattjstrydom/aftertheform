@@ -50,6 +50,12 @@ export default function Privacy() {
           from it, deleted within 14 days.
         </p>
         <p>
+          <strong>Cookie-free visit statistics, whether or not you accept cookies.</strong> Cloudflare Web
+          Analytics counts page views and measures how fast pages load, using the page address, referrer,
+          country, device type and browser. It sets no cookies and uses no local storage, and it does not
+          follow you from one site to another.
+        </p>
+        <p>
           <strong>Technical logs.</strong> Our host records standard request data, such as IP address and
           user agent, to deliver the site and keep it secure. This happens whether or not you accept cookies.
         </p>
@@ -60,7 +66,7 @@ export default function Privacy() {
           <li>Replying to your request and taking steps you ask for before any agreement: legitimate interests, and steps at your request before entering a contract.</li>
           <li>Running a service you have bought, including access to your accounts: performance of a contract.</li>
           <li>Analytics cookies: your consent, which you can withdraw at any time.</li>
-          <li>Keeping the site secure and preventing spam: legitimate interests.</li>
+          <li>Keeping the site secure and preventing spam, and cookie-free visit statistics from Cloudflare Web Analytics: legitimate interests.</li>
           <li>Keeping records we are legally required to keep, such as invoices: legal obligation.</li>
         </ul>
 
@@ -77,7 +83,7 @@ export default function Privacy() {
         <p>We do not sell your personal data. We use these providers to run the site and the service:</p>
         <ul className="list-disc space-y-2 pl-6">
           <li>
-            <strong>Cloudflare</strong>: hosts the site and protects it from abuse. (<a href="https://www.cloudflare.com/privacypolicy/" className="link">privacy policy</a>,{" "}
+            <strong>Cloudflare</strong>: hosts the site, protects it from abuse and, through Web Analytics, counts visits without cookies. (<a href="https://www.cloudflare.com/privacypolicy/" className="link">privacy policy</a>,{" "}
             <a href="https://www.cloudflare.com/cloudflare-customer-dpa/" className="link">DPA</a>)
           </li>
           <li>
@@ -126,8 +132,8 @@ export default function Privacy() {
           Teardown requests and booking details that don&apos;t lead to an engagement are deleted within 24 months. Details of
           people we emailed about our service are deleted within 12 months of our last email, apart from do-not-contact entries. If you become a client we
           keep the work records for the length of the engagement and then for as long as tax and accounting
-          rules require. Analytics data follows the retention settings of the analytics tool and is not
-          collected at all if you decline cookies. You can ask us to delete your data sooner.
+          rules require. Analytics data follows the retention settings of the analytics tool. Google Analytics
+          data is not collected at all if you decline cookies. You can ask us to delete your data sooner.
         </p>
 
         <h2 className={h}>Your rights</h2>

@@ -2,6 +2,8 @@
 // which ignores next.config.ts headers, so scripts/cf-postbuild.mjs writes these into out/_headers after each build.
 // worker/index.ts sends its own, stricter set on /api/request.
 
+// Cloudflare Web Analytics (Matt, 9 Oct 2026: keep it on) loads static.cloudflareinsights.com/beacon.min.js and reports to
+// the site's own /cdn-cgi/rum ('self') and cloudflareinsights.com; Cloudflare injects the script automatically.
 // Google hosts for GA4 through GTM only (Matt, 8 Oct 2026: no other tags), from Google's tag CSP guide
 // (https://developers.google.com/tag-platform/security/guides/csp, "Google Analytics" with Ads-linked features, checked
 // October 2026). If Google Ads conversion or remarketing tags are ever added in GTM, add https://*.googleadservices.com and
@@ -13,10 +15,10 @@ const G =
 // 'unsafe-inline' for scripts is deliberate: the pages are static files, so there is no per-request nonce. No 'unsafe-eval'.
 export const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com",
+  "script-src 'self' 'unsafe-inline' https://*.googletagmanager.com https://static.cloudflareinsights.com",
   "style-src 'self' 'unsafe-inline'",
   `img-src 'self' data: ${G}`,
-  `connect-src 'self' ${G}`,
+  `connect-src 'self' https://cloudflareinsights.com ${G}`,
   "font-src 'self'",
   "frame-src https://*.googletagmanager.com",
   "base-uri 'self'",
