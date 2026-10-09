@@ -434,7 +434,9 @@ export default function Home() {
 
                 <dl className="mt-8 grid grid-cols-1 gap-x-6 gap-y-1 text-[1rem] leading-[1.5] tracking-[-0.02em] sm:grid-cols-[120px_1fr] sm:gap-y-3">
                   <dt className="text-gray-600">Company</dt>
-                  <dd className="mb-3 sm:mb-0">{site.legalLine}. Invoices in USD through Stripe.</dd>
+                  <dd className="mb-3 [text-wrap:balance] sm:mb-0">{site.legalLine}.</dd>
+                  <dt className="text-gray-600">Billing</dt>
+                  <dd className="mb-3 sm:mb-0">Invoices in USD through Stripe.</dd>
                   <dt className="text-gray-600">Reply time</dt>
                   <dd className="mb-3 sm:mb-0">
                     <Slot value={site.replyTime} />
