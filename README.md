@@ -65,8 +65,9 @@ than `main` (`WORKERS_CI_BRANCH`) and Vercel previews (`VERCEL_ENV=preview`).
 
 ## Renaming
 
-Brand name, monogram, domain, URL, email and legal lines live in `app/site.config.ts` and feed the copy, metadata,
-JSON-LD, terms, privacy, icons and the Worker. After a rename also:
+Brand name, domain, URL, email and legal lines live in `app/site.config.ts` and feed the copy, metadata,
+JSON-LD, terms, privacy and the Worker. After a rename also:
+- replace the artwork: `app/components/wordmark.tsx` (inline SVG), `app/icon.svg`, `app/apple-icon.png`, `brand/favicon-16.png` and `brand/favicon-32.png` (all from Nova's files in `outreach/design/brand-closedlogic/`);
 - re-render `public/og-image.png` (its text is baked into the image): edit `outreach/dev-handoff/assets/images/og-image.html`, run `node outreach/dev-handoff/tools/render-og.mjs`, copy the PNG to `public/og-image.png` (these files are outside the repo; the alt text comes from `site.brand` in `app/seo.ts`);
 - `notifyTo` (form notifications) and the Sequenzy sender domain, once the new mailbox works;
 - `site.config.ts` `calUrl` and `linkedin` if those change; the Cal.com event itself lives in Cal.com;
@@ -93,7 +94,8 @@ JSON-LD, terms, privacy, icons and the Worker. After a rename also:
 | Page metadata helper (title, description, canonical, OG, Twitter) | `app/seo.ts` |
 | Root metadata, GTM (`GTM-NCSN8BLM`, deferred) and consent defaults | `app/layout.tsx` |
 | Consent banner and Cookie settings | `app/components/consent-banner.tsx`, `app/components/cookie-settings.tsx` |
-| robots.txt, sitemap.xml, icons | `app/robots.ts`, `app/sitemap.ts`, `app/icon.tsx`, `app/apple-icon.tsx` |
+| robots.txt, sitemap.xml | `app/robots.ts`, `app/sitemap.ts` |
+| Wordmark and icons (Nova's artwork) | `app/components/wordmark.tsx`, `app/icon.svg`, `app/apple-icon.png`, `brand/favicon-*.png` (favicon.ico built by `scripts/cf-postbuild.mjs`) |
 | Share image (Open Graph and Twitter) | `public/og-image.png`, alt text in `app/seo.ts` |
 | Security headers | `scripts/security-headers.mjs` (written to `out/_headers` by `scripts/cf-postbuild.mjs`) |
 | Static image loader and sizes | `app/image-loader.ts`, `images.manifest.json`, `scripts/build-images.mjs` |

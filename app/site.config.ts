@@ -9,7 +9,6 @@ export const site = {
   // public/og-image.png, whose text is baked into the image (see README, "Renaming").
   // Renamed from the old brand to Closed Logic (Matt, 9 Oct 2026). The old domain's 301 plan is in the dev report.
   brand: "Closed Logic",
-  monogram: "CL", // favicon and apple icon; a plain-text wordmark in Archivo until Nova's wordmark arrives
   domain: "closedlogic.com", // apex; redirects to url (a Cloudflare redirect rule, see README)
   url: "https://www.closedlogic.com",
   // Placeholder: the mailbox isn't set up yet. scripts/check-placeholders.mjs blocks the production build until
