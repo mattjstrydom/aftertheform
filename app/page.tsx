@@ -18,7 +18,7 @@ import C3Finding from "./components/c3-finding";
 import C4Count from "./components/c4-count";
 import { site } from "./site.config";
 import { motionScript } from "./motion-script";
-import { sharedOpenGraph, ogImage } from "./seo";
+import { sharedOpenGraph, ogImage, twitterImage } from "./seo";
 
 const homeTitle = `${site.brand} | Make Google Ads bid on pipeline`;
 const description =
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   description,
   alternates: { canonical: "/" },
   openGraph: { ...sharedOpenGraph, url: "/", title: homeTitle, description, images: [ogImage] },
-  twitter: { card: "summary_large_image", title: homeTitle, description, images: [ogImage] },
+  twitter: { card: "summary_large_image", title: homeTitle, description, images: [twitterImage] },
 };
 
 const checks: { q: string; more?: string; mock?: React.ReactNode }[] = [

@@ -14,8 +14,8 @@ export default function Header({ path = "/" }: { path?: string }) {
   return (
     <header className="sticky top-0 z-20 bg-gray-50">
       <div className="container-site grid h-16 grid-cols-[1fr_auto] items-center gap-4 max-md:h-[60px] lg:grid-cols-[1fr_auto_1fr]">
-        <Link href="/" className="inline-flex min-h-6 items-center justify-self-start no-underline">
-          <Wordmark className="h-6 w-auto" />
+        <Link href="/" aria-label={`${site.brand}, home`} className="inline-flex min-h-6 items-center justify-self-start no-underline">
+          <Wordmark decorative className="h-[22px] w-auto md:h-6" />
         </Link>
 
         <nav aria-label="Main" className="hidden items-center gap-8 rounded-pill bg-white px-7 py-2 text-[0.875rem] leading-[1.3] font-medium tracking-[-0.03em] lg:flex">

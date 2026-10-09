@@ -6,7 +6,7 @@ export type CaseStudy = { title: string; body: string; attribution: string };
 export const site = {
   // Brand, domain, email and legal lines: the single source for copy, metadata, JSON-LD, terms, privacy, icons, the
   // generated headers and the form Worker (worker/index.ts). A rename is a change here plus re-rendering
-  // public/og-image.png, whose text is baked into the image (see README, "Renaming").
+  // Nova's artwork (wordmark, icons, share images), whose text is outlined or baked in (see README, "Renaming").
   // Renamed from the old brand to Closed Logic (Matt, 9 Oct 2026). The old domain's 301 plan is in the dev report.
   brand: "Closed Logic",
   domain: "closedlogic.com", // apex; redirects to url (a Cloudflare redirect rule, see README)

@@ -46,7 +46,7 @@ than `main` (`WORKERS_CI_BRANCH`) and Vercel previews (`VERCEL_ENV=preview`).
 
 | Command | What it does |
 |---|---|
-| `npm run build` | Placeholder check, `next build` into `out/`, then `out/_headers` and `out/favicon.ico` |
+| `npm run build` | Placeholder check, `next build` into `out/`, then `out/_headers` |
 | `npm run cf:preview` | Build and serve locally in the Workers runtime (http://localhost:8787) |
 | `npm run cf:deploy` | Build and deploy (needs a logged-in wrangler; normally Workers Builds does this) |
 | `npm run images` | Re-create the pre-sized AVIF and WebP files after adding or changing an image |
@@ -67,8 +67,7 @@ than `main` (`WORKERS_CI_BRANCH`) and Vercel previews (`VERCEL_ENV=preview`).
 
 Brand name, domain, URL, email and legal lines live in `app/site.config.ts` and feed the copy, metadata,
 JSON-LD, terms, privacy and the Worker. After a rename also:
-- replace the artwork: `app/components/wordmark.tsx` (inline SVG), `app/icon.svg`, `app/apple-icon.png`, `brand/favicon-16.png` and `brand/favicon-32.png` (all from Nova's files in `outreach/design/brand-closedlogic/`);
-- re-render `public/og-image.png` (its text is baked into the image): edit `outreach/dev-handoff/assets/images/og-image.html`, run `node outreach/dev-handoff/tools/render-og.mjs`, copy the PNG to `public/og-image.png` (these files are outside the repo; the alt text comes from `site.brand` in `app/seo.ts`);
+- replace the artwork: `app/components/wordmark.tsx` (inline SVG), `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico`, `public/closedlogic-og-1200x630.png` and `public/closedlogic-og-x-1200x600.png` (all from Nova's files in `outreach/design/brand-closedlogic/`);
 - `notifyTo` (form notifications) and the Sequenzy sender domain, once the new mailbox works;
 - `site.config.ts` `calUrl` and `linkedin` if those change; the Cal.com event itself lives in Cal.com;
 - optional: `name` in `wrangler.jsonc` and `package.json` (the Worker name, not shown to visitors);
@@ -95,8 +94,8 @@ JSON-LD, terms, privacy and the Worker. After a rename also:
 | Root metadata, GTM (`GTM-NCSN8BLM`, deferred) and consent defaults | `app/layout.tsx` |
 | Consent banner and Cookie settings | `app/components/consent-banner.tsx`, `app/components/cookie-settings.tsx` |
 | robots.txt, sitemap.xml | `app/robots.ts`, `app/sitemap.ts` |
-| Wordmark and icons (Nova's artwork) | `app/components/wordmark.tsx`, `app/icon.svg`, `app/apple-icon.png`, `brand/favicon-*.png` (favicon.ico built by `scripts/cf-postbuild.mjs`) |
-| Share image (Open Graph and Twitter) | `public/og-image.png`, alt text in `app/seo.ts` |
+| Wordmark and icons (Nova's artwork) | `app/components/wordmark.tsx`, `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico` |
+| Share images (Open Graph 1200x630, X/Twitter 1200x600, Nova's) | `public/closedlogic-og-1200x630.png`, `public/closedlogic-og-x-1200x600.png`, alt text in `app/seo.ts` |
 | Security headers | `scripts/security-headers.mjs` (written to `out/_headers` by `scripts/cf-postbuild.mjs`) |
 | Static image loader and sizes | `app/image-loader.ts`, `images.manifest.json`, `scripts/build-images.mjs` |
 | Cloudflare | `wrangler.jsonc`, `worker/index.ts`, `scripts/cf-postbuild.mjs` |

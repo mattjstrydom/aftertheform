@@ -1,7 +1,7 @@
 // Runs after `next build` (npm "postbuild"). Adds what a static export can't produce on its own:
 // - out/_headers: security headers on every page and file (scripts/security-headers.mjs), long caching for hashed
 //   files, and X-Robots-Tag: noindex on non-production builds
-// - out/favicon.ico: Nova's 16 and 32 px favicons (brand/) in an ICO container (browsers request /favicon.ico regardless)
+// (out/favicon.ico comes straight from app/favicon.ico, Nova's 16/32/48 px file.)
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import { securityHeaders } from "./security-headers.mjs";
 
@@ -22,18 +22,4 @@ const headers = [
 ].join("\n\n");
 writeFileSync(new URL("_headers", out), headers + "\n");
 
-// ICO with embedded PNG entries (supported by every current browser).
-const pngs = ["favicon-16.png", "favicon-32.png"].map((f) => readFileSync(new URL(`../brand/${f}`, import.meta.url)));
-const head = Buffer.alloc(6 + 16 * pngs.length);
-head.writeUInt16LE(0, 0); head.writeUInt16LE(1, 2); head.writeUInt16LE(pngs.length, 4);
-let offset = head.length;
-pngs.forEach((png, i) => {
-  const e = 6 + 16 * i, w = png.readUInt32BE(16), h = png.readUInt32BE(20);
-  head.writeUInt8(w >= 256 ? 0 : w, e); head.writeUInt8(h >= 256 ? 0 : h, e + 1);
-  head.writeUInt16LE(1, e + 4); head.writeUInt16LE(32, e + 6); // planes, bits per pixel
-  head.writeUInt32LE(png.length, e + 8); head.writeUInt32LE(offset, e + 12);
-  offset += png.length;
-});
-writeFileSync(new URL("favicon.ico", out), Buffer.concat([head, ...pngs]));
-
-console.log(`cf-postbuild: out/_headers (${indexable ? "indexable" : "noindex"}), out/favicon.ico (16 and 32 px)`);
+console.log(`cf-postbuild: out/_headers (${indexable ? "indexable" : "noindex"})`);

@@ -5,7 +5,7 @@ import Script from "next/script";
 import ConsentBanner from "./components/consent-banner";
 import { site } from "./site.config";
 import { CONSENT_KEY } from "./consent-key";
-import { sharedOpenGraph, ogImage } from "./seo";
+import { sharedOpenGraph, ogImage, twitterImage } from "./seo";
 
 const GTM = "GTM-NCSN8BLM";
 // Consent defaults are set first, then any saved choice is applied. GTM itself loads once, after the load event
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   title: { default: `${site.brand} | Make Google Ads bid on pipeline`, template: `%s | ${site.brand}` },
   applicationName: site.brand,
   openGraph: { ...sharedOpenGraph, images: [ogImage] },
-  twitter: { card: "summary_large_image", images: [ogImage] },
+  twitter: { card: "summary_large_image", images: [twitterImage] },
   // Non-production builds (previews, local) are noindex; next.config.ts adds the matching X-Robots-Tag header.
   ...(site.indexable ? {} : { robots: { index: false, follow: false } }),
 };
