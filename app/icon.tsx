@@ -7,7 +7,7 @@ export const dynamic = "force-static";
 export const size = { width: 64, height: 64 };
 export const contentType = "image/png";
 
-// "AF" mark in brand ink and paper (no third-party marks). Static at build time.
+// Monogram (site.monogram) in brand ink and paper (no third-party marks). Static at build time.
 export default function Icon() {
   return new ImageResponse(
     (

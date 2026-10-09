@@ -182,7 +182,7 @@ const faqs: FaqItem[] = [
   },
   {
     q: "Where are you based, and how do we pay?",
-    a: `Matt works from South Africa. ${site.brand} is a service of ${site.legalName}, a US company. We invoice in USD through Stripe.`,
+    a: `Matt works from South Africa. ${site.legalLine}. We invoice in USD through Stripe.`,
   },
 ];
 
@@ -434,7 +434,7 @@ export default function Home() {
 
                 <dl className="mt-8 grid grid-cols-1 gap-x-6 gap-y-1 text-[1rem] leading-[1.5] tracking-[-0.02em] sm:grid-cols-[120px_1fr] sm:gap-y-3">
                   <dt className="text-gray-600">Company</dt>
-                  <dd className="mb-3 sm:mb-0">{site.brand} is a service of {site.legalShort}. Invoices in USD through Stripe.</dd>
+                  <dd className="mb-3 sm:mb-0">{site.legalLine}. Invoices in USD through Stripe.</dd>
                   <dt className="text-gray-600">Reply time</dt>
                   <dd className="mb-3 sm:mb-0">
                     <Slot value={site.replyTime} />

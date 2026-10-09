@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import { CONSENT_KEY, OPEN_CONSENT_EVENT } from "../consent-key";
 
-const KEY = "atf-consent";
+const KEY = CONSENT_KEY;
 const SIGNALS = ["ad_storage", "analytics_storage", "ad_user_data", "ad_personalization"];
-export const OPEN_EVENT = "atf:open-consent";
+export const OPEN_EVENT = OPEN_CONSENT_EVENT;
 
 declare global {
   interface Window {

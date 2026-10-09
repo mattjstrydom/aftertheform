@@ -3,11 +3,12 @@ import Header from "../components/header";
 import Footer from "../components/footer";
 import { Slot } from "../components/ph";
 import { site } from "../site.config";
+import { CONSENT_KEY } from "../consent-key";
 import { pageMetadata } from "../seo";
 
 export const metadata = pageMetadata({
   title: "Privacy policy",
-  description: `What ${site.domain} collects, why, who sees it, how long we keep it, and how to use your rights. ${site.brand} is a service of ${site.legalShort}.`,
+  description: `What ${site.domain} collects, why, who sees it, how long we keep it, and how to use your rights. ${site.legalLine}.`,
   path: "/privacy",
 });
 
@@ -26,7 +27,7 @@ export default function Privacy() {
 
         <p>
           This policy explains what personal data {site.domain} collects, why, who sees it and what
-          your choices are. {site.brand} is run by Matt Strydom through {site.legalShort} (&quot;we&quot;,
+          your choices are. {site.legalLine}, run by Matt Strydom (&quot;we&quot;,
           &quot;us&quot;). We are the controller of the data described here. Contact us at{" "}
           <a href={`mailto:${site.email}`} className="link">{site.email}</a>.
         </p>
@@ -68,7 +69,7 @@ export default function Privacy() {
           Until you choose, every Google consent signal (<code>ad_storage</code>,{" "}
           <code>analytics_storage</code>, <code>ad_user_data</code> and <code>ad_personalization</code>) is
           set to denied. If you press Accept they are set to granted. If you press Decline they stay denied.
-          We store your choice in your browser&apos;s local storage under the key <code>atf-consent</code> so
+          We store your choice in your browser&apos;s local storage under the key <code>{CONSENT_KEY}</code> so
           we do not ask again. To change your mind, use the Cookie settings link at the bottom of any page.
         </p>
 

@@ -33,14 +33,14 @@ const consentState = () =>
 const clickText = (t) => p.evaluate((t) => [...document.querySelectorAll("button")].find((x) => x.textContent.trim() === t)?.click(), t);
 console.log("1 banner on first visit:", await banner(), "| state:", await consentState());
 await clickText("Decline");
-console.log("2 after Decline:", await banner(), await consentState(), "| stored:", await p.evaluate(() => localStorage.getItem("atf-consent")));
+console.log("2 after Decline:", await banner(), await consentState(), "| stored:", await p.evaluate(() => localStorage.getItem("cl-consent")));
 await clickText("Cookie settings");
 console.log("3 Cookie settings reopens:", await banner());
 await clickText("Accept");
 console.log("4 after Accept:", await banner(), await consentState());
 await clickText("Cookie settings");
 await clickText("Decline");
-console.log("5 Accept then Decline:", await consentState(), "| stored:", await p.evaluate(() => localStorage.getItem("atf-consent")));
+console.log("5 Accept then Decline:", await consentState(), "| stored:", await p.evaluate(() => localStorage.getItem("cl-consent")));
 console.log("gtm scripts:", await p.evaluate(() => document.querySelectorAll('script[src*="googletagmanager.com/gtm.js"]').length), "| tag assistant iframes:", await p.evaluate(() => document.querySelectorAll('iframe[src*="tagassistant"]').length));
 const ld = await p.evaluate(() => [...document.querySelectorAll('script[type="application/ld+json"]')].map((s) => JSON.parse(s.textContent)));
 console.log("json-ld blocks:", ld.length, "types:", ld[0]["@graph"].map((x) => x["@type"]).join(","));

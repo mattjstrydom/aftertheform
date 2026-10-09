@@ -1,4 +1,6 @@
-# After the Form
+# Closed Logic
+
+Site for closedlogic.com (renamed from After the Form, aftertheform.com, on 9 Oct 2026).
 
 Marketing site. Next.js 16 (App Router), TypeScript, Tailwind 4. Built as a **static export** (`output: "export"`) and
 hosted on **Cloudflare Workers static assets** (free plan). Every page is a plain file in `out/`; the only server code
@@ -57,15 +59,16 @@ than `main` (`WORKERS_CI_BRANCH`) and Vercel previews (`VERCEL_ENV=preview`).
 3. Add the secret `SEQUENZY_API_KEY` (Settings > Variables and Secrets, type Secret). Optional build variable
    `NEXT_PUBLIC_CAL_URL`.
 4. Check a preview URL against the dev report's checks before connecting the domain.
-5. Domain (zone on Cloudflare): Worker > Settings > Domains & Routes > Add Custom Domain: `www.aftertheform.com` and
-   `aftertheform.com`. Then Rules > Redirect Rules > "Redirect from root to WWW" template (301, keep the path and query).
+5. Domain (zone on Cloudflare): Worker > Settings > Domains & Routes > Add Custom Domain: `www.closedlogic.com` and
+   `closedlogic.com`. Then Rules > Redirect Rules > "Redirect from root to WWW" template (301, keep the path and query).
 6. After the domain works on Cloudflare: remove the domains from the Vercel project, then delete or pause the Vercel project.
 
 ## Renaming
 
 Brand name, monogram, domain, URL, email and legal lines live in `app/site.config.ts` and feed the copy, metadata,
 JSON-LD, terms, privacy, icons and the Worker. After a rename also:
-- re-render `public/og-image.png` (its text is baked into the image): edit `outreach/dev-handoff/assets/images/og-image.html`, run `node outreach/dev-handoff/tools/render-handoff.mjs`, copy the PNG to `public/og-image.png` (these files are outside the repo);
+- re-render `public/og-image.png` (its text is baked into the image): edit `outreach/dev-handoff/assets/images/og-image.html`, run `node outreach/dev-handoff/tools/render-og.mjs`, copy the PNG to `public/og-image.png` (these files are outside the repo; the alt text comes from `site.brand` in `app/seo.ts`);
+- `notifyTo` (form notifications) and the Sequenzy sender domain, once the new mailbox works;
 - `site.config.ts` `calUrl` and `linkedin` if those change; the Cal.com event itself lives in Cal.com;
 - optional: `name` in `wrangler.jsonc` and `package.json` (the Worker name, not shown to visitors);
 - the Sequenzy `source` attribute follows `site.domain`, so new leads carry the new domain.
@@ -104,11 +107,12 @@ JSON-LD, terms, privacy, icons and the Worker. After a rename also:
 |---|---|---|---|
 | P1 | `experienceLine` | C2 personal card | Filled with option B |
 | P2 | `replyTime` | C2 "Reply time" | Filled: Within one business day |
-| P3 | `calUrl` / `NEXT_PUBLIC_CAL_URL` | every "Book" CTA | Filled: https://cal.com/aftertheform/20min-fit |
+| P3 | `calUrl` / `NEXT_PUBLIC_CAL_URL` | every "Book" CTA | Filled: https://cal.com/aftertheform/20min-fit (Cal.com account slug, old brand; works as is) |
 | P4 | `public/matt.jpg`, `headshotConfirmed` | hero pill, C2 | Confirmed (current headshot) |
 | P5 | `certifications` | C2 | None; line hidden |
 | P6 | `c3Label` (and an optional test-account screenshot) | C3 | Default label "Example data, fictional account" |
 | P7 | `governingLaw` | Terms clause 12 | Filled: New Mexico (12.1 to 12.4) |
+| P13 | `email`, `emailLive`, `notifyTo` | contact links, privacy, form notifications | `hello@closedlogic.com` shown; **`emailLive: false` blocks the build** until the mailbox works; `notifyTo` stays on the old inbox until then |
 | P10 | `privacyLastUpdated`, `termsLastUpdated` | Privacy and Terms headers | **Placeholder**, blocks the build; set to the publish date at deploy |
 | P11 | `caseStudy` | Proof | `null`, fallback copy shown |
 

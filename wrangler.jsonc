@@ -6,7 +6,7 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   // Worker name only: it is the *.workers.dev subdomain and the dashboard label, not the brand (see README, "Renaming").
-  "name": "aftertheform",
+  "name": "closedlogic",
   "main": "worker/index.ts",
   "compatibility_date": "2026-10-01",
   "compatibility_flags": [

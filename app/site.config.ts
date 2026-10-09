@@ -7,16 +7,27 @@ export const site = {
   // Brand, domain, email and legal lines: the single source for copy, metadata, JSON-LD, terms, privacy, icons, the
   // generated headers and the form Worker (worker/index.ts). A rename is a change here plus re-rendering
   // public/og-image.png, whose text is baked into the image (see README, "Renaming").
-  brand: "After the Form",
-  monogram: "AF", // favicon and apple icon
-  domain: "aftertheform.com", // apex; redirects to url (a Cloudflare redirect rule, see README)
-  url: "https://www.aftertheform.com",
-  email: "hello@aftertheform.com",
+  // Renamed from the old brand to Closed Logic (Matt, 9 Oct 2026). The old domain's 301 plan is in the dev report.
+  brand: "Closed Logic",
+  monogram: "CL", // favicon and apple icon; a plain-text wordmark in Archivo until Nova's wordmark arrives
+  domain: "closedlogic.com", // apex; redirects to url (a Cloudflare redirect rule, see README)
+  url: "https://www.closedlogic.com",
+  // Placeholder: the mailbox isn't set up yet. scripts/check-placeholders.mjs blocks the production build until
+  // emailLive is true, so the site never goes live showing an address that bounces.
+  email: "hello@closedlogic.com",
+  emailLive: false,
+  // Where the form Worker sends new-lead notifications. Deliberately still the old, working inbox: switch it to `email`
+  // only once hello@closedlogic.com receives mail and a test lead has been seen to arrive (README, "Renaming").
+  notifyTo: "hello@aftertheform.com",
   legalName: "Reubika LLC",
-  legalShort: "Reubika LLC, USA", // "<brand> is a service of <legalShort>"
   legalEntity: "Reubika LLC, a New Mexico limited liability company", // Terms 1.1
+  // Footer, C2, FAQ and privacy: "Closed Logic is a trading name of Reubika LLC, a New Mexico limited liability company"
+  get legalLine() {
+    return `${this.brand} is a trading name of ${this.legalEntity}`;
+  },
   linkedin: "https://www.linkedin.com/in/mattstrydom",
-  // Confirmed by Matt (8 Oct 2026). NEXT_PUBLIC_CAL_URL overrides it at build time if the event ever changes.
+  // Confirmed by Matt (8 Oct 2026). The slug is the Cal.com account name, which still carries the old brand; it keeps
+  // working after the rename. If Matt renames the Cal.com account, change it here (or set NEXT_PUBLIC_CAL_URL).
   calUrl: process.env.NEXT_PUBLIC_CAL_URL || "https://cal.com/aftertheform/20min-fit",
   // Only the production build is indexable: the Cloudflare Workers Builds build of main, or any build with
   // SITE_INDEXABLE=1. VERCEL_ENV keeps a Vercel production build working.

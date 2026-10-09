@@ -1,5 +1,5 @@
 /*
-  After the Form v3 motion. Our own CSS, written to match the measured zig.ai motion feel
+  Site motion (v3). Our own CSS, written to match the measured zig.ai motion feel
   (see /workspace/outreach/aesthetics-zig-spec.md):
   - entrances: y 40px to 0 plus opacity, power4.out (zig .animate-block_appear uses 1.2s power4.out)
   - small reveals: 0.5s power2.out with short staggers (zig leader lines: 0.5s power2.out, 0.15s stagger)

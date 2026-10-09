@@ -6,7 +6,7 @@ for (const w of [360, 768, 1280, 1600]) {
   await p.setViewport({ width: w, height: 900 });
   await p.goto("http://localhost:3001", { waitUntil: "networkidle0" });
   await new Promise((r) => setTimeout(r, 4500));
-  await p.evaluate(() => localStorage.setItem("atf-consent", "denied"));
+  await p.evaluate(() => localStorage.setItem("cl-consent", "denied"));
   await p.reload({ waitUntil: "networkidle0" });
   await new Promise((r) => setTimeout(r, 4500));
   const over = await p.evaluate(() => document.documentElement.scrollWidth > innerWidth);

@@ -4,6 +4,7 @@ import "./globals.css";
 import Script from "next/script";
 import ConsentBanner from "./components/consent-banner";
 import { site } from "./site.config";
+import { CONSENT_KEY } from "./consent-key";
 import { sharedOpenGraph, ogImage } from "./seo";
 
 const GTM = "GTM-NCSN8BLM";
@@ -11,11 +12,11 @@ const GTM = "GTM-NCSN8BLM";
 // and an idle callback (max 2 s), so it does not compete with the page for LCP and TBT (open item O11).
 const head = `window.dataLayer=window.dataLayer||[];function dl(){dataLayer.push(arguments)}
 dl("consent","default",{ad_storage:"denied",analytics_storage:"denied",ad_user_data:"denied",ad_personalization:"denied"});
-try{if(localStorage.getItem("atf-consent")==="granted")dl("consent","update",{ad_storage:"granted",analytics_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"})}catch(e){}
+try{if(localStorage.getItem("${CONSENT_KEY}")==="granted")dl("consent","update",{ad_storage:"granted",analytics_storage:"granted",ad_user_data:"granted",ad_personalization:"granted"})}catch(e){}
 dataLayer.push({"gtm.start":Date.now(),event:"gtm.js"});
-function atfG(){var j=document.createElement("script");j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id=${GTM}";document.head.appendChild(j)}
-function atfQ(){window.requestIdleCallback?requestIdleCallback(atfG,{timeout:2000}):setTimeout(atfG,1)}
-document.readyState==="complete"?atfQ():addEventListener("load",atfQ,{once:true});`;
+function loadGtm(){var j=document.createElement("script");j.async=true;j.src="https://www.googletagmanager.com/gtm.js?id=${GTM}";document.head.appendChild(j)}
+function queueGtm(){window.requestIdleCallback?requestIdleCallback(loadGtm,{timeout:2000}):setTimeout(loadGtm,1)}
+document.readyState==="complete"?queueGtm():addEventListener("load",queueGtm,{once:true});`;
 
 const jsFlag = `document.documentElement.classList.add("js")`;
 

@@ -35,6 +35,8 @@ if (process.env.NEXT_PUBLIC_CAL_URL && !/^https:\/\/cal\.com\//.test(process.env
   hits.push("NEXT_PUBLIC_CAL_URL is set but is not a https://cal.com/ link");
 
 const cfg = readFileSync("app/site.config.ts", "utf8");
+// The new mailbox isn't set up yet (rename to Closed Logic): block production until Matt confirms it receives mail.
+if (/emailLive:\s*false/.test(cfg)) hits.push("app/site.config.ts emailLive is false (the site email address has no working mailbox yet)");
 if (/headshotConfirmed:\s*false/.test(cfg)) console.warn("Warning: headshotConfirmed is false (public/matt.jpg not confirmed by Matt).");
 
 if (hits.length) {
