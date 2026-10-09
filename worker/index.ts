@@ -95,7 +95,7 @@ async function handleRequest(req: Request, env: Env): Promise<Response> {
 
   // 2) Email the submission to us. Replying goes to the submitter.
   const notifyBody = JSON.stringify({
-    to: site.notifyTo, // still the old inbox until the new mailbox is live (site.config.ts)
+    to: site.notifyTo,
     replyTo: `${oneLine(f.name) || "Lead"} <${f.email}>`,
     subject: `${label}: ${oneLine(f.name)}`,
     html: `<table cellpadding="6" style="border-collapse:collapse;font:15px/1.5 sans-serif">${rows

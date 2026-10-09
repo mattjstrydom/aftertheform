@@ -113,8 +113,8 @@ JSON-LD, terms, privacy and the Worker. After a rename also:
 | P5 | `certifications` | C2 | None; line hidden |
 | P6 | `c3Label` (and an optional test-account screenshot) | C3 | Default label "Example data, fictional account" |
 | P7 | `governingLaw` | Terms clause 12 | Filled: New Mexico (12.1 to 12.4) |
-| P13 | `email`, `emailLive`, `notifyTo` | contact links, privacy, form notifications | `hello@closedlogic.com` shown; **`emailLive: false` blocks the build** until the mailbox works; `notifyTo` stays on the old inbox until then |
-| P10 | `privacyLastUpdated`, `termsLastUpdated` | Privacy and Terms headers | **Placeholder**, blocks the build; set to the publish date at deploy |
+| P13 | `email`, `emailLive`, `notifyTo` | contact links, privacy, form notifications | Done: `hello@closedlogic.com` is live and receives form notifications |
+| P10 | `privacyLastUpdated`, `termsLastUpdated` | Privacy and Terms headers | Set to 9 October 2026 |
 | P11 | `caseStudy` | Proof | `null`, fallback copy shown |
 
 Terms 9.6 and 13 and the privacy provider list are final text in the pages (P8, P9 and P12 are closed).

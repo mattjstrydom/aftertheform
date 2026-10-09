@@ -11,13 +11,12 @@ export const site = {
   brand: "Closed Logic",
   domain: "closedlogic.com", // apex; redirects to url (a Cloudflare redirect rule, see README)
   url: "https://www.closedlogic.com",
-  // Placeholder: the mailbox isn't set up yet. scripts/check-placeholders.mjs blocks the production build until
-  // emailLive is true, so the site never goes live showing an address that bounces.
+  // scripts/check-placeholders.mjs blocks the production build while emailLive is false, so the site never goes live
+  // showing an address that bounces.
   email: "hello@closedlogic.com",
-  emailLive: false,
-  // Where the form Worker sends new-lead notifications. Deliberately still the old, working inbox: switch it to `email`
-  // only once hello@closedlogic.com receives mail and a test lead has been seen to arrive (README, "Renaming").
-  notifyTo: "hello@aftertheform.com",
+  emailLive: true, // Matt confirmed hello@closedlogic.com receives mail (9 Oct 2026)
+  // Where the form Worker sends new-lead notifications.
+  notifyTo: "hello@closedlogic.com", // switched from the old inbox (Matt, 9 Oct 2026)
   legalName: "Reubika LLC",
   legalEntity: "Reubika LLC, a New Mexico limited liability company", // Terms 1.1
   // Footer, C2, FAQ and privacy: "Closed Logic is a trading name of Reubika LLC, a New Mexico limited liability company"
@@ -45,8 +44,8 @@ export const site = {
     "Nothing in this clause stops either of us from asking any court for urgent interim relief.",
   ],
   // Set both to the publish date at deploy, for example "12 October 2026".
-  privacyLastUpdated: "{{PRIVACY_LAST_UPDATED}}",
-  termsLastUpdated: "{{TERMS_LAST_UPDATED}}",
+  privacyLastUpdated: "9 October 2026",
+  termsLastUpdated: "9 October 2026",
 
   headshotConfirmed: true, // Matt confirmed the current public/matt.jpg (8 Oct 2026)
   certifications: [] as Cert[], // none for now (Matt, 8 Oct 2026); the line stays hidden while empty
