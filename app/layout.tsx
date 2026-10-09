@@ -7,7 +7,7 @@ import { site } from "./site.config";
 import { CONSENT_KEY } from "./consent-key";
 import { sharedOpenGraph, ogImage, twitterImage } from "./seo";
 
-const GTM = "GTM-NCSN8BLM";
+const GTM = "GTM-M7JTCXDW";
 // Consent defaults are set first, then any saved choice is applied. GTM itself loads once, after the load event
 // and an idle callback (max 2 s), so it does not compete with the page for LCP and TBT (open item O11).
 const head = `window.dataLayer=window.dataLayer||[];function dl(){dataLayer.push(arguments)}

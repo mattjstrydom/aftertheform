@@ -91,7 +91,7 @@ JSON-LD, terms, privacy and the Worker. After a rename also:
 | Validation (browser and Worker) | `app/validate.ts` |
 | Form endpoint (honeypot, size cap, Sequenzy, `enrollInSequences: false`) | `worker/index.ts` |
 | Page metadata helper (title, description, canonical, OG, Twitter) | `app/seo.ts` |
-| Root metadata, GTM (`GTM-NCSN8BLM`, deferred) and consent defaults | `app/layout.tsx` |
+| Root metadata, GTM (`GTM-M7JTCXDW`, deferred) and consent defaults | `app/layout.tsx` |
 | Consent banner and Cookie settings | `app/components/consent-banner.tsx`, `app/components/cookie-settings.tsx` |
 | robots.txt, sitemap.xml | `app/robots.ts`, `app/sitemap.ts` |
 | Wordmark and icons (Nova's artwork) | `app/components/wordmark.tsx`, `app/icon.svg`, `app/apple-icon.png`, `app/favicon.ico` |
