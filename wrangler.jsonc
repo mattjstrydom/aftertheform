@@ -27,6 +27,9 @@
   },
   // Declares the runtime secret so the dashboard and wrangler agree on it. The value is set in the dashboard or with
   // `wrangler secret put` and never lives in this file.
+  // No plain-text variables: everything sensitive is a secret. Declared empty so the dashboard and this file agree,
+  // and a variable added in the dashboard by mistake is removed on the next deploy.
+  "vars": {},
   "secrets": { "required": ["SEQUENZY_API_KEY"] },
   "observability": { "enabled": true }
 }
